@@ -15,19 +15,10 @@ class ViewController: NSViewController {
 	var directoryURL: URL?
 	let docController = SwiftDocItemController()
 
-	var observers = [NSObjectProtocol]()
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-
 		// Do any additional setup after loading the view.
-	}
-
-	deinit {
-		for observer in observers {
-			NotificationCenter.default.removeObserver(observer)
-		}
 	}
 
 	@IBAction func openMenuItemPressed(_ sender: NSMenuItem) {
