@@ -69,7 +69,7 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 			\(comment ?? "no description")
 			sourced from \(sourceFile)
 
-				\(properties ?? [])
+			\(properties ?? [])
 
 			"""
 	}

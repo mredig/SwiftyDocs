@@ -709,9 +709,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YvJ-A8-ynH">
-                                <rect key="frame" x="47" y="206" width="112" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgf-lC-4AK">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="209"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="V2x-W8-0DS">
+                                    <rect key="frame" x="0.0" y="0.0" width="465" height="209"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="SOf-5n-AYt">
+                                            <rect key="frame" x="0.0" y="0.0" width="465" height="209"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="minSize" width="465" height="209"/>
+                                            <size key="maxSize" width="465" height="10000000"/>
+                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        </textView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="49Y-PO-iL6">
+                                    <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="FGe-qu-LtZ">
+                                    <rect key="frame" x="465" y="0.0" width="15" height="209"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YvJ-A8-ynH">
+                                <rect key="frame" x="14" y="222" width="112" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="wcs-Ek-J8i"/>
+                                </constraints>
                                 <buttonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IlP-aC-Sf4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -721,7 +749,18 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="YvJ-A8-ynH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="LVN-1H-rgp"/>
+                            <constraint firstItem="Qgf-lC-4AK" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="S2l-Mp-9br"/>
+                            <constraint firstAttribute="bottom" secondItem="Qgf-lC-4AK" secondAttribute="bottom" id="UdA-dG-4DO"/>
+                            <constraint firstItem="YvJ-A8-ynH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="V9h-47-4CD"/>
+                            <constraint firstItem="Qgf-lC-4AK" firstAttribute="top" secondItem="YvJ-A8-ynH" secondAttribute="bottom" constant="20" id="hiu-tL-109"/>
+                            <constraint firstAttribute="trailing" secondItem="Qgf-lC-4AK" secondAttribute="trailing" id="ms1-sy-ByW"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="outputText" destination="SOf-5n-AYt" id="gWf-8H-lOL"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

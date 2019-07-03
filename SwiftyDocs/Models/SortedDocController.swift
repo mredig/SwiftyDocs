@@ -18,7 +18,7 @@ class SwiftDocItemController {
 	}()
 
 	init() {}
-	
+
 	func add(docs: [DocFile]) {
 		for doc in docs {
 			add(doc: doc)
@@ -37,19 +37,27 @@ class SwiftDocItemController {
 
 		var items = [SwiftDocItem]()
 		for container in containers {
-			guard let title = container.name,
+			guard let name = container.name,
 				let accessibility = container.accessibility
 				else { continue }
 
 			// recursively get all children
-			let children = getDocItemsFrom(containers: container.nestedContainers, sourceFile: sourceFile, parentName: title)
+			let children = getDocItemsFrom(containers: container.nestedContainers, sourceFile: sourceFile, parentName: name)
 			
 			// prefer parsed declaration over doc declaration
 			let declaration = container.parsedDeclaration ?? (container.docDeclaration ?? "no declaration")
 
 			let kind = SwiftDocItem.Kind.createFrom(string: container.kind)
 
-			let newIem = SwiftDocItem(title: parentName.isEmpty ? title : parentName + "." + title,
+			let newTitle: String
+			switch kind {
+			case .other(_):
+				newTitle = name
+			default:
+				newTitle = parentName.isEmpty ? name : parentName + "." + name
+			}
+
+			let newIem = SwiftDocItem(title: newTitle,
 									  accessibility: accessibility,
 									  comment: container.comment,
 									  sourceFile: sourceFile,

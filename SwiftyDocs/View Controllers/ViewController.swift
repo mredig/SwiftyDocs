@@ -11,6 +11,7 @@ import SourceKittenFramework
 
 class ViewController: NSViewController {
 
+	@IBOutlet var outputText: NSTextView!
 	var directoryURL: URL?
 	let docController = SwiftDocItemController()
 
@@ -50,7 +51,10 @@ class ViewController: NSViewController {
 	}
 
 	func getSourceDocs() {
-		print(self.docController.docs)
+		let text = docController.docs.description
+		DispatchQueue.main.async {
+			self.outputText.string = text
+		}
 		print("Finished!")
 	}
 }
