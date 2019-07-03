@@ -31,7 +31,6 @@
 		33BDD05422CC78E00007ABF4 /* SortedDocController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05322CC78E00007ABF4 /* SortedDocController.swift */; };
 		33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */; };
 		33BDD05922CD0BAF0007ABF4 /* DocScrapeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */; };
-		33BDD05B22CD0F920007ABF4 /* DocFileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05A22CD0F920007ABF4 /* DocFileOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,7 +99,6 @@
 		33BDD05322CC78E00007ABF4 /* SortedDocController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedDocController.swift; sourceTree = "<group>"; };
 		33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocScrapeOperation.swift; sourceTree = "<group>"; };
-		33BDD05A22CD0F920007ABF4 /* DocFileOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocFileOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,7 +215,6 @@
 			children = (
 				33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */,
 				33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */,
-				33BDD05A22CD0F920007ABF4 /* DocFileOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -338,7 +335,6 @@
 				33BDD02622CBEBBB0007ABF4 /* InputDoc.swift in Sources */,
 				33BDD02922CC5F150007ABF4 /* StringMap.swift in Sources */,
 				33BDD05422CC78E00007ABF4 /* SortedDocController.swift in Sources */,
-				33BDD05B22CD0F920007ABF4 /* DocFileOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
