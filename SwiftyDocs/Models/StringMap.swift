@@ -12,8 +12,10 @@ extension String {
 
 	private static let mappings = [
 		"source.lang.swift.accessibility.private": "private",
-		"source.lang.swift.accessibility.public": "public",
+		"source.lang.swift.accessibility.fileprivate": "fileprivate",
 		"source.lang.swift.accessibility.internal": "internal",
+		"source.lang.swift.accessibility.public": "public",
+		"source.lang.swift.accessibility.open": "open",
 
 		"source.lang.swift.decl.var.instance": "instance property",
 
@@ -34,8 +36,12 @@ extension String {
 
 		"source.decl.attribute.convenience": "convenience",
 		"source.decl.attribute.lazy": "lazy",
+		"source.decl.attribute.open": "open",
+		"source.decl.attribute.fileprivate": "fileprivate",
 		"source.decl.attribute.public": "public",
 		"source.decl.attribute.private": "private",
+		"source.decl.attribute.setter_access.private": "private(set)",
+		"source.decl.attribute.final": "final",
 		"source.decl.attribute.discardableResult": "discardable result",
 
 	]
