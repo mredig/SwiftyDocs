@@ -32,6 +32,7 @@
 		33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */; };
 		33BDD05922CD0BAF0007ABF4 /* DocScrapeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */; };
 		33BDD05D22CD2FE00007ABF4 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05C22CD2FE00007ABF4 /* Accessibility.swift */; };
+		33BDD06122CD53830007ABF4 /* Array+SwiftDocItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD06022CD53830007ABF4 /* Array+SwiftDocItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocScrapeOperation.swift; sourceTree = "<group>"; };
 		33BDD05C22CD2FE00007ABF4 /* Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
+		33BDD06022CD53830007ABF4 /* Array+SwiftDocItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SwiftDocItem.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				33BDD02822CC5F150007ABF4 /* StringMap.swift */,
+				33BDD06022CD53830007ABF4 /* Array+SwiftDocItem.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				33BDCFE522CBDD1E0007ABF4 /* AppDelegate.swift in Sources */,
 				33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */,
 				33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */,
+				33BDD06122CD53830007ABF4 /* Array+SwiftDocItem.swift in Sources */,
 				33BDD02622CBEBBB0007ABF4 /* InputDoc.swift in Sources */,
 				33BDD02922CC5F150007ABF4 /* StringMap.swift in Sources */,
 				33BDD05D22CD2FE00007ABF4 /* Accessibility.swift in Sources */,
