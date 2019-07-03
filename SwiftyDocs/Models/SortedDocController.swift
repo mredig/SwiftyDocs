@@ -11,6 +11,12 @@ import Foundation
 class SwiftDocItemController {
 	private(set) var docs: [SwiftDocItem] = []
 
+	private let scrapeQueue: OperationQueue = {
+		let queue = OperationQueue()
+		queue.name = UUID().uuidString
+		return queue
+	}()
+
 	init() {}
 
 	init(docs: [DocFile]) {
@@ -68,5 +74,34 @@ class SwiftDocItemController {
 			items.append(newIem)
 		}
 		return items
+	}
+
+	func getDocs(fromPath path: String, completion: @escaping () -> Void) {
+
+		let docScrapeOp = DocScrapeOperation(path: path)
+		let docFilesOp = BlockOperation { [weak self] in
+			defer { completion() }
+			guard let data = docScrapeOp.jsonData else { return }
+
+			do {
+				let rootDocs = try JSONDecoder().decode([[String: DocFile]].self, from: data)
+				let docs = rootDocs.flatMap { dict -> [DocFile] in
+					var flatArray = [DocFile]()
+					for (key, doc) in dict {
+						var doc = doc
+						doc.filePath = URL(fileURLWithPath: key)
+						flatArray.append(doc)
+					}
+					return flatArray
+				}
+				self?.add(docs: docs)
+			} catch {
+				NSLog("Error decoding docs: \(error)")
+				return
+			}
+		}
+
+		docFilesOp.addDependency(docScrapeOp)
+		scrapeQueue.addOperations([docScrapeOp, docFilesOp], waitUntilFinished: false)
 	}
 }

@@ -12,6 +12,7 @@ import SourceKittenFramework
 class ViewController: NSViewController {
 
 	var directoryURL: URL?
+	let docController = SwiftDocItemController()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -42,47 +43,11 @@ class ViewController: NSViewController {
 
 				let projectDir = fileURL.deletingLastPathComponent()
 				self?.directoryURL = projectDir
-				let module = Module(xcodeBuildArguments: [], inPath: projectDir.path)
-
-				if let docs = module?.docs {
-					let docString = docs.description
-
-					guard let data = docString.data(using: .utf8) else { return }
-
-					do {
-						let rootDocs = try JSONDecoder().decode([[String: DocFile]].self, from: data)
-						let docs = rootDocs.flatMap { dict -> [DocFile] in
-							var returnArray = [DocFile]()
-							for (key, doc) in dict {
-								var doc = doc
-								doc.filePath = URL(fileURLWithPath: key)
-								returnArray.append(doc)
-							}
-							return returnArray
-						}
-
-//						let encoder = JSONEncoder()
-//						encoder.outputFormatting = .prettyPrinted
-//						let encoded = try encoder.encode(docs)
-//						let test = String(data: encoded, encoding: .utf8)!
-//						print(test)
-
-						let controller = SwiftDocItemController(docs: docs)
-						for item in controller.docs {
-							print(item)
-						}
-//
-//						for theExt in newDocs.extensions {
-//							print(theExt)
-//						}
-//
-//						for theStruct in newDocs.structs {
-//							print(theStruct)
-//						}
-					} catch {
-						NSLog("error decoding: \(error)")
-					}
-				}
+				self?.docController.getDocs(fromPath: projectDir.path, completion: {
+					guard let self = self else { return }
+					print(self.docController.docs)
+					print("Finished!")
+				})
 			}
 		}
 	}

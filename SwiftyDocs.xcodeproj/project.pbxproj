@@ -29,6 +29,9 @@
 		33BDD05022CC69730007ABF4 /* QuickOrderedSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD04E22CC69730007ABF4 /* QuickOrderedSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		33BDD05222CC69800007ABF4 /* QuickOrderedSet.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 33BDD05122CC69800007ABF4 /* QuickOrderedSet.framework.dSYM */; };
 		33BDD05422CC78E00007ABF4 /* SortedDocController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05322CC78E00007ABF4 /* SortedDocController.swift */; };
+		33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */; };
+		33BDD05922CD0BAF0007ABF4 /* DocScrapeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */; };
+		33BDD05B22CD0F920007ABF4 /* DocFileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05A22CD0F920007ABF4 /* DocFileOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +98,9 @@
 		33BDD04E22CC69730007ABF4 /* QuickOrderedSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuickOrderedSet.framework; sourceTree = "<group>"; };
 		33BDD05122CC69800007ABF4 /* QuickOrderedSet.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = QuickOrderedSet.framework.dSYM; sourceTree = "<group>"; };
 		33BDD05322CC78E00007ABF4 /* SortedDocController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedDocController.swift; sourceTree = "<group>"; };
+		33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
+		33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocScrapeOperation.swift; sourceTree = "<group>"; };
+		33BDD05A22CD0F920007ABF4 /* DocFileOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocFileOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,7 @@
 			children = (
 				33BDD02422CBEBB10007ABF4 /* Models */,
 				33BDD02222CBEB9E0007ABF4 /* View Controllers */,
+				33BDD05522CD0BA00007ABF4 /* Operations */,
 				33BDCFE422CBDD1E0007ABF4 /* AppDelegate.swift */,
 				33BDD02322CBEBA80007ABF4 /* Resources */,
 			);
@@ -203,6 +210,16 @@
 				33BDD02822CC5F150007ABF4 /* StringMap.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		33BDD05522CD0BA00007ABF4 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */,
+				33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */,
+				33BDD05A22CD0F920007ABF4 /* DocFileOperation.swift */,
+			);
+			path = Operations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,11 +331,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				33BDCFE722CBDD1E0007ABF4 /* ViewController.swift in Sources */,
+				33BDD05922CD0BAF0007ABF4 /* DocScrapeOperation.swift in Sources */,
 				33BDCFE522CBDD1E0007ABF4 /* AppDelegate.swift in Sources */,
 				33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */,
+				33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */,
 				33BDD02622CBEBBB0007ABF4 /* InputDoc.swift in Sources */,
 				33BDD02922CC5F150007ABF4 /* StringMap.swift in Sources */,
 				33BDD05422CC78E00007ABF4 /* SortedDocController.swift in Sources */,
+				33BDD05B22CD0F920007ABF4 /* DocFileOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
