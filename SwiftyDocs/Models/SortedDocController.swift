@@ -18,11 +18,7 @@ class SwiftDocItemController {
 	}()
 
 	init() {}
-
-	init(docs: [DocFile]) {
-		add(docs: docs)
-	}
-
+	
 	func add(docs: [DocFile]) {
 		for doc in docs {
 			add(doc: doc)
