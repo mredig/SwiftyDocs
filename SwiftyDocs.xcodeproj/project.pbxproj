@@ -148,8 +148,10 @@
 		33BDCFE322CBDD1E0007ABF4 /* SwiftyDocs */ = {
 			isa = PBXGroup;
 			children = (
+				33BDD05E22CD300F0007ABF4 /* Model Controllers */,
 				33BDD02422CBEBB10007ABF4 /* Models */,
 				33BDD02222CBEB9E0007ABF4 /* View Controllers */,
+				33BDD05F22CD301C0007ABF4 /* Helpers */,
 				33BDD05522CD0BA00007ABF4 /* Operations */,
 				33BDCFE422CBDD1E0007ABF4 /* AppDelegate.swift */,
 				33BDD02322CBEBA80007ABF4 /* Resources */,
@@ -207,8 +209,6 @@
 				33BDD02522CBEBBB0007ABF4 /* InputDoc.swift */,
 				33BDD02A22CC65130007ABF4 /* SwiftDocItem.swift */,
 				33BDD05C22CD2FE00007ABF4 /* Accessibility.swift */,
-				33BDD05322CC78E00007ABF4 /* SortedDocController.swift */,
-				33BDD02822CC5F150007ABF4 /* StringMap.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -220,6 +220,22 @@
 				33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */,
 			);
 			path = Operations;
+			sourceTree = "<group>";
+		};
+		33BDD05E22CD300F0007ABF4 /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				33BDD05322CC78E00007ABF4 /* SortedDocController.swift */,
+			);
+			path = "Model Controllers";
+			sourceTree = "<group>";
+		};
+		33BDD05F22CD301C0007ABF4 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				33BDD02822CC5F150007ABF4 /* StringMap.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
