@@ -15,10 +15,22 @@ class ViewController: NSViewController {
 	var directoryURL: URL?
 	let docController = SwiftDocItemController()
 
+	var observers = [NSObjectProtocol]()
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		let openObserver = NotificationCenter.default.addObserver(forName: .openMenuItemSelected, object: nil, queue: nil) { _ in
+			self.openProjectDialog()
+		}
+		observers.append(openObserver)
 		// Do any additional setup after loading the view.
+	}
+
+	deinit {
+		for observer in observers {
+			NotificationCenter.default.removeObserver(observer)
+		}
 	}
 
 	override var representedObject: Any? {
