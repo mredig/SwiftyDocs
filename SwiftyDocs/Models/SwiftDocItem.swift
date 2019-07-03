@@ -10,7 +10,7 @@ import Foundation
 
 struct SwiftDocItem: Hashable, CustomStringConvertible {
 	enum Kind: Hashable {
-		case `extension`, `enum`, `class`, `struct`, `protocol`, other(String)
+		case `extension`, `enum`, `class`, `struct`, `protocol`, globalFunc, `typealias`, other(String)
 
 		static func == (lhs: Kind, rhs: Kind) -> Bool {
 			switch lhs {
@@ -24,6 +24,10 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 				if case .struct = rhs { return true }
 			case .protocol:
 				if case .protocol = rhs { return true }
+			case .globalFunc:
+				if case .globalFunc = rhs { return true }
+			case .typealias:
+				if case .typealias = rhs { return true }
 			case .other(let value):
 				if case .other(let value2) = rhs, value == value2 { return true }
 			}
@@ -37,6 +41,8 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 			case .class: return "class"
 			case .struct: return "struct"
 			case .protocol: return "protocol"
+			case .globalFunc: return "global func"
+			case .typealias: return "typealias"
 			case .other(let value): return value
 			}
 		}
@@ -48,6 +54,8 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 			case "class": return .class
 			case "struct": return .struct
 			case "protocol": return .protocol
+			case "global func": return .globalFunc
+			case "typealias": return .typealias
 			default: return .other(string.lowercased())
 			}
 		}

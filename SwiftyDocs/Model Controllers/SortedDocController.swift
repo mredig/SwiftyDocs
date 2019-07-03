@@ -11,6 +11,32 @@ import Foundation
 class SwiftDocItemController {
 	private(set) var docs: [SwiftDocItem] = []
 
+	var classesIndex: [SwiftDocItem] {
+		return search(forTitle: nil, ofKind: .class, withMinimumAccessibility: minimumAccessibility)
+	}
+	var structsIndex: [SwiftDocItem] {
+		return search(forTitle: nil, ofKind: .struct, withMinimumAccessibility: minimumAccessibility)
+	}
+	var enumsIndex: [SwiftDocItem] {
+		return search(forTitle: nil, ofKind: .enum, withMinimumAccessibility: minimumAccessibility)
+	}
+	var protocolsIndex: [SwiftDocItem] {
+		return search(forTitle: nil, ofKind: .protocol, withMinimumAccessibility: minimumAccessibility)
+	}
+	var extensionsIndex: [SwiftDocItem] {
+		return search(forTitle: nil, ofKind: .extension, withMinimumAccessibility: minimumAccessibility)
+	}
+	var globalFuncsIndex: [SwiftDocItem] {
+		return search(forTitle: nil, ofKind: .globalFunc, withMinimumAccessibility: minimumAccessibility)
+	}
+	var typealiasIndex: [SwiftDocItem] {
+		return search(forTitle: nil, ofKind: .typealias, withMinimumAccessibility: minimumAccessibility)
+	}
+	
+
+	var minimumAccessibility = Accessibility.internal
+
+
 	private let scrapeQueue: OperationQueue = {
 		let queue = OperationQueue()
 		queue.name = UUID().uuidString
@@ -30,6 +56,10 @@ class SwiftDocItemController {
 										  sourceFile: doc.filePath?.path ?? "")
 																else { return }
 		docs.append(contentsOf: items)
+	}
+
+	func clear() {
+		docs.removeAll()
 	}
 
 	func getDocItemsFrom(containers: [DocFile.DocContainer]?, sourceFile: String, parentName: String = "") -> [SwiftDocItem]? {
@@ -107,5 +137,49 @@ class SwiftDocItemController {
 
 		docFilesOp.addDependency(docScrapeOp)
 		scrapeQueue.addOperations([docScrapeOp, docFilesOp], waitUntilFinished: false)
+	}
+
+	func search(forTitle title: String?, ofKind kind: SwiftDocItem.Kind?, withMinimumAccessibility minimumAccessibility: Accessibility = .internal) -> [SwiftDocItem] {
+		var output = docs.enumeratedChildren().filter { $0.accessibility >= minimumAccessibility }
+
+		if let title = title {
+			let titleLC = title.lowercased()
+			output = output.filter { $0.title.lowercased().contains(titleLC) }
+		}
+
+		if let kind = kind {
+			output = output.filter { $0.kind == kind }
+		}
+
+		return output
+	}
+}
+
+
+extension Array where Element == SwiftDocItem {
+	func enumeratedChildren() -> [SwiftDocItem] {
+		var enumerated = [SwiftDocItem]()
+		for item in self {
+			enumerated.append(item)
+			guard let itemChildren = getChildren(from: item) else { continue }
+			enumerated.append(contentsOf: itemChildren)
+		}
+
+		return enumerated
+	}
+
+	private func getChildren(from item: SwiftDocItem) -> [SwiftDocItem]? {
+		guard let children = item.properties else {
+			return nil
+		}
+		var newChilds = [SwiftDocItem]()
+		for child in children {
+			newChilds.append(child)
+			guard let unwrappedNewChildren = getChildren(from: child) else {
+				continue
+			}
+			newChilds += unwrappedNewChildren
+		}
+		return newChilds
 	}
 }

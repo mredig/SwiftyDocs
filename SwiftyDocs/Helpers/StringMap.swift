@@ -24,6 +24,7 @@ extension String {
 		"source.lang.swift.decl.enum": "enum",
 		"source.lang.swift.decl.function.subscript": "subscript",
 		"source.lang.swift.decl.function.method.instance": "instance method",
+		"source.lang.swift.decl.function.free": "global func",
 		"source.lang.swift.decl.var.local": "local",
 		"source.lang.swift.decl.var.static": "static",
 		"source.lang.swift.decl.var.instance": "instance property",
