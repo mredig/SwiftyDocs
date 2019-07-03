@@ -17,7 +17,6 @@ extension String {
 		"source.lang.swift.accessibility.public": "public",
 		"source.lang.swift.accessibility.open": "open",
 
-		"source.lang.swift.decl.var.instance": "instance property",
 
 		"source.lang.swift.decl.class": "class",
 		"source.lang.swift.decl.enumelement": "enum element",
@@ -27,6 +26,7 @@ extension String {
 		"source.lang.swift.decl.function.method.instance": "instance method",
 		"source.lang.swift.decl.var.local": "local",
 		"source.lang.swift.decl.var.static": "static",
+		"source.lang.swift.decl.var.instance": "instance property",
 		"source.lang.swift.decl.function.method.static": "static",
 		"source.lang.swift.syntaxtype.comment.mark": "mark",
 		"source.lang.swift.decl.generic_type_param": "generic type parameter",

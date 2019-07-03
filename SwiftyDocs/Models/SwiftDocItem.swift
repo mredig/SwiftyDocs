@@ -53,8 +53,42 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 		}
 	}
 
+	enum Accessibility: Int, Hashable, Comparable {
+
+		case `private`
+		case `fileprivate`
+		case `internal`
+		case `public`
+		case `open`
+
+		static func < (lhs: SwiftDocItem.Accessibility, rhs: SwiftDocItem.Accessibility) -> Bool {
+			return lhs.rawValue < rhs.rawValue
+		}
+
+		var stringValue: String {
+			switch self {
+			case .private: return "private"
+			case .fileprivate: return "fileprivate"
+			case .internal: return "internal"
+			case .public: return "public"
+			case .open: return "open"
+			}
+		}
+
+		static func createFrom(string: String) -> Accessibility {
+			switch string.lowercased() {
+			case "private": return .private
+			case "fileprivate": return .fileprivate
+			case "internal": return .internal
+			case "public": return .public
+			case "open": return .open
+			default: return .internal
+			}
+		}
+	}
+
 	let title: String
-	let accessibility: String
+	let accessibility: Accessibility
 	let comment: String?
 	let sourceFile: String
 	let kind: Kind
@@ -63,7 +97,7 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 
 	var description: String {
 		return """
-			\(title) (\(accessibility))
+			\(title) (\(accessibility.stringValue))
 			\(kind.stringValue)
 			\(declaration)
 			\(comment ?? "no description")
@@ -72,5 +106,12 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 			\(properties ?? [])
 
 			"""
+	}
+}
+
+extension SwiftDocItem {
+	init(title: String, accessibility: String, comment: String?, sourceFile: String, kind: Kind, properties: [SwiftDocItem]?, declaration: String) {
+		let accessibility = Accessibility.createFrom(string: accessibility)
+		self.init(title: title, accessibility: accessibility, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, declaration: declaration)
 	}
 }
