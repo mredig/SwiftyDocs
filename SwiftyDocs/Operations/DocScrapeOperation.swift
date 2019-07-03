@@ -6,6 +6,7 @@
 import Foundation
 import SourceKittenFramework
 
+/// Technically this isn't necessary in this case. I'm just testing alternatives to what I'm used to for concurrency
 class DocScrapeOperation: ConcurrentOperation {
 	let path: String
 	var jsonData: Data?
