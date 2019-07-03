@@ -12,8 +12,8 @@ import XCTest
 class SwiftyDocsTests: XCTestCase {
 
 	func testAccesssibilityCompare() {
-		let isInternal = SwiftDocItem.Accessibility.internal
-		let isPublic = SwiftDocItem.Accessibility.public
+		let isInternal = Accessibility.internal
+		let isPublic = Accessibility.public
 
 		XCTAssertTrue(isInternal < isPublic, "\(isInternal.rawValue) < \(isPublic.rawValue)")
 		XCTAssertTrue(isPublic > isInternal, "\(isPublic.rawValue) > \(isInternal.rawValue)")

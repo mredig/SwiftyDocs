@@ -53,40 +53,6 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 		}
 	}
 
-	enum Accessibility: Int, Hashable, Comparable {
-
-		case `private`
-		case `fileprivate`
-		case `internal`
-		case `public`
-		case `open`
-
-		static func < (lhs: SwiftDocItem.Accessibility, rhs: SwiftDocItem.Accessibility) -> Bool {
-			return lhs.rawValue < rhs.rawValue
-		}
-
-		var stringValue: String {
-			switch self {
-			case .private: return "private"
-			case .fileprivate: return "fileprivate"
-			case .internal: return "internal"
-			case .public: return "public"
-			case .open: return "open"
-			}
-		}
-
-		static func createFrom(string: String) -> Accessibility {
-			switch string.lowercased() {
-			case "private": return .private
-			case "fileprivate": return .fileprivate
-			case "internal": return .internal
-			case "public": return .public
-			case "open": return .open
-			default: return .internal
-			}
-		}
-	}
-
 	let title: String
 	let accessibility: Accessibility
 	let comment: String?
