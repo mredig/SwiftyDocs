@@ -15,8 +15,10 @@ struct DocFile: Codable, CustomStringConvertible {
 	var filePath: URL?
 	var topLevelContainers: [TopLevelContainer]
 
+	typealias TopLevelContainer = DocContainer
+	typealias NestedContainer = DocContainer
 
-	struct TopLevelContainer: Codable {
+	struct DocContainer: Codable {
 		enum DeCodingKeys: String, CodingKey {
 			case accessibility = "key.accessibility"
 			case docDeclaration = "key.doc.declaration"
@@ -52,7 +54,6 @@ struct DocFile: Codable, CustomStringConvertible {
 			self.nestedContainers = try container.decodeIfPresent([NestedContainer].self, forKey: .nestedContainers)
 		}
 
-		typealias NestedContainer = TopLevelContainer
 
 		struct InheritedType: Codable {
 			let name: String
@@ -80,7 +81,7 @@ struct DocFile: Codable, CustomStringConvertible {
 	init(from aDecoder: Decoder) throws {
 		let container = try aDecoder.container(keyedBy: DeCodingKeys.self)
 
-		self.topLevelContainers = try container.decode([TopLevelContainer].self, forKey: .topLevelContainers)
+		self.topLevelContainers = try container.decode([DocContainer].self, forKey: .topLevelContainers)
 	}
 
 	var description: String {

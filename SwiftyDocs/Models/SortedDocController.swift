@@ -32,11 +32,23 @@ class SwiftDocItemController {
 		docs.append(contentsOf: items)
 	}
 
-	func getDocItemsFrom(containers: [DocFile.TopLevelContainer]?, sourceFile: String, parentName: String = "") -> [SwiftDocItem]? {
+	func getDocItemsFrom(containers: [DocFile.DocContainer]?, sourceFile: String, parentName: String = "") -> [SwiftDocItem]? {
 		guard let containers = containers else { return nil }
 
 		var items = [SwiftDocItem]()
 		for container in containers {
+			let kind = SwiftDocItem.Kind.createFrom(string: container.kind)
+
+			// special case for enum cases
+			if case .other(let value) = kind, value == "enum case" {
+				guard let newArrayWrappedItem = getDocItemsFrom(containers: container.nestedContainers,
+																sourceFile: sourceFile,
+																parentName: parentName)
+																else { continue }
+				items += newArrayWrappedItem
+				continue
+			}
+
 			guard let name = container.name,
 				let accessibility = container.accessibility
 				else { continue }
@@ -47,7 +59,6 @@ class SwiftDocItemController {
 			// prefer parsed declaration over doc declaration
 			let declaration = container.parsedDeclaration ?? (container.docDeclaration ?? "no declaration")
 
-			let kind = SwiftDocItem.Kind.createFrom(string: container.kind)
 
 			let newTitle: String
 			switch kind {
