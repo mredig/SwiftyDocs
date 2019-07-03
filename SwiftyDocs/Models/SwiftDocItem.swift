@@ -7,17 +7,6 @@
 //
 
 import Foundation
-import QuickOrderedSet
-
-//struct SortedDoc {
-////	extension
-////	enum
-////	class
-////	struct
-////	protocol
-//
-//	let items: QuickOrderedSet<SwiftDocItem>
-//}
 
 struct SwiftDocItem: Hashable, CustomStringConvertible {
 	enum Kind: Hashable {
@@ -70,12 +59,14 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 	let sourceFile: String
 	let kind: Kind
 	let properties: [SwiftDocItem]?
+	let declaration: String
 
 	var description: String {
 		return """
 			\(title) (\(accessibility))
 			\(kind.stringValue)
-			\(comment ?? "")
+			\(declaration)
+			\(comment ?? "no description")
 			sourced from \(sourceFile)
 
 				\(properties ?? [])

@@ -9,7 +9,7 @@
 import Foundation
 
 class SwiftDocItemController {
-	var docs: [SwiftDocItem] = []
+	private(set) var docs: [SwiftDocItem] = []
 
 	init() {}
 
@@ -39,6 +39,8 @@ class SwiftDocItemController {
 				let accessibility = container.accessibility
 				else { continue }
 			let children = getDocItemsFrom(containers: container.nestedContainers, sourceFile: sourceFile, parentName: title)
+//			let declaration = container.docDeclaration ?? (container.parsedDeclaration ?? "")
+			let declaration = container.parsedDeclaration ?? "no declaration"
 
 			let kind: SwiftDocItem.Kind
 			switch container.kind {
@@ -61,7 +63,8 @@ class SwiftDocItemController {
 									  comment: container.comment,
 									  sourceFile: sourceFile,
 									  kind: kind,
-									  properties: children)
+									  properties: children,
+									  declaration: declaration)
 			items.append(newIem)
 		}
 		return items
