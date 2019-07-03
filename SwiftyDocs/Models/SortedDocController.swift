@@ -44,25 +44,14 @@ class SwiftDocItemController {
 			guard let title = container.name,
 				let accessibility = container.accessibility
 				else { continue }
-			let children = getDocItemsFrom(containers: container.nestedContainers, sourceFile: sourceFile, parentName: title)
-//			let declaration = container.docDeclaration ?? (container.parsedDeclaration ?? "")
-			let declaration = container.parsedDeclaration ?? "no declaration"
 
-			let kind: SwiftDocItem.Kind
-			switch container.kind {
-			case "class":
-				kind = .class
-			case "extension":
-				kind = .extension
-			case "struct":
-				kind = .struct
-			case "enum":
-				kind = .enum
-			case "protocol":
-				kind = .protocol
-			default:
-				kind = .other(container.kind)
-			}
+			// recursively get all children
+			let children = getDocItemsFrom(containers: container.nestedContainers, sourceFile: sourceFile, parentName: title)
+			
+			// prefer parsed declaration over doc declaration
+			let declaration = container.parsedDeclaration ?? (container.docDeclaration ?? "no declaration")
+
+			let kind = SwiftDocItem.Kind.createFrom(string: container.kind)
 
 			let newIem = SwiftDocItem(title: parentName.isEmpty ? title : parentName + "." + title,
 									  accessibility: accessibility,
