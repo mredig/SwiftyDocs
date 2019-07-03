@@ -33,7 +33,7 @@ struct DocFile: Codable, CustomStringConvertible {
 		let parsedDeclaration: String?
 		let comment: String?
 		let name: String?
-		let kind: String?
+		let kind: String
 		let inheritedTypes: [InheritedType]?
 		let attributes: [Attribute]?
 		let nestedContainers: [NestedContainer]?
@@ -46,7 +46,7 @@ struct DocFile: Codable, CustomStringConvertible {
 			self.parsedDeclaration = try container.decodeIfPresent(String.self, forKey: .parsedDeclaration)
 			self.comment = try container.decodeIfPresent(String.self, forKey: .comment)
 			self.name = try container.decodeIfPresent(String.self, forKey: .name)
-			self.kind = try container.decodeIfPresent(String.self, forKey: .kind)?.shortenSwiftDocClassificationString()
+			self.kind = try container.decode(String.self, forKey: .kind).shortenSwiftDocClassificationString()
 			self.inheritedTypes = try container.decodeIfPresent([InheritedType].self, forKey: .inheritedTypes)
 			self.attributes = try container.decodeIfPresent([Attribute].self, forKey: .attributes)
 			self.nestedContainers = try container.decodeIfPresent([NestedContainer].self, forKey: .nestedContainers)

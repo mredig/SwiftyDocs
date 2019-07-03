@@ -61,11 +61,24 @@ class ViewController: NSViewController {
 							return returnArray
 						}
 
-						let encoder = JSONEncoder()
-						encoder.outputFormatting = .prettyPrinted
-						let encoded = try encoder.encode(docs)
-						let test = String(data: encoded, encoding: .utf8)!
-						print(test)
+//						let encoder = JSONEncoder()
+//						encoder.outputFormatting = .prettyPrinted
+//						let encoded = try encoder.encode(docs)
+//						let test = String(data: encoded, encoding: .utf8)!
+//						print(test)
+
+						let controller = SwiftDocItemController(docs: docs)
+						for item in controller.docs {
+							print(item)
+						}
+//
+//						for theExt in newDocs.extensions {
+//							print(theExt)
+//						}
+//
+//						for theStruct in newDocs.structs {
+//							print(theStruct)
+//						}
 					} catch {
 						NSLog("error decoding: \(error)")
 					}
