@@ -33,6 +33,8 @@ extension String {
 		"source.lang.swift.decl.protocol": "protocol",
 		"source.lang.swift.decl.extension": "extension",
 		"source.lang.swift.decl.struct": "struct",
+		"source.lang.swift.decl.typealias": "typealias",
+		"source.lang.swift.decl.associatedtype": "associated type",
 
 		"source.decl.attribute.convenience": "convenience",
 		"source.decl.attribute.lazy": "lazy",
@@ -43,13 +45,14 @@ extension String {
 		"source.decl.attribute.setter_access.private": "private(set)",
 		"source.decl.attribute.final": "final",
 		"source.decl.attribute.discardableResult": "discardable result",
-
+		"source.decl.attribute.mutating": "mutating",
+		"source.decl.attribute.prefix": "prefix",
 	]
 
 	func shortenSwiftDocClassificationString(useInterpretation: Bool = false) -> String {
 		let rStr = String.mappings[self, default: ""]
 		if rStr.isEmpty {
-			NSLog("No interpretation for: '\(self)'")
+			NSLog("No interpretation for: '\(self) - please update `StringMap.swift` and make a pull request'")
 			if useInterpretation {
 				return self.split(separator: ".").map { String($0) }.last ?? rStr
 			} else {
