@@ -20,10 +20,7 @@ class ViewController: NSViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let openObserver = NotificationCenter.default.addObserver(forName: .openMenuItemSelected, object: nil, queue: nil) { _ in
-			self.openProjectDialog()
-		}
-		observers.append(openObserver)
+
 		// Do any additional setup after loading the view.
 	}
 
@@ -31,6 +28,10 @@ class ViewController: NSViewController {
 		for observer in observers {
 			NotificationCenter.default.removeObserver(observer)
 		}
+	}
+
+	@IBAction func openMenuItemPressed(_ sender: NSMenuItem) {
+		openProjectDialog()
 	}
 
 	override var representedObject: Any? {

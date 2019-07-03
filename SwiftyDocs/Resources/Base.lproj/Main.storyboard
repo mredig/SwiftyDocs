@@ -66,7 +66,7 @@
                                         </menuItem>
                                         <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>
-                                                <action selector="openMenuItemPressed:" target="zfI-zr-ps9" id="mSq-Zz-1aT"/>
+                                                <action selector="openMenuItemPressed:" target="Ady-hI-5gd" id="Fi4-t3-eyh"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Open Recent" id="tXI-mr-wws">
@@ -676,10 +676,9 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SwiftyDocs" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-                <customObject id="zfI-zr-ps9" customClass="MenuManager" customModule="SwiftyDocs" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="-197" y="-197"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
