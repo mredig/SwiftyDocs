@@ -38,22 +38,20 @@ class ViewController: NSViewController {
 		openPanel.allowedFileTypes = ["xcodeproj"]
 
 		openPanel.begin { [weak self] (result) in
+			guard let self = self else { return }
 			if result == NSApplication.ModalResponse.OK {
 				guard let fileURL = openPanel.url else { fatalError("Open dialog didn't include a file URL") }
 
 				let projectDir = fileURL.deletingLastPathComponent()
-				self?.directoryURL = projectDir
-				self?.docController.getDocs(fromPath: projectDir.path, completion: {
-					guard let self = self else { return }
-					print(self.docController.docs)
-					print("Finished!")
-				})
+				self.directoryURL = projectDir
+				self.docController.getDocs(fromPath: projectDir.path, completion: self.getSourceDocs)
 			}
 		}
 	}
 
 	func getSourceDocs() {
-
+		print(self.docController.docs)
+		print("Finished!")
 	}
 }
 
