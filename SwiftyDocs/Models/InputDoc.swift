@@ -87,7 +87,7 @@ struct DocFile: Codable, CustomStringConvertible {
 	var description: String {
 		var tStr: String = ""
 		for structure in topLevelContainers {
-			tStr += "\(structure.name)\n"
+			tStr += "\(structure.name as Any)\n"
 		}
 		return tStr
 	}

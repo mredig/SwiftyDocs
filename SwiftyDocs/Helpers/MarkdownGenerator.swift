@@ -64,7 +64,6 @@ class MarkdownGenerator {
 				markOut += currentTitle.isEmpty ? "" : "\n"
 				markOut += "#### \(currentTitle)\n\n"
 			}
-			let charSet = CharacterSet(charactersIn: "(:)").inverted
 			markOut += "* [\(item.title)][\(index)]\n"
 			switch linkStyle {
 			case .singlePage:
