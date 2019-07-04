@@ -11,7 +11,9 @@ import SourceKittenFramework
 
 class ViewController: NSViewController {
 
-	@IBOutlet var outputText: NSTextView!
+	@IBOutlet var loadProjectButton: NSButton!
+	@IBOutlet var progressIndicator: NSProgressIndicator!
+
 	var directoryURL: URL?
 	let docController = SwiftDocItemController()
 
@@ -55,6 +57,8 @@ class ViewController: NSViewController {
 				self.directoryURL = projectDir
 				self.docController.clear()
 				self.docController.getDocs(fromPath: projectDir.path, completion: self.getSourceDocs)
+				self.progressIndicator.startAnimation(nil)
+				self.loadProjectButton.isEnabled = false
 			}
 		}
 	}
@@ -80,7 +84,8 @@ class ViewController: NSViewController {
 		var text = docController.topLevelIndex.map { docController.markdownPage(for: $0) }.joined(separator: "\n\n\n")
 		text = index + "\n\n" + text
 		DispatchQueue.main.async {
-			self.outputText.string = text
+			self.progressIndicator.stopAnimation(nil)
+			self.loadProjectButton.isEnabled = true
 		}
 		print("Finished!")
 	}
