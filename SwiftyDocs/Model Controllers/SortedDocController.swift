@@ -74,8 +74,17 @@ class SwiftDocItemController {
 		}
 		return nil
 	}
+	private var _projectTitle: String?
 	var projectTitle: String {
-		return projectURL?.deletingPathExtension().lastPathComponent ?? "Documentation"
+		get {
+			return _projectTitle ?? (projectURL?.deletingPathExtension().lastPathComponent ?? "Documentation")
+		}
+		set {
+			_projectTitle = newValue
+			if newValue.isEmpty {
+				_projectTitle = nil
+			}
+		}
 	}
 
 	private let markdownGenerator = MarkdownGenerator()

@@ -128,6 +128,11 @@ extension SwiftDocViewController: NSMenuItemValidation {
 
 // MARK: - IB Stuff
 extension SwiftDocViewController {
+	@IBAction func projectTitleUpdated(_ sender: NSTextField) {
+		docController.projectTitle = sender.stringValue
+		sender.stringValue = docController.projectTitle
+	}
+
 	func setupMinAccessLevelPopUp() {
 		accessLevelPopUp.removeAllItems()
 		for level in AccessControl.allCases {
