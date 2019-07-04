@@ -228,7 +228,7 @@ class SwiftDocItemController {
 	}
 
 	func saveSingleFile(to path: URL, format: SaveFormat) {
-		let index = markdownIndex(with: .singlePage)
+		let index = markdownIndex(with: .singlePage, in: format)
 		var text = toplevelIndexMinAccess.map { markdownPage(for: $0) }.joined(separator: "\n\n\n")
 		text = index + "\n\n" + text
 		if format == .html {
@@ -254,7 +254,7 @@ class SwiftDocItemController {
 	}
 
 	func saveMultifile(to path: URL, format: SaveFormat) {
-		var index = markdownIndex(with: .multiPage)
+		var index = markdownIndex(with: .multiPage, in: format)
 
 		saveDependencyPackage(to: path, linkStyle: .multiPage)
 
@@ -340,8 +340,11 @@ class SwiftDocItemController {
 		return markdownGenerator.generateMarkdownDocumentString(fromRootDocItem: doc, minimumAccessControl: minimumAccessControl)
 	}
 
-	func markdownIndex(with linkStyle: OutputStyle) -> String {
-		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessControl: minimumAccessControl, linkStyle: linkStyle)
+	func markdownIndex(with linkStyle: OutputStyle, in format: SaveFormat) -> String {
+		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex,
+													   minimumAccessControl: minimumAccessControl,
+													   linkStyle: linkStyle,
+													   format: format)
 	}
 
 	private func sanitizeForHTMLEmbedding(string: String) -> String {

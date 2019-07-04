@@ -51,7 +51,7 @@ class MarkdownGenerator {
 		return markdownOut
 	}
 
-	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: OutputStyle) -> String {
+	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: OutputStyle, format: SaveFormat) -> String {
 
 		var markOut = ""
 		var links = ""
@@ -69,9 +69,10 @@ class MarkdownGenerator {
 				let linkValue = item.title.replacingNonWordCharacters()
 				links += "[\(index)]:#\(linkValue)\n"
 			case .multiPage:
+				let fileExt = format == .html ? "html" : "md"
 				let linkValue = item.title.replacingNonWordCharacters(lowercased: false)
 				let folderValue = currentTitle.replacingNonWordCharacters()
-				links += "[\(index)]:\(folderValue)/\(linkValue).html\n"
+				links += "[\(index)]:\(folderValue)/\(linkValue).\(fileExt)\n"
 			}
 		}
 
