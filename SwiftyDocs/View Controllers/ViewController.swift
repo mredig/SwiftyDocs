@@ -17,28 +17,16 @@ class ViewController: NSViewController {
 	var directoryURL: URL?
 	let docController = SwiftDocItemController()
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
-		// Do any additional setup after loading the view.
+	@IBAction func openMenuItemPressed(_ sender: NSMenuItem) {
+		openProjectDialog()
 	}
 
-	@IBAction func openMenuItemPressed(_ sender: NSMenuItem) {
+	@IBAction func buttonPressed(_ sender: NSButton) {
 		openProjectDialog()
 	}
 
 	@IBAction func saveDocument(_ sender: NSMenuItem) {
 		saveProjectDialog()
-	}
-
-	override var representedObject: Any? {
-		didSet {
-		// Update the view, if already loaded.
-		}
-	}
-
-	@IBAction func buttonPressed(_ sender: NSButton) {
-		openProjectDialog()
 	}
 
 	func openProjectDialog() {
