@@ -21,6 +21,11 @@ class SwiftDocViewController: NSViewController {
 
 	let docController = SwiftDocItemController()
 
+	override func viewDidLoad() {
+		setupMinAccessLevelPopUp()
+		setupSelectedItems()
+	}
+
 	override func viewWillAppear() {
 		updateViews()
 	}
@@ -70,8 +75,8 @@ class SwiftDocViewController: NSViewController {
 			guard let self = self else { return }
 			if result == NSApplication.ModalResponse.OK {
 				guard let saveURL = savePanel.url else { return }
-				self.docController.saveSingleFile(to: saveURL, format: .html)
-//				self.docController.saveMultifile(to: saveURL, format: .html)
+//				self.docController.saveSingleFile(to: saveURL, format: .html)
+				self.docController.saveMultifile(to: saveURL, format: .html)
 			}
 		}
 	}
@@ -95,12 +100,65 @@ class SwiftDocViewController: NSViewController {
 			self.loadProjectButton.isEnabled = true
 			self.updateViews()
 			self.updateTitleField()
+			self.setupSelectedItems()
+
 		}
 	}
 
 	func updateTitleField() {
-		guard let title = docController.projectTitle else { return }
-		projectTitleTextField.stringValue = title
+		projectTitleTextField.stringValue = docController.projectTitle
 	}
 }
 
+// MARK: - IB Stuff
+extension SwiftDocViewController {
+	func setupMinAccessLevelPopUp() {
+		accessLevelPopUp.removeAllItems()
+		for level in Accessibility.allCases {
+			accessLevelPopUp.addItem(withTitle: level.stringValue)
+		}
+		accessLevelPopUp.selectItem(withTitle: Accessibility.internal.stringValue)
+	}
+
+	func setupSelectedItems() {
+		selectedItemsPopUp.removeAllItems()
+		if !docController.classesIndex.isEmpty {
+			let header = selectedItemsPopUp.menu?.addItem(withTitle: "Exported Items", action: nil, keyEquivalent: "")
+			header?.isEnabled = false
+		}
+		var currentCategory = ""
+		for item in docController.topLevelIndex {
+			if item.kind.stringValue != currentCategory {
+				currentCategory = item.kind.stringValue.capitalized
+				let categoryHeader = selectedItemsPopUp.menu?.addItem(withTitle: currentCategory, action: nil, keyEquivalent: "")
+				categoryHeader?.isEnabled = false
+			}
+			let menuItem = NSMenuItem(title: getMenuTitle(for: item), action: nil, keyEquivalent: "")
+			menuItem.tag = item.hashValue
+			menuItem.state = item.accessibility >= docController.minimumAccessibility ? .on : .off
+			selectedItemsPopUp.menu?.addItem(menuItem)
+
+			for property in item.properties ?? [] {
+				let propMenuItem = NSMenuItem(title: getMenuTitle(for: property, indendation: 1), action: nil, keyEquivalent: "")
+				propMenuItem.tag = property.hashValue
+				propMenuItem.state = property.accessibility >= docController.minimumAccessibility ? .on : .off
+				selectedItemsPopUp.menu?.addItem(propMenuItem)
+			}
+		}
+
+		selectedItemsPopUp.selectItem(at: 1)
+	}
+
+	private func getMenuTitle(for docItem: SwiftDocItem, indendation: Int = 0) -> String {
+		let indentationStr = (0..<indendation).map { _ in "\t" }.joined()
+		return "\(indentationStr)\(docItem.title) (\(docItem.kind.stringValue))"
+	}
+
+	@IBAction func minimumAccessLevelPopUpChanged(_ sender: NSPopUpButton) {
+		guard let str = sender.selectedItem?.title else { return }
+		let accessLevel = Accessibility.createFrom(string: str)
+		docController.minimumAccessibility = accessLevel
+		setupSelectedItems()
+		print(accessLevel)
+	}
+}

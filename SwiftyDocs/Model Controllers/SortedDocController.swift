@@ -14,29 +14,32 @@ class SwiftDocItemController {
 	private(set) var docs: [SwiftDocItem] = []
 
 	var classesIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .class, withMinimumAccessibility: minimumAccessibility)
+		return search(forTitle: nil, ofKind: .class, withMinimumAccessibility: .private)
 	}
 	var structsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .struct, withMinimumAccessibility: minimumAccessibility)
+		return search(forTitle: nil, ofKind: .struct, withMinimumAccessibility: .private)
 	}
 	var enumsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .enum, withMinimumAccessibility: minimumAccessibility)
+		return search(forTitle: nil, ofKind: .enum, withMinimumAccessibility: .private)
 	}
 	var protocolsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .protocol, withMinimumAccessibility: minimumAccessibility)
+		return search(forTitle: nil, ofKind: .protocol, withMinimumAccessibility: .private)
 	}
 	var extensionsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .extension, withMinimumAccessibility: minimumAccessibility)
+		return search(forTitle: nil, ofKind: .extension, withMinimumAccessibility: .private)
 	}
 	var globalFuncsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .globalFunc, withMinimumAccessibility: minimumAccessibility)
+		return search(forTitle: nil, ofKind: .globalFunc, withMinimumAccessibility: .private)
 	}
 	var typealiasIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .typealias, withMinimumAccessibility: minimumAccessibility)
+		return search(forTitle: nil, ofKind: .typealias, withMinimumAccessibility: .private)
 	}
 
 	var topLevelIndex: [SwiftDocItem] {
 		return classesIndex + structsIndex + enumsIndex + protocolsIndex + extensionsIndex + globalFuncsIndex + typealiasIndex
+	}
+	var toplevelIndexMinAccess: [SwiftDocItem] {
+		return topLevelIndex.filter { $0.accessibility >= minimumAccessibility }
 	}
 
 	var minimumAccessibility = Accessibility.internal
@@ -213,7 +216,7 @@ class SwiftDocItemController {
 
 	func saveSingleFile(to path: URL, format: SaveFormat) {
 		let index = markdownIndex(with: .singlePage)
-		var text = topLevelIndex.map { markdownPage(for: $0) }.joined(separator: "\n\n\n")
+		var text = toplevelIndexMinAccess.map { markdownPage(for: $0) }.joined(separator: "\n\n\n")
 		text = index + "\n\n" + text
 		if format == .html {
 			text = text.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
@@ -245,7 +248,7 @@ class SwiftDocItemController {
 		let fileExt = format == .html ? "html" : "md"
 
 		// save all doc files
-		topLevelIndex.forEach {
+		toplevelIndexMinAccess.forEach {
 			var markdown = markdownPage(for: $0)
 			if format == .html {
 				markdown = sanitizeForHTMLEmbedding(string: markdown)
