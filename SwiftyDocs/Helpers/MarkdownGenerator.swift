@@ -23,25 +23,25 @@ class MarkdownGenerator {
 		var children = [String]()
 		if let properties = swiftDocItem.properties {
 			for property in properties {
-				let propTitle = "* \(property.title)"
-				let propType = "\t*\(property.kind.stringValue)*"
-				let propInfo = "\t" + (property.comment ?? "No documentation")
-				let propDec =  """
-								```swift
-								\(property.declaration)
-								```
+				let propTitle = "* **\(property.title)**"
+				let propType = "*\(property.kind.stringValue)*"
+				let propInfo = (property.comment ?? "No documentation")
+				let propDeclaration =  """
+							```swift
+							\(property.declaration)
+							```
 							"""
 
-				let outDown = "\(propTitle)\n\(propType)\n\n\(propInfo)\n\n\(propDec)"
+				let outDown = "\(propTitle)\n\(propType)\n\n\(propDeclaration)\n\n\(propInfo)"
 
 				children.append(outDown)
 			}
 		}
 
-		var markdownOut = "\(docHeader)\n\(type)\n\(declaration)\n\n\(discussion)\n\n"
+		var markdownOut = "\(docHeader)\n\(type)\n\(declaration)\n\n\(discussion)\n\n### Members\n\n"
 
 		for child in children {
-			markdownOut += "\(child)\n\n"
+			markdownOut += "\(child.replacingOccurrences(of: "\n", with: "\n\t"))\n\n"
 		}
 
 		return markdownOut
