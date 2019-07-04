@@ -121,7 +121,8 @@ extension SwiftDocViewController: NSMenuItemValidation {
 		case "save…":
 			return docController.projectDirectoryURL != nil
 		default:
-			return false
+			// note to self: this also affects the popup menus in the window
+			return true
 		}
 	}
 }
