@@ -10,7 +10,7 @@ import Foundation
 
 class MarkdownGenerator {
 
-	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem) -> String {
+	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessibility: Accessibility) -> String {
 		let docHeader = "# \(swiftDocItem.title)"
 		let type = "*\(swiftDocItem.kind.stringValue)*"
 		let declaration = """
@@ -23,6 +23,7 @@ class MarkdownGenerator {
 		var children = [String]()
 		if let properties = swiftDocItem.properties {
 			for property in properties {
+				guard property.accessibility >= minimumAccessibility else { continue }
 				let propTitle = "* **\(property.title)**"
 				let propType = "*\(property.kind.stringValue)*"
 				let propInfo = (property.comment ?? "No documentation")
@@ -45,5 +46,22 @@ class MarkdownGenerator {
 		}
 
 		return markdownOut
+	}
+
+	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessibility: Accessibility) -> String {
+
+		var markOut = ""
+		var currentTitle = ""
+		for item in (topLevelIndex.sorted { $0.kind.stringValue < $1.kind.stringValue }) {
+			guard item.accessibility >= minimumAccessibility else { continue }
+			if currentTitle != item.kind.stringValue.capitalized {
+				currentTitle = item.kind.stringValue.capitalized
+				markOut += currentTitle.isEmpty ? "" : "\n"
+				markOut += "### \(currentTitle)\n\n"
+			}
+			markOut += "* [\(item.title)](#\(item.title))\n"
+		}
+
+		return markOut
 	}
 }

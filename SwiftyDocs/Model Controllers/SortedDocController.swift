@@ -9,6 +9,8 @@
 import Foundation
 
 class SwiftDocItemController {
+
+	// MARK: - properties
 	private(set) var docs: [SwiftDocItem] = []
 
 	var classesIndex: [SwiftDocItem] {
@@ -36,10 +38,10 @@ class SwiftDocItemController {
 	var topLevelIndex: [SwiftDocItem] {
 		return classesIndex + structsIndex + enumsIndex + protocolsIndex + extensionsIndex + globalFuncsIndex + typealiasIndex
 	}
-	
 
 	var minimumAccessibility = Accessibility.internal
 
+	private let markdownGenerator = MarkdownGenerator()
 
 	private let scrapeQueue: OperationQueue = {
 		let queue = OperationQueue()
@@ -47,8 +49,11 @@ class SwiftDocItemController {
 		return queue
 	}()
 
+	// MARK: - inits
+
 	init() {}
 
+	// MARK: - CRUD
 	func add(docs: [DocFile]) {
 		for doc in docs {
 			add(doc: doc)
@@ -157,4 +162,16 @@ class SwiftDocItemController {
 
 		return output
 	}
+
+	// MARK: - Markdown Generation
+
+	func markdownPage(for doc: SwiftDocItem) -> String {
+		return markdownGenerator.generateMarkdownDocumentString(fromRootDocItem: doc, minimumAccessibility: minimumAccessibility)
+	}
+
+	func markdownIndex() -> String {
+		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessibility: minimumAccessibility)
+	}
+
+	
 }
