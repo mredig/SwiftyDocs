@@ -117,7 +117,7 @@ class SwiftDocItemController {
 
 		var items = [SwiftDocItem]()
 		for container in containers {
-			let kind = SwiftDocItem.Kind.createFrom(string: container.kind)
+			let kind = TypeKind.createFrom(string: container.kind)
 
 			// special case for enum cases
 			if case .other(let value) = kind, value == "enum case" {
@@ -189,7 +189,7 @@ class SwiftDocItemController {
 		scrapeQueue.addOperations([docScrapeOp, docFilesOp], waitUntilFinished: false)
 	}
 
-	func search(forTitle title: String?, ofKind kind: SwiftDocItem.Kind?, withMinimumAccessibility minimumAccessibility: Accessibility = .internal) -> [SwiftDocItem] {
+	func search(forTitle title: String?, ofKind kind: TypeKind?, withMinimumAccessibility minimumAccessibility: Accessibility = .internal) -> [SwiftDocItem] {
 		var output = docs.enumeratedChildren().filter { $0.accessibility >= minimumAccessibility }
 
 		if let title = title {
@@ -276,7 +276,7 @@ class SwiftDocItemController {
 		}
 	}
 
-	func saveDependencyPackage(to path: URL, linkStyle: MarkdownGenerator.LinkStyle) {
+	func saveDependencyPackage(to path: URL, linkStyle: OutputStyle) {
 		guard var jsURLs = Bundle.main.urls(forResourcesWithExtension: "js", subdirectory: nil, localization: nil) else { return }
 		guard let maps = Bundle.main.urls(forResourcesWithExtension: "map", subdirectory: nil, localization: nil) else { return }
 		jsURLs += maps
@@ -286,7 +286,7 @@ class SwiftDocItemController {
 		let subdirs: [String]
 		switch linkStyle {
 		case .multiPage:
-			subdirs = (SwiftDocItem.Kind.topLevelCases.map { $0.stringValue }
+			subdirs = (TypeKind.topLevelCases.map { $0.stringValue }
 				.joined(separator: "-") + "-css-js")
 				.split(separator: "-")
 				.map { String($0).replacingNonWordCharacters() }
@@ -321,7 +321,7 @@ class SwiftDocItemController {
 		return markdownGenerator.generateMarkdownDocumentString(fromRootDocItem: doc, minimumAccessibility: minimumAccessibility)
 	}
 
-	func markdownIndex(with linkStyle: MarkdownGenerator.LinkStyle) -> String {
+	func markdownIndex(with linkStyle: OutputStyle) -> String {
 		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessibility: minimumAccessibility, linkStyle: linkStyle)
 	}
 

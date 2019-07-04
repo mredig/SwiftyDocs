@@ -69,8 +69,8 @@ class SwiftDocViewController: NSViewController {
 			guard let self = self else { return }
 			if result == NSApplication.ModalResponse.OK {
 				guard let saveURL = savePanel.url else { return }
-//				self.docController.saveSingleFile(to: saveURL, format: .html)
-				self.docController.saveMultifile(to: saveURL, format: .html)
+				self.docController.saveSingleFile(to: saveURL, format: .html)
+//				self.docController.saveMultifile(to: saveURL, format: .html)
 			}
 		}
 	}
@@ -99,8 +99,7 @@ class SwiftDocViewController: NSViewController {
 
 	func updateTitleField() {
 		guard let title = docController.projectTitle else { return }
-		guard let readme = docController.projectReadmeURL else { return }
-		projectTitleTextField.stringValue = title + readme.path
+		projectTitleTextField.stringValue = title
 	}
 }
 

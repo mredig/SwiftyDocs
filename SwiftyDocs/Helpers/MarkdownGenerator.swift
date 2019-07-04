@@ -51,11 +51,7 @@ class MarkdownGenerator {
 		return markdownOut
 	}
 
-	enum LinkStyle {
-		case singlePage
-		case multiPage
-	}
-	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessibility: Accessibility, linkStyle: LinkStyle) -> String {
+	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessibility: Accessibility, linkStyle: OutputStyle) -> String {
 
 		var markOut = ""
 		var links = ""
