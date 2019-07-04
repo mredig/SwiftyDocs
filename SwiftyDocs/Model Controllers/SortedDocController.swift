@@ -108,6 +108,13 @@ class SwiftDocItemController {
 	func getDocItemsFrom(containers: [DocFile.DocContainer]?, sourceFile: String, parentName: String = "") -> [SwiftDocItem]? {
 		guard let containers = containers else { return nil }
 
+		var sourceFile = sourceFile
+		if let projectDir = projectDirectoryURL {
+			let baseDir = projectDir.path
+			sourceFile = sourceFile.replacingOccurrences(of: baseDir, with: "")
+				.replacingOccurrences(of: ##"^\/"##, with: "", options: .regularExpression, range: nil)
+		}
+
 		var items = [SwiftDocItem]()
 		for container in containers {
 			let kind = SwiftDocItem.Kind.createFrom(string: container.kind)

@@ -19,6 +19,7 @@ class MarkdownGenerator {
 						```
 						"""
 		let discussion = swiftDocItem.comment ?? "No documentation"
+		let docSourceFile = "Found in\n* `\(swiftDocItem.sourceFile)`"
 
 		var children = [String]()
 		if let properties = swiftDocItem.properties {
@@ -32,14 +33,16 @@ class MarkdownGenerator {
 							\(property.declaration)
 							```
 							"""
+				let propSourceFile = "Found in\n* `\(property.sourceFile)`"
 
-				let outDown = "\(propTitle)\n\(propType)\n\n\(propDeclaration)\n\n\(propInfo)"
+				var outDown = "\(propTitle)\n\(propType)\n\n\(propDeclaration)\n\n\(propInfo)"
+				outDown += propSourceFile != docSourceFile ? "\n\n\(propSourceFile)" : ""
 
 				children.append(outDown)
 			}
 		}
 
-		var markdownOut = "\(docHeader)\n\(type)\n\(declaration)\n\n\(discussion)\n\n\((children.isEmpty ? "" : "___\n#### Members\n\n"))"
+		var markdownOut = "\(docHeader)\n\(type)\n\(declaration)\n\n\(discussion)\n\n\(docSourceFile)\n\n\((children.isEmpty ? "" : "___\n#### Members\n\n"))"
 
 		for child in children {
 			markdownOut += "\(child.replacingOccurrences(of: "\n", with: "\n\t"))\n\n"
