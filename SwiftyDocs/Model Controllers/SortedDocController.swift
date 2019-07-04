@@ -218,11 +218,6 @@ class SwiftDocItemController {
 
 	// MARK: - Saving
 
-	enum SaveFormat {
-		case markdown
-		case html
-	}
-
 	func saveSingleFile(to path: URL, format: SaveFormat) {
 		let index = markdownIndex(with: .singlePage)
 		var text = toplevelIndexMinAccess.map { markdownPage(for: $0) }.joined(separator: "\n\n\n")

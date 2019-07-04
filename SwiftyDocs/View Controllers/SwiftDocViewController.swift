@@ -25,6 +25,7 @@ class SwiftDocViewController: NSViewController {
 	override func viewDidLoad() {
 		setupMinAccessLevelPopUp()
 		setupSelectedItems()
+		setupOutputOptionsMenus()
 	}
 
 	override func viewWillAppear() {
@@ -182,5 +183,18 @@ extension SwiftDocViewController {
 		docController.minimumAccessControl = accessLevel
 		setupSelectedItems()
 		print(accessLevel)
+	}
+
+	func setupOutputOptionsMenus() {
+		fileCountPopUp.removeAllItems()
+		formatPopUp.removeAllItems()
+
+		for format in SaveFormat.allCases {
+			formatPopUp.addItem(withTitle: format.rawValue)
+		}
+
+		for style in OutputStyle.allCases {
+			fileCountPopUp.addItem(withTitle: style.rawValue)
+		}
 	}
 }
