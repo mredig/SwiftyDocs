@@ -29,13 +29,14 @@ extension String {
 		"source.lang.swift.decl.var.static": "static",
 		"source.lang.swift.decl.var.instance": "instance property",
 		"source.lang.swift.decl.function.method.static": "static",
-		"source.lang.swift.syntaxtype.comment.mark": "mark",
 		"source.lang.swift.decl.generic_type_param": "generic type parameter",
 		"source.lang.swift.decl.protocol": "protocol",
 		"source.lang.swift.decl.extension": "extension",
 		"source.lang.swift.decl.struct": "struct",
 		"source.lang.swift.decl.typealias": "typealias",
 		"source.lang.swift.decl.associatedtype": "associated type",
+
+		"source.lang.swift.syntaxtype.comment.mark": "mark",
 
 		"source.decl.attribute.convenience": "convenience",
 		"source.decl.attribute.lazy": "lazy",
