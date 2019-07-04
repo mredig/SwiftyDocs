@@ -211,8 +211,8 @@ class SwiftDocItemController {
 				markdown = wrapInHTML(string: markdown, dependenciesUpDir: true)
 			}
 			let outPath = path
-				.appendingPathComponent($0.kind.stringValue)
-				.appendingPathComponent($0.title)
+				.appendingPathComponent($0.kind.stringValue.replacingNonWordCharacters())
+				.appendingPathComponent($0.title.replacingNonWordCharacters(lowercased: false))
 				.appendingPathExtension(fileExt)
 			do {
 				try markdown.write(to: outPath, atomically: true, encoding: .utf8)
@@ -246,9 +246,9 @@ class SwiftDocItemController {
 		switch linkStyle {
 		case .multiPage:
 			subdirs = (SwiftDocItem.Kind.topLevelCases.map { $0.stringValue }
-				.joined(separator: " ") + " css js")
-				.split(separator: " ")
-				.map { String($0) }
+				.joined(separator: "-") + "-css-js")
+				.split(separator: "-")
+				.map { String($0).replacingNonWordCharacters() }
 		case .singlePage:
 			subdirs = "css js"
 				.split(separator: " ")

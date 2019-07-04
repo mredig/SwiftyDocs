@@ -68,15 +68,25 @@ class MarkdownGenerator {
 			markOut += "* [\(item.title)][\(index)]\n"
 			switch linkStyle {
 			case .singlePage:
-				let linkValue = item.title.lowercased().replacingOccurrences(of: ##"\W"##, with: "", options: .regularExpression, range: nil)
+				let linkValue = item.title.replacingNonWordCharacters()
 				links += "[\(index)]:#\(linkValue)\n"
 			case .multiPage:
-				let linkValue = item.title.replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
-				let folderValue = currentTitle.lowercased().replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
+				let linkValue = item.title.replacingNonWordCharacters(lowercased: false)
+				let folderValue = currentTitle.replacingNonWordCharacters()
 				links += "[\(index)]:\(folderValue)/\(linkValue).html\n"
 			}
 		}
 
 		return markOut + "\n\n" + links
+	}
+}
+
+extension String {
+	func replacingNonWordCharacters(lowercased: Bool = true) -> String {
+		var rVal = self
+		if lowercased {
+			rVal = rVal.lowercased()
+		}
+		return rVal.replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
 	}
 }
