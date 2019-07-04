@@ -749,19 +749,14 @@
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5gI-VN-Sk8">
                                                 <rect key="frame" x="156" y="-3" width="287" height="25"/>
-                                                <popUpButtonCell key="cell" type="push" title="internal" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Hxu-on-mCP" id="Ewv-AD-XDi">
+                                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Ewv-AD-XDi">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="menu"/>
-                                                    <menu key="menu" id="sL7-b7-Tya">
-                                                        <items>
-                                                            <menuItem title="open" id="fjm-kc-eYG"/>
-                                                            <menuItem title="public" id="Uku-Mt-tjC"/>
-                                                            <menuItem title="internal" state="on" id="Hxu-on-mCP"/>
-                                                            <menuItem title="fileprivate" id="P8f-KO-Ykk"/>
-                                                            <menuItem title="private" id="JXJ-wU-eWe"/>
-                                                        </items>
-                                                    </menu>
+                                                    <menu key="menu" id="sL7-b7-Tya"/>
                                                 </popUpButtonCell>
+                                                <connections>
+                                                    <action selector="minimumAccessLevelPopUpChanged:" target="XfG-lQ-9wD" id="hxY-0K-8Fj"/>
+                                                </connections>
                                             </popUpButton>
                                         </subviews>
                                         <visibilityPriorities>
@@ -786,14 +781,10 @@
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q92-2r-yOb">
                                                 <rect key="frame" x="109" y="-3" width="334" height="25"/>
-                                                <popUpButtonCell key="cell" type="push" title="open" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="rer-K2-lVv" id="C0t-1d-wq0">
+                                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="C0t-1d-wq0">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="menu"/>
-                                                    <menu key="menu" id="EGx-CK-wno">
-                                                        <items>
-                                                            <menuItem title="open" state="on" id="rer-K2-lVv"/>
-                                                        </items>
-                                                    </menu>
+                                                    <menu key="menu" id="EGx-CK-wno"/>
                                                 </popUpButtonCell>
                                             </popUpButton>
                                         </subviews>

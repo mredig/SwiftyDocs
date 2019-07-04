@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Accessibility: Int, Hashable, Comparable {
+enum Accessibility: Int, Hashable, Comparable, CaseIterable {
 
 	case `private`
 	case `fileprivate`

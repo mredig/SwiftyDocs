@@ -71,8 +71,8 @@ class SwiftDocItemController {
 		}
 		return nil
 	}
-	var projectTitle: String? {
-		return projectURL?.deletingPathExtension().lastPathComponent
+	var projectTitle: String {
+		return projectURL?.deletingPathExtension().lastPathComponent ?? "Documentation"
 	}
 
 	private let markdownGenerator = MarkdownGenerator()
@@ -217,7 +217,7 @@ class SwiftDocItemController {
 		text = index + "\n\n" + text
 		if format == .html {
 			text = text.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
-			text = wrapInHTML(string: text, dependenciesUpDir: false)
+			text = wrapInHTML(withTitle: projectTitle, string: text, dependenciesUpDir: false)
 		}
 
 		var outPath = path
@@ -249,7 +249,7 @@ class SwiftDocItemController {
 			var markdown = markdownPage(for: $0)
 			if format == .html {
 				markdown = sanitizeForHTMLEmbedding(string: markdown)
-				markdown = wrapInHTML(string: markdown, dependenciesUpDir: true)
+				markdown = wrapInHTML(withTitle: $0.title, string: markdown, dependenciesUpDir: true)
 			}
 			let outPath = path
 				.appendingPathComponent($0.kind.stringValue.replacingNonWordCharacters())
@@ -268,7 +268,7 @@ class SwiftDocItemController {
 				.appendingPathExtension(fileExt)
 			if format == .html {
 				index = sanitizeForHTMLEmbedding(string: index)
-				index = wrapInHTML(string: index, dependenciesUpDir: false)
+				index = wrapInHTML(withTitle: projectTitle, string: index, dependenciesUpDir: false)
 			}
 			try index.write(to: indexURL, atomically: true, encoding: .utf8)
 		} catch {
@@ -329,8 +329,8 @@ class SwiftDocItemController {
 		return string.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
 	}
 
-	private func wrapInHTML(string: String, dependenciesUpDir: Bool) -> String {
-		return String.htmlOutputBefore(withTitle: "FIXME Documentation", dependenciesUpADir: dependenciesUpDir)
+	private func wrapInHTML(withTitle title: String, string: String, dependenciesUpDir: Bool) -> String {
+		return String.htmlOutputBefore(withTitle: title, dependenciesUpADir: dependenciesUpDir)
 			+ string
 			+ String.htmlOutputAfter(dependenciesUpADir: dependenciesUpDir)
 	}

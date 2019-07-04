@@ -12,7 +12,7 @@ class MarkdownGenerator {
 
 	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessibility: Accessibility) -> String {
 		let docHeader = "## \(swiftDocItem.title)"
-		let type = "*\(swiftDocItem.kind.stringValue)*"
+		let type = "***\(swiftDocItem.accessibility.stringValue)*** *\(swiftDocItem.kind.stringValue)*"
 		let declaration = """
 						```swift
 						\(swiftDocItem.declaration)
@@ -26,7 +26,7 @@ class MarkdownGenerator {
 			for property in properties {
 				guard property.accessibility >= minimumAccessibility else { continue }
 				let propTitle = "* **\(property.title)**"
-				let propType = "*\(property.kind.stringValue)*"
+				let propType = "***\(swiftDocItem.accessibility.stringValue)*** *\(property.kind.stringValue)*"
 				let propInfo = (property.comment ?? "No documentation")
 				let propDeclaration =  """
 							```swift
