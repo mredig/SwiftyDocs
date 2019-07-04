@@ -11,7 +11,7 @@ import Foundation
 class MarkdownGenerator {
 
 	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessibility: Accessibility) -> String {
-		let docHeader = "# \(swiftDocItem.title)"
+		let docHeader = "## \(swiftDocItem.title)"
 		let type = "*\(swiftDocItem.kind.stringValue)*"
 		let declaration = """
 						```swift
@@ -39,7 +39,7 @@ class MarkdownGenerator {
 			}
 		}
 
-		var markdownOut = "\(docHeader)\n\(type)\n\(declaration)\n\n\(discussion)\n\n\((children.isEmpty ? "" : "___\n### Members\n\n"))"
+		var markdownOut = "\(docHeader)\n\(type)\n\(declaration)\n\n\(discussion)\n\n\((children.isEmpty ? "" : "___\n#### Members\n\n"))"
 
 		for child in children {
 			markdownOut += "\(child.replacingOccurrences(of: "\n", with: "\n\t"))\n\n"
@@ -51,17 +51,21 @@ class MarkdownGenerator {
 	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessibility: Accessibility) -> String {
 
 		var markOut = ""
+		var links = ""
 		var currentTitle = ""
-		for item in (topLevelIndex.sorted { $0.kind.stringValue < $1.kind.stringValue }) {
+		for (index, item) in (topLevelIndex.sorted { $0.kind.stringValue < $1.kind.stringValue }).enumerated() {
 			guard item.accessibility >= minimumAccessibility else { continue }
 			if currentTitle != item.kind.stringValue.capitalized {
 				currentTitle = item.kind.stringValue.capitalized
 				markOut += currentTitle.isEmpty ? "" : "\n"
-				markOut += "### \(currentTitle)\n\n"
+				markOut += "#### \(currentTitle)\n\n"
 			}
-			markOut += "* [\(item.title)](#\(item.title))\n"
+			let charSet = CharacterSet(charactersIn: "(:)").inverted
+			let linkValue = (item.title as NSString).addingPercentEncoding(withAllowedCharacters: charSet) ?? item.title
+			markOut += "* [\(item.title)][\(index)]\n"
+			links += "[\(index)]:#\(linkValue)\n"
 		}
 
-		return markOut
+		return markOut + "\n\n" + links
 	}
 }
