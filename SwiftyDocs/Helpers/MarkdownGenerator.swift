@@ -26,7 +26,7 @@ class MarkdownGenerator {
 			for property in properties {
 				guard property.accessibility >= minimumAccessibility else { continue }
 				let propTitle = "* **\(property.title)**"
-				let propType = "***\(swiftDocItem.accessibility.stringValue)*** *\(property.kind.stringValue)*"
+				let propType = "***\(property.accessibility.stringValue)*** *\(property.kind.stringValue)*"
 				let propInfo = (property.comment ?? "No documentation")
 				let propDeclaration =  """
 							```swift
