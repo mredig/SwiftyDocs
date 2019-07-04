@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SwiftDocViewController.swift
 //  SwiftyDocs
 //
 //  Created by Michael Redig on 7/2/19.
@@ -9,7 +9,7 @@
 import Cocoa
 import SourceKittenFramework
 
-class ViewController: NSViewController {
+class SwiftDocViewController: NSViewController {
 
 	@IBOutlet var loadProjectButton: NSButton!
 	@IBOutlet var progressIndicator: NSProgressIndicator!

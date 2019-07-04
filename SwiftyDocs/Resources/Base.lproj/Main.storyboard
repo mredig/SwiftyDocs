@@ -701,10 +701,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Swift Doc View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SwiftyDocs" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="SwiftDocViewController" customModule="SwiftyDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -786,12 +786,12 @@
                                             </textField>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q92-2r-yOb">
                                                 <rect key="frame" x="109" y="-3" width="334" height="25"/>
-                                                <popUpButtonCell key="cell" type="push" title="open" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="rer-K2-lVv" id="C0t-1d-wq0">
+                                                <popUpButtonCell key="cell" type="push" title="open" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="rer-K2-lVv" id="C0t-1d-wq0">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="menu"/>
                                                     <menu key="menu" id="EGx-CK-wno">
                                                         <items>
-                                                            <menuItem title="open" id="rer-K2-lVv"/>
+                                                            <menuItem title="open" state="on" id="rer-K2-lVv"/>
                                                         </items>
                                                     </menu>
                                                 </popUpButtonCell>
