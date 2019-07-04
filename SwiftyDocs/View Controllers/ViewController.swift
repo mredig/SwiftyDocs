@@ -69,7 +69,8 @@ class ViewController: NSViewController {
 			guard let self = self else { return }
 			if result == NSApplication.ModalResponse.OK {
 				guard let saveURL = savePanel.url else { return }
-				self.docController.saveSingleFile(to: saveURL, format: .html)
+//				self.docController.saveSingleFile(to: saveURL, format: .html)
+				self.docController.saveMultifile(to: saveURL, format: .html)
 			}
 		}
 	}
@@ -78,11 +79,7 @@ class ViewController: NSViewController {
 		let index = docController.markdownIndex(with: .singlePage)
 		var text = docController.topLevelIndex.map { docController.markdownPage(for: $0) }.joined(separator: "\n\n\n")
 		text = index + "\n\n" + text
-		text = text.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
-//		text = text.replacingOccurrences(of: "\n", with: ##"\n"##)
-		text = String.htmlOutputBefore + text + String.htmlOutputAfter
 		DispatchQueue.main.async {
-
 			self.outputText.string = text
 		}
 		print("Finished!")

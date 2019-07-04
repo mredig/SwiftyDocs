@@ -73,7 +73,7 @@ class MarkdownGenerator {
 			case .multiPage:
 				let linkValue = item.title.replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
 				let folderValue = currentTitle.lowercased().replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
-				links += "[\(index)]:\(folderValue)/\(linkValue).md\n"
+				links += "[\(index)]:\(folderValue)/\(linkValue).html\n"
 			}
 		}
 

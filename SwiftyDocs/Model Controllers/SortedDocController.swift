@@ -176,7 +176,7 @@ class SwiftDocItemController {
 		text = index + "\n\n" + text
 		if format == .html {
 			text = text.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
-			text = String.htmlOutputBefore + text + String.htmlOutputAfter
+			text = wrapInHTML(string: text, dependenciesUpDir: false)
 		}
 
 		var outPath = path
@@ -193,6 +193,45 @@ class SwiftDocItemController {
 			try text.write(to: outPath, atomically: true, encoding: .utf8)
 		} catch {
 			NSLog("Failed to save file: \(error)")
+		}
+	}
+
+	func saveMultifile(to path: URL, format: SaveFormat) {
+		var index = markdownIndex(with: .multiPage)
+
+		saveDependencyPackage(to: path, linkStyle: .multiPage)
+
+		let fileExt = format == .html ? "html" : "md"
+
+		// save all doc files
+		topLevelIndex.forEach {
+			var markdown = markdownPage(for: $0)
+			if format == .html {
+				markdown = sanitizeForHTMLEmbedding(string: markdown)
+				markdown = wrapInHTML(string: markdown, dependenciesUpDir: true)
+			}
+			let outPath = path
+				.appendingPathComponent($0.kind.stringValue)
+				.appendingPathComponent($0.title)
+				.appendingPathExtension(fileExt)
+			do {
+				try markdown.write(to: outPath, atomically: true, encoding: .utf8)
+			} catch {
+				NSLog("Failed writing file: \(error)")
+			}
+		}
+		// save contents/index file
+		do {
+			let indexURL = path
+				.appendingPathComponent("contents")
+				.appendingPathExtension(fileExt)
+			if format == .html {
+				index = sanitizeForHTMLEmbedding(string: index)
+				index = wrapInHTML(string: index, dependenciesUpDir: false)
+			}
+			try index.write(to: indexURL, atomically: true, encoding: .utf8)
+		} catch {
+			NSLog("Failed writing file: \(error)")
 		}
 	}
 
@@ -245,5 +284,13 @@ class SwiftDocItemController {
 		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessibility: minimumAccessibility, linkStyle: linkStyle)
 	}
 
-	
+	private func sanitizeForHTMLEmbedding(string: String) -> String {
+		return string.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
+	}
+
+	private func wrapInHTML(string: String, dependenciesUpDir: Bool) -> String {
+		return String.htmlOutputBefore(withTitle: "FIXME Documentation", dependenciesUpADir: dependenciesUpDir)
+			+ string
+			+ String.htmlOutputAfter(dependenciesUpADir: dependenciesUpDir)
+	}
 }
