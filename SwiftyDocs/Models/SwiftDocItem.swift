@@ -11,7 +11,7 @@ import Foundation
 struct SwiftDocItem: Hashable, CustomStringConvertible {
 
 	let title: String
-	let accessibility: AccessControl
+	let accessControl: AccessControl
 	let comment: String?
 	let sourceFile: String
 	let kind: TypeKind
@@ -20,7 +20,7 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 
 	var description: String {
 		return """
-			\(title) (\(accessibility.stringValue))
+			\(title) (\(accessControl.stringValue))
 			\(kind.stringValue)
 			\(declaration)
 			\(comment ?? "no description")
@@ -33,8 +33,8 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 }
 
 extension SwiftDocItem {
-	init(title: String, accessibility: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, declaration: String) {
-		let accessibility = AccessControl.createFrom(string: accessibility)
-		self.init(title: title, accessibility: accessibility, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, declaration: declaration)
+	init(title: String, accessControl: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, declaration: String) {
+		let accessControl = AccessControl.createFrom(string: accessControl)
+		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, declaration: declaration)
 	}
 }

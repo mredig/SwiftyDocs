@@ -14,35 +14,35 @@ class SwiftDocItemController {
 	private(set) var docs: [SwiftDocItem] = []
 
 	var classesIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .class, withMinimumAccessibility: .private)
+		return search(forTitle: nil, ofKind: .class, withMinimumAccessControl: .private)
 	}
 	var structsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .struct, withMinimumAccessibility: .private)
+		return search(forTitle: nil, ofKind: .struct, withMinimumAccessControl: .private)
 	}
 	var enumsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .enum, withMinimumAccessibility: .private)
+		return search(forTitle: nil, ofKind: .enum, withMinimumAccessControl: .private)
 	}
 	var protocolsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .protocol, withMinimumAccessibility: .private)
+		return search(forTitle: nil, ofKind: .protocol, withMinimumAccessControl: .private)
 	}
 	var extensionsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .extension, withMinimumAccessibility: .private)
+		return search(forTitle: nil, ofKind: .extension, withMinimumAccessControl: .private)
 	}
 	var globalFuncsIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .globalFunc, withMinimumAccessibility: .private)
+		return search(forTitle: nil, ofKind: .globalFunc, withMinimumAccessControl: .private)
 	}
 	var typealiasIndex: [SwiftDocItem] {
-		return search(forTitle: nil, ofKind: .typealias, withMinimumAccessibility: .private)
+		return search(forTitle: nil, ofKind: .typealias, withMinimumAccessControl: .private)
 	}
 
 	var topLevelIndex: [SwiftDocItem] {
 		return classesIndex + structsIndex + enumsIndex + protocolsIndex + extensionsIndex + globalFuncsIndex + typealiasIndex
 	}
 	var toplevelIndexMinAccess: [SwiftDocItem] {
-		return topLevelIndex.filter { $0.accessibility >= minimumAccessibility }
+		return topLevelIndex.filter { $0.accessControl >= minimumAccessControl }
 	}
 
-	var minimumAccessibility = AccessControl.internal
+	var minimumAccessControl = AccessControl.internal
 
 	var projectURL: URL?
 	var projectDirectoryURL: URL? {
@@ -133,7 +133,7 @@ class SwiftDocItemController {
 			}
 
 			guard let name = container.name,
-				let accessibility = container.accessibility
+				let accessControl = container.accessControl
 				else { continue }
 
 			// recursively get all children
@@ -152,7 +152,7 @@ class SwiftDocItemController {
 			}
 
 			let newIem = SwiftDocItem(title: newTitle,
-									  accessibility: accessibility,
+									  accessControl: accessControl,
 									  comment: container.comment,
 									  sourceFile: sourceFile,
 									  kind: kind,
@@ -192,8 +192,8 @@ class SwiftDocItemController {
 		scrapeQueue.addOperations([docScrapeOp, docFilesOp], waitUntilFinished: false)
 	}
 
-	func search(forTitle title: String?, ofKind kind: TypeKind?, withMinimumAccessibility minimumAccessibility: AccessControl = .internal) -> [SwiftDocItem] {
-		var output = docs.enumeratedChildren().filter { $0.accessibility >= minimumAccessibility }
+	func search(forTitle title: String?, ofKind kind: TypeKind?, withMinimumAccessControl minimumAccessControl: AccessControl = .internal) -> [SwiftDocItem] {
+		var output = docs.enumeratedChildren().filter { $0.accessControl >= minimumAccessControl }
 
 		if let title = title {
 			let titleLC = title.lowercased()
@@ -324,11 +324,11 @@ class SwiftDocItemController {
 	// MARK: - Markdown Generation
 
 	func markdownPage(for doc: SwiftDocItem) -> String {
-		return markdownGenerator.generateMarkdownDocumentString(fromRootDocItem: doc, minimumAccessibility: minimumAccessibility)
+		return markdownGenerator.generateMarkdownDocumentString(fromRootDocItem: doc, minimumAccessControl: minimumAccessControl)
 	}
 
 	func markdownIndex(with linkStyle: OutputStyle) -> String {
-		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessibility: minimumAccessibility, linkStyle: linkStyle)
+		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessControl: minimumAccessControl, linkStyle: linkStyle)
 	}
 
 	private func sanitizeForHTMLEmbedding(string: String) -> String {

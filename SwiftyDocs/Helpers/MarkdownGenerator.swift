@@ -10,9 +10,9 @@ import Foundation
 
 class MarkdownGenerator {
 
-	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessibility: AccessControl) -> String {
+	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessControl: AccessControl) -> String {
 		let docHeader = "## \(swiftDocItem.title)"
-		let type = "***\(swiftDocItem.accessibility.stringValue)*** *\(swiftDocItem.kind.stringValue)*"
+		let type = "***\(swiftDocItem.accessControl.stringValue)*** *\(swiftDocItem.kind.stringValue)*"
 		let declaration = """
 						```swift
 						\(swiftDocItem.declaration)
@@ -24,9 +24,9 @@ class MarkdownGenerator {
 		var children = [String]()
 		if let properties = swiftDocItem.properties {
 			for property in properties {
-				guard property.accessibility >= minimumAccessibility else { continue }
+				guard property.accessControl >= minimumAccessControl else { continue }
 				let propTitle = "* **\(property.title)**"
-				let propType = "***\(property.accessibility.stringValue)*** *\(property.kind.stringValue)*"
+				let propType = "***\(property.accessControl.stringValue)*** *\(property.kind.stringValue)*"
 				let propInfo = (property.comment ?? "No documentation")
 				let propDeclaration =  """
 							```swift
@@ -51,13 +51,13 @@ class MarkdownGenerator {
 		return markdownOut
 	}
 
-	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessibility: AccessControl, linkStyle: OutputStyle) -> String {
+	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: OutputStyle) -> String {
 
 		var markOut = ""
 		var links = ""
 		var currentTitle = ""
 		for (index, item) in (topLevelIndex.sorted { $0.kind.stringValue < $1.kind.stringValue }).enumerated() {
-			guard item.accessibility >= minimumAccessibility else { continue }
+			guard item.accessControl >= minimumAccessControl else { continue }
 			if currentTitle != item.kind.stringValue.capitalized {
 				currentTitle = item.kind.stringValue.capitalized
 				markOut += currentTitle.isEmpty ? "" : "\n"

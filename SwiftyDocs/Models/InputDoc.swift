@@ -20,7 +20,7 @@ struct DocFile: Codable, CustomStringConvertible {
 
 	struct DocContainer: Codable {
 		enum DeCodingKeys: String, CodingKey {
-			case accessibility = "key.accessibility"
+			case accessControl = "key.accessibility"
 			case docDeclaration = "key.doc.declaration"
 			case parsedDeclaration = "key.parsed_declaration"
 			case comment = "key.doc.comment"
@@ -30,7 +30,7 @@ struct DocFile: Codable, CustomStringConvertible {
 			case attributes = "key.attributes"
 			case nestedContainers = "key.substructure"
 		}
-		let accessibility: String?
+		let accessControl: String?
 		let docDeclaration: String?
 		let parsedDeclaration: String?
 		let comment: String?
@@ -43,7 +43,7 @@ struct DocFile: Codable, CustomStringConvertible {
 		init(from aDecoder: Decoder) throws {
 			let container = try aDecoder.container(keyedBy: DeCodingKeys.self)
 
-			self.accessibility = try container.decodeIfPresent(String.self, forKey: .accessibility)?.shortenSwiftDocClassificationString()
+			self.accessControl = try container.decodeIfPresent(String.self, forKey: .accessControl)?.shortenSwiftDocClassificationString()
 			self.docDeclaration = try container.decodeIfPresent(String.self, forKey: .docDeclaration)
 			self.parsedDeclaration = try container.decodeIfPresent(String.self, forKey: .parsedDeclaration)
 			self.comment = try container.decodeIfPresent(String.self, forKey: .comment)

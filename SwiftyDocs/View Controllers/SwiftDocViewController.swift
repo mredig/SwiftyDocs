@@ -135,13 +135,13 @@ extension SwiftDocViewController {
 			}
 			let menuItem = NSMenuItem(title: getMenuTitle(for: item), action: nil, keyEquivalent: "")
 			menuItem.tag = item.hashValue
-			menuItem.state = item.accessibility >= docController.minimumAccessibility ? .on : .off
+			menuItem.state = item.accessControl >= docController.minimumAccessControl ? .on : .off
 			selectedItemsPopUp.menu?.addItem(menuItem)
 
 			for property in item.properties ?? [] {
 				let propMenuItem = NSMenuItem(title: getMenuTitle(for: property, indendation: 1), action: nil, keyEquivalent: "")
 				propMenuItem.tag = property.hashValue
-				propMenuItem.state = property.accessibility >= docController.minimumAccessibility ? .on : .off
+				propMenuItem.state = property.accessControl >= docController.minimumAccessControl ? .on : .off
 				selectedItemsPopUp.menu?.addItem(propMenuItem)
 			}
 		}
@@ -157,7 +157,7 @@ extension SwiftDocViewController {
 	@IBAction func minimumAccessLevelPopUpChanged(_ sender: NSPopUpButton) {
 		guard let str = sender.selectedItem?.title else { return }
 		let accessLevel = AccessControl.createFrom(string: str)
-		docController.minimumAccessibility = accessLevel
+		docController.minimumAccessControl = accessLevel
 		setupSelectedItems()
 		print(accessLevel)
 	}
