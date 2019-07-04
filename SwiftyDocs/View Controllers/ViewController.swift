@@ -25,6 +25,10 @@ class ViewController: NSViewController {
 		openProjectDialog()
 	}
 
+	@IBAction func saveDocument(_ sender: NSMenuItem) {
+		saveProjectDialog()
+	}
+
 	override var representedObject: Any? {
 		didSet {
 		// Update the view, if already loaded.
@@ -55,19 +59,31 @@ class ViewController: NSViewController {
 		}
 	}
 
+	func saveProjectDialog() {
+		let savePanel = NSSavePanel()
+		savePanel.canCreateDirectories = true
+		savePanel.title = "Save your project"
+		savePanel.message = "SwiftyDocs will create a folder inside of whatever folder you choose."
+
+		savePanel.begin { [weak self] (result) in
+			guard let self = self else { return }
+			if result == NSApplication.ModalResponse.OK {
+				guard let saveURL = savePanel.url else { return }
+				self.docController.saveSingleFile(to: saveURL, format: .html)
+			}
+		}
+	}
+
 	func getSourceDocs() {
-//		var text = "## Classes\n" + docController.classesIndex.reduce("") { $0 + "\($1.title)\n" }//.description//docs.description
-//		text += "\n## Structs\n" + docController.structsIndex.reduce("") { $0 + "\($1.title)\n" }
-//		text += "\n## Enums\n" + docController.enumsIndex.reduce("") { $0 + "\($1.title)\n" }
-//		text += "\n## Protocols\n" + docController.protocolsIndex.reduce("") { $0 + "\($1.title)\n" }
-//		text += "\n## Extensions\n" + docController.extensionsIndex.reduce("") { $0 + "\($1.title)\n" }
-//		text += "\n## Global Funcs\n" + docController.globalFuncsIndex.reduce("") { $0 + "\($1.title)\n" }
-//		text += "\n## Type Aliases\n" + docController.typealiasIndex.reduce("") { $0 + "\($1.title)\n" }
-		let index = docController.markdownIndex()
-		let text = docController.topLevelIndex.map { docController.markdownPage(for: $0) }.joined(separator: "\n\n\n")
-//		let text = markdownGen.generateMarkdownDocumentString(fromRootDocItem: docController.classesIndex[0])
+		let index = docController.markdownIndex(with: .singlePage)
+		var text = docController.topLevelIndex.map { docController.markdownPage(for: $0) }.joined(separator: "\n\n\n")
+		text = index + "\n\n" + text
+		text = text.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
+//		text = text.replacingOccurrences(of: "\n", with: ##"\n"##)
+		text = String.htmlOutputBefore + text + String.htmlOutputAfter
 		DispatchQueue.main.async {
-			self.outputText.string = index + "\n\n" + text
+
+			self.outputText.string = text
 		}
 		print("Finished!")
 	}

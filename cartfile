@@ -1,3 +1,4 @@
 github "jpsim/SourceKitten"
 github "markedjs/marked"
 github "cure53/DOMPurify"
+github "jasonm23/markdown-css-themes" "gh-pages"

@@ -34,6 +34,8 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 			return false
 		}
 
+		static let topLevelCases: [Kind] = [.extension, .enum, .class, .struct, .protocol, .globalFunc, .typealias]
+
 		var stringValue: String {
 			switch self {
 			case .extension: return "extension"

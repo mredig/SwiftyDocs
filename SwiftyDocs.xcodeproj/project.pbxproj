@@ -30,10 +30,26 @@
 		33BDD05922CD0BAF0007ABF4 /* DocScrapeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */; };
 		33BDD05D22CD2FE00007ABF4 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05C22CD2FE00007ABF4 /* Accessibility.swift */; };
 		33BDD06122CD53830007ABF4 /* Array+SwiftDocItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD06022CD53830007ABF4 /* Array+SwiftDocItem.swift */; };
-		33BDD06522CD60F30007ABF4 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD06422CD60F30007ABF4 /* TODO.md */; };
 		33BDD06722CD73470007ABF4 /* MarkdownGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD06622CD73470007ABF4 /* MarkdownGenerator.swift */; };
 		33BDD06922CDC1070007ABF4 /* marked.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD06822CDC1070007ABF4 /* marked.min.js */; };
 		33BDD06C22CDCA6F0007ABF4 /* purify.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD06A22CDCA6F0007ABF4 /* purify.min.js */; };
+		33BDD06F22CDD1CF0007ABF4 /* purify.min.js.map in Copy Dependencies */ = {isa = PBXBuildFile; fileRef = 33BDD06B22CDCA6F0007ABF4 /* purify.min.js.map */; };
+		33BDD0AC22CDD3720007ABF4 /* swiss.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD09C22CDD3720007ABF4 /* swiss.css */; };
+		33BDD0AD22CDD3720007ABF4 /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD09D22CDD3720007ABF4 /* markdown.css */; };
+		33BDD0AE22CDD3720007ABF4 /* markdown9.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD09E22CDD3720007ABF4 /* markdown9.css */; };
+		33BDD0AF22CDD3720007ABF4 /* avenir-white.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD09F22CDD3720007ABF4 /* avenir-white.css */; };
+		33BDD0B022CDD3720007ABF4 /* markdown2.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A022CDD3720007ABF4 /* markdown2.css */; };
+		33BDD0B122CDD3720007ABF4 /* markdown5.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A122CDD3720007ABF4 /* markdown5.css */; };
+		33BDD0B222CDD3720007ABF4 /* markdown6.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A222CDD3720007ABF4 /* markdown6.css */; };
+		33BDD0B322CDD3720007ABF4 /* markdown10.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A322CDD3720007ABF4 /* markdown10.css */; };
+		33BDD0B422CDD3720007ABF4 /* markdown1.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A422CDD3720007ABF4 /* markdown1.css */; };
+		33BDD0B522CDD3720007ABF4 /* screen.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A522CDD3720007ABF4 /* screen.css */; };
+		33BDD0B622CDD3720007ABF4 /* markdown-alt.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A622CDD3720007ABF4 /* markdown-alt.css */; };
+		33BDD0B722CDD3720007ABF4 /* markdown4.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A722CDD3720007ABF4 /* markdown4.css */; };
+		33BDD0B822CDD3720007ABF4 /* markdown8.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A822CDD3720007ABF4 /* markdown8.css */; };
+		33BDD0B922CDD3720007ABF4 /* markdown7.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0A922CDD3720007ABF4 /* markdown7.css */; };
+		33BDD0BA22CDD3720007ABF4 /* markdown3.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0AA22CDD3720007ABF4 /* markdown3.css */; };
+		33BDD0BB22CDD3720007ABF4 /* foghorn.css in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD0AB22CDD3720007ABF4 /* foghorn.css */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +88,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		33BDD06E22CDD1C50007ABF4 /* Copy Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				33BDD06F22CDD1CF0007ABF4 /* purify.min.js.map in Copy Dependencies */,
+			);
+			name = "Copy Dependencies";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +132,22 @@
 		33BDD06822CDC1070007ABF4 /* marked.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = marked.min.js; path = "SwiftyDocs/Resources/JavaScript Files/marked.min.js"; sourceTree = SOURCE_ROOT; };
 		33BDD06A22CDCA6F0007ABF4 /* purify.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = purify.min.js; path = "SwiftyDocs/Resources/JavaScript Files/purify.min.js"; sourceTree = SOURCE_ROOT; };
 		33BDD06B22CDCA6F0007ABF4 /* purify.min.js.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = purify.min.js.map; path = "SwiftyDocs/Resources/JavaScript Files/purify.min.js.map"; sourceTree = SOURCE_ROOT; };
+		33BDD09C22CDD3720007ABF4 /* swiss.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = swiss.css; path = "Carthage/Checkouts/markdown-css-themes/swiss.css"; sourceTree = SOURCE_ROOT; };
+		33BDD09D22CDD3720007ABF4 /* markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown.css; path = "Carthage/Checkouts/markdown-css-themes/markdown.css"; sourceTree = SOURCE_ROOT; };
+		33BDD09E22CDD3720007ABF4 /* markdown9.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown9.css; path = "Carthage/Checkouts/markdown-css-themes/markdown9.css"; sourceTree = SOURCE_ROOT; };
+		33BDD09F22CDD3720007ABF4 /* avenir-white.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "avenir-white.css"; path = "Carthage/Checkouts/markdown-css-themes/avenir-white.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A022CDD3720007ABF4 /* markdown2.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown2.css; path = "Carthage/Checkouts/markdown-css-themes/markdown2.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A122CDD3720007ABF4 /* markdown5.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown5.css; path = "Carthage/Checkouts/markdown-css-themes/markdown5.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A222CDD3720007ABF4 /* markdown6.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown6.css; path = "Carthage/Checkouts/markdown-css-themes/markdown6.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A322CDD3720007ABF4 /* markdown10.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown10.css; path = "Carthage/Checkouts/markdown-css-themes/markdown10.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A422CDD3720007ABF4 /* markdown1.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown1.css; path = "Carthage/Checkouts/markdown-css-themes/markdown1.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A522CDD3720007ABF4 /* screen.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = screen.css; path = "Carthage/Checkouts/markdown-css-themes/screen.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A622CDD3720007ABF4 /* markdown-alt.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "markdown-alt.css"; path = "Carthage/Checkouts/markdown-css-themes/markdown-alt.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A722CDD3720007ABF4 /* markdown4.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown4.css; path = "Carthage/Checkouts/markdown-css-themes/markdown4.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A822CDD3720007ABF4 /* markdown8.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown8.css; path = "Carthage/Checkouts/markdown-css-themes/markdown8.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0A922CDD3720007ABF4 /* markdown7.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown7.css; path = "Carthage/Checkouts/markdown-css-themes/markdown7.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0AA22CDD3720007ABF4 /* markdown3.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown3.css; path = "Carthage/Checkouts/markdown-css-themes/markdown3.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0AB22CDD3720007ABF4 /* foghorn.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = foghorn.css; path = "Carthage/Checkouts/markdown-css-themes/foghorn.css"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +240,7 @@
 		33BDD02322CBEBA80007ABF4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				33BDD07022CDD2740007ABF4 /* CSS Files */,
 				33BDD06D22CDCA750007ABF4 /* JavaScript Files */,
 				33BDCFE822CBDD200007ABF4 /* Assets.xcassets */,
 				33BDCFEA22CBDD200007ABF4 /* Main.storyboard */,
@@ -253,6 +297,29 @@
 			path = "JavaScript Files";
 			sourceTree = "<group>";
 		};
+		33BDD07022CDD2740007ABF4 /* CSS Files */ = {
+			isa = PBXGroup;
+			children = (
+				33BDD09F22CDD3720007ABF4 /* avenir-white.css */,
+				33BDD0AB22CDD3720007ABF4 /* foghorn.css */,
+				33BDD0A622CDD3720007ABF4 /* markdown-alt.css */,
+				33BDD09D22CDD3720007ABF4 /* markdown.css */,
+				33BDD0A422CDD3720007ABF4 /* markdown1.css */,
+				33BDD0A022CDD3720007ABF4 /* markdown2.css */,
+				33BDD0AA22CDD3720007ABF4 /* markdown3.css */,
+				33BDD0A722CDD3720007ABF4 /* markdown4.css */,
+				33BDD0A122CDD3720007ABF4 /* markdown5.css */,
+				33BDD0A222CDD3720007ABF4 /* markdown6.css */,
+				33BDD0A922CDD3720007ABF4 /* markdown7.css */,
+				33BDD0A822CDD3720007ABF4 /* markdown8.css */,
+				33BDD09E22CDD3720007ABF4 /* markdown9.css */,
+				33BDD0A322CDD3720007ABF4 /* markdown10.css */,
+				33BDD0A522CDD3720007ABF4 /* screen.css */,
+				33BDD09C22CDD3720007ABF4 /* swiss.css */,
+			);
+			path = "CSS Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -265,6 +332,7 @@
 				33BDCFDF22CBDD1E0007ABF4 /* Resources */,
 				33BDD00D22CBDDFD0007ABF4 /* Embed Frameworks */,
 				33BDD01022CBDE1A0007ABF4 /* CopyFiles */,
+				33BDD06E22CDD1C50007ABF4 /* Copy Dependencies */,
 			);
 			buildRules = (
 			);
@@ -341,12 +409,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33BDD0AE22CDD3720007ABF4 /* markdown9.css in Resources */,
+				33BDD0B522CDD3720007ABF4 /* screen.css in Resources */,
+				33BDD0BA22CDD3720007ABF4 /* markdown3.css in Resources */,
+				33BDD0B222CDD3720007ABF4 /* markdown6.css in Resources */,
 				33BDD06922CDC1070007ABF4 /* marked.min.js in Resources */,
-				33BDD06522CD60F30007ABF4 /* TODO.md in Resources */,
+				33BDD0AC22CDD3720007ABF4 /* swiss.css in Resources */,
+				33BDD0B322CDD3720007ABF4 /* markdown10.css in Resources */,
 				33BDCFE922CBDD200007ABF4 /* Assets.xcassets in Resources */,
+				33BDD0AF22CDD3720007ABF4 /* avenir-white.css in Resources */,
+				33BDD0B622CDD3720007ABF4 /* markdown-alt.css in Resources */,
 				33BDCFEC22CBDD200007ABF4 /* Main.storyboard in Resources */,
 				33BDD00322CBDD2C0007ABF4 /* cartfile in Resources */,
 				33BDD06C22CDCA6F0007ABF4 /* purify.min.js in Resources */,
+				33BDD0B722CDD3720007ABF4 /* markdown4.css in Resources */,
+				33BDD0B922CDD3720007ABF4 /* markdown7.css in Resources */,
+				33BDD0B822CDD3720007ABF4 /* markdown8.css in Resources */,
+				33BDD0AD22CDD3720007ABF4 /* markdown.css in Resources */,
+				33BDD0B022CDD3720007ABF4 /* markdown2.css in Resources */,
+				33BDD0B422CDD3720007ABF4 /* markdown1.css in Resources */,
+				33BDD0BB22CDD3720007ABF4 /* foghorn.css in Resources */,
+				33BDD0B122CDD3720007ABF4 /* markdown5.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

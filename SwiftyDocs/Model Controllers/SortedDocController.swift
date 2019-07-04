@@ -163,14 +163,86 @@ class SwiftDocItemController {
 		return output
 	}
 
+	// MARK: - Saving
+
+	enum SaveFormat {
+		case markdown
+		case html
+	}
+
+	func saveSingleFile(to path: URL, format: SaveFormat) {
+		let index = markdownIndex(with: .singlePage)
+		var text = topLevelIndex.map { markdownPage(for: $0) }.joined(separator: "\n\n\n")
+		text = index + "\n\n" + text
+		if format == .html {
+			text = text.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
+			text = String.htmlOutputBefore + text + String.htmlOutputAfter
+		}
+
+		var outPath = path
+		switch format {
+		case .html:
+			saveDependencyPackage(to: outPath, linkStyle: .singlePage)
+			outPath.appendPathComponent("index")
+			outPath.appendPathExtension("html")
+		case .markdown:
+			outPath.appendPathExtension("md")
+		}
+
+		do {
+			try text.write(to: outPath, atomically: true, encoding: .utf8)
+		} catch {
+			NSLog("Failed to save file: \(error)")
+		}
+	}
+
+	func saveDependencyPackage(to path: URL, linkStyle: MarkdownGenerator.LinkStyle) {
+		guard var jsURLs = Bundle.main.urls(forResourcesWithExtension: "js", subdirectory: nil, localization: nil) else { return }
+		guard let maps = Bundle.main.urls(forResourcesWithExtension: "map", subdirectory: nil, localization: nil) else { return }
+		jsURLs += maps
+
+		guard let cssURLs = Bundle.main.urls(forResourcesWithExtension: "css", subdirectory: nil, localization: nil) else { return }
+
+		let subdirs: [String]
+		switch linkStyle {
+		case .multiPage:
+			subdirs = (SwiftDocItem.Kind.topLevelCases.map { $0.stringValue }
+				.joined(separator: " ") + " css js")
+				.split(separator: " ")
+				.map { String($0) }
+		case .singlePage:
+			subdirs = "css js"
+				.split(separator: " ")
+				.map { String($0) }
+		}
+
+		let subdirURLs = [path] + subdirs.map { path.appendingPathComponent($0) }
+
+		let fm = FileManager.default
+		do {
+			for subdirURL in subdirURLs {
+				try fm.createDirectory(atPath: subdirURL.path, withIntermediateDirectories: true, attributes: nil)
+			}
+			for jsURL in jsURLs {
+				try fm.copyItem(at: jsURL, to: path.appendingPathComponent("js").appendingPathComponent(jsURL.lastPathComponent))
+			}
+			for cssURL in cssURLs {
+				try fm.copyItem(at: cssURL, to: path.appendingPathComponent("css").appendingPathComponent(cssURL.lastPathComponent))
+			}
+
+		} catch {
+			NSLog("Error creating dependency package: \(error)")
+		}
+	}
+
 	// MARK: - Markdown Generation
 
 	func markdownPage(for doc: SwiftDocItem) -> String {
 		return markdownGenerator.generateMarkdownDocumentString(fromRootDocItem: doc, minimumAccessibility: minimumAccessibility)
 	}
 
-	func markdownIndex() -> String {
-		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessibility: minimumAccessibility, linkStyle: .singlePage)
+	func markdownIndex(with linkStyle: MarkdownGenerator.LinkStyle) -> String {
+		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessibility: minimumAccessibility, linkStyle: linkStyle)
 	}
 
 	

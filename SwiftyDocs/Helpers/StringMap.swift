@@ -56,7 +56,7 @@ extension String {
 		<html>
 		<head>
 		<meta charset="utf-8"/>
-		<link rel="stylesheet" media="screen" type="text/css" href="markdown-css-themes-gh-pages/markdown-alt.css">
+		<link rel="stylesheet" media="screen" type="text/css" href="css/markdown-alt.css">
 		<title>Marked in the browser</title>
 		</head>
 		<body>
@@ -65,8 +65,8 @@ extension String {
 	static let htmlOutputAfter = """
 		</div>
 		<div id="content" class="markdown-body"></div>
-		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-		<script src="purify.min.js"></script>
+		<script src="js/marked.min.js"></script>
+		<script src="js/purify.min.js"></script>
 		<script>
 		var sourceString = document.getElementById('sourceContent').innerHTML
 
