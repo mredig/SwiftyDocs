@@ -64,7 +64,8 @@ class ViewController: NSViewController {
 //		text += "\n## Global Funcs\n" + docController.globalFuncsIndex.reduce("") { $0 + "\($1.title)\n" }
 //		text += "\n## Type Aliases\n" + docController.typealiasIndex.reduce("") { $0 + "\($1.title)\n" }
 		let markdownGen = MarkdownGenerator()
-		let text = markdownGen.generateMarkdownDocumentString(fromRootDocItem: docController.classesIndex[0])
+		let text = docController.topLevelIndex.map { markdownGen.generateMarkdownDocumentString(fromRootDocItem: $0) }.joined(separator: "\n\n\n")
+//		let text = markdownGen.generateMarkdownDocumentString(fromRootDocItem: docController.classesIndex[0])
 		DispatchQueue.main.async {
 			self.outputText.string = text
 		}

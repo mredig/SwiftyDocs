@@ -32,6 +32,10 @@ class SwiftDocItemController {
 	var typealiasIndex: [SwiftDocItem] {
 		return search(forTitle: nil, ofKind: .typealias, withMinimumAccessibility: minimumAccessibility)
 	}
+
+	var topLevelIndex: [SwiftDocItem] {
+		return classesIndex + structsIndex + enumsIndex + protocolsIndex + extensionsIndex + globalFuncsIndex + typealiasIndex
+	}
 	
 
 	var minimumAccessibility = Accessibility.internal

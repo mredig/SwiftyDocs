@@ -38,7 +38,7 @@ class MarkdownGenerator {
 			}
 		}
 
-		var markdownOut = "\(docHeader)\n\(type)\n\(declaration)\n\n\(discussion)\n\n### Members\n\n"
+		var markdownOut = "\(docHeader)\n\(type)\n\(declaration)\n\n\(discussion)\n\n\((children.isEmpty ? "" : "___\n### Members\n\n"))"
 
 		for child in children {
 			markdownOut += "\(child.replacingOccurrences(of: "\n", with: "\n\t"))\n\n"
