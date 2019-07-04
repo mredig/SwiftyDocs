@@ -300,6 +300,9 @@ class SwiftDocItemController {
 
 		let fm = FileManager.default
 		do {
+			if fm.fileExists(atPath: path.path) {
+				try fm.removeItem(at: path)
+			}
 			for subdirURL in subdirURLs {
 				try fm.createDirectory(atPath: subdirURL.path, withIntermediateDirectories: true, attributes: nil)
 			}
