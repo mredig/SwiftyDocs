@@ -1,5 +1,5 @@
 //
-//  Accessibility.swift
+//  AccessControl.swift
 //  SwiftyDocs
 //
 //  Created by Michael Redig on 7/3/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Accessibility: Int, Hashable, Comparable, CaseIterable {
+enum AccessControl: Int, Hashable, Comparable, CaseIterable {
 
 	case `private`
 	case `fileprivate`
@@ -16,7 +16,7 @@ enum Accessibility: Int, Hashable, Comparable, CaseIterable {
 	case `public`
 	case `open`
 
-	static func < (lhs: Accessibility, rhs: Accessibility) -> Bool {
+	static func < (lhs: AccessControl, rhs: AccessControl) -> Bool {
 		return lhs.rawValue < rhs.rawValue
 	}
 
@@ -30,7 +30,7 @@ enum Accessibility: Int, Hashable, Comparable, CaseIterable {
 		}
 	}
 
-	static func createFrom(string: String) -> Accessibility {
+	static func createFrom(string: String) -> AccessControl {
 		switch string.lowercased() {
 		case "private": return .private
 		case "fileprivate": return .fileprivate

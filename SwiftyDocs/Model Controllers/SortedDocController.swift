@@ -42,7 +42,7 @@ class SwiftDocItemController {
 		return topLevelIndex.filter { $0.accessibility >= minimumAccessibility }
 	}
 
-	var minimumAccessibility = Accessibility.internal
+	var minimumAccessibility = AccessControl.internal
 
 	var projectURL: URL?
 	var projectDirectoryURL: URL? {
@@ -192,7 +192,7 @@ class SwiftDocItemController {
 		scrapeQueue.addOperations([docScrapeOp, docFilesOp], waitUntilFinished: false)
 	}
 
-	func search(forTitle title: String?, ofKind kind: TypeKind?, withMinimumAccessibility minimumAccessibility: Accessibility = .internal) -> [SwiftDocItem] {
+	func search(forTitle title: String?, ofKind kind: TypeKind?, withMinimumAccessibility minimumAccessibility: AccessControl = .internal) -> [SwiftDocItem] {
 		var output = docs.enumeratedChildren().filter { $0.accessibility >= minimumAccessibility }
 
 		if let title = title {

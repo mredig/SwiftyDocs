@@ -10,7 +10,7 @@ import Foundation
 
 class MarkdownGenerator {
 
-	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessibility: Accessibility) -> String {
+	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessibility: AccessControl) -> String {
 		let docHeader = "## \(swiftDocItem.title)"
 		let type = "***\(swiftDocItem.accessibility.stringValue)*** *\(swiftDocItem.kind.stringValue)*"
 		let declaration = """
@@ -51,7 +51,7 @@ class MarkdownGenerator {
 		return markdownOut
 	}
 
-	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessibility: Accessibility, linkStyle: OutputStyle) -> String {
+	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessibility: AccessControl, linkStyle: OutputStyle) -> String {
 
 		var markOut = ""
 		var links = ""

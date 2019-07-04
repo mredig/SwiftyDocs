@@ -114,10 +114,10 @@ class SwiftDocViewController: NSViewController {
 extension SwiftDocViewController {
 	func setupMinAccessLevelPopUp() {
 		accessLevelPopUp.removeAllItems()
-		for level in Accessibility.allCases {
+		for level in AccessControl.allCases {
 			accessLevelPopUp.addItem(withTitle: level.stringValue)
 		}
-		accessLevelPopUp.selectItem(withTitle: Accessibility.internal.stringValue)
+		accessLevelPopUp.selectItem(withTitle: AccessControl.internal.stringValue)
 	}
 
 	func setupSelectedItems() {
@@ -156,7 +156,7 @@ extension SwiftDocViewController {
 
 	@IBAction func minimumAccessLevelPopUpChanged(_ sender: NSPopUpButton) {
 		guard let str = sender.selectedItem?.title else { return }
-		let accessLevel = Accessibility.createFrom(string: str)
+		let accessLevel = AccessControl.createFrom(string: str)
 		docController.minimumAccessibility = accessLevel
 		setupSelectedItems()
 		print(accessLevel)
