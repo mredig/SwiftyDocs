@@ -11,11 +11,19 @@ import SourceKittenFramework
 
 class SwiftDocViewController: NSViewController {
 
+	@IBOutlet var formatPopUp: NSPopUpButton!
+	@IBOutlet var fileCountPopUp: NSPopUpButton!
+	@IBOutlet var selectedItemsPopUp: NSPopUpButton!
+	@IBOutlet var accessLevelPopUp: NSPopUpButton!
+	@IBOutlet var projectTitleTextField: NSTextField!
 	@IBOutlet var loadProjectButton: NSButton!
 	@IBOutlet var progressIndicator: NSProgressIndicator!
 
-	var directoryURL: URL?
 	let docController = SwiftDocItemController()
+
+	override func viewWillAppear() {
+		updateViews()
+	}
 
 	@IBAction func openMenuItemPressed(_ sender: NSMenuItem) {
 		openProjectDialog()
@@ -42,9 +50,9 @@ class SwiftDocViewController: NSViewController {
 				guard let fileURL = openPanel.url else { fatalError("Open dialog didn't include a file URL") }
 
 				let projectDir = fileURL.deletingLastPathComponent()
-				self.directoryURL = projectDir
+				self.docController.projectURL = fileURL
 				self.docController.clear()
-				self.docController.getDocs(fromPath: projectDir.path, completion: self.getSourceDocs)
+				self.docController.getDocs(fromPath: projectDir.path, completion: self.openProjectFinished)
 				self.progressIndicator.startAnimation(nil)
 				self.loadProjectButton.isEnabled = false
 			}
@@ -67,15 +75,32 @@ class SwiftDocViewController: NSViewController {
 		}
 	}
 
-	func getSourceDocs() {
-		let index = docController.markdownIndex(with: .singlePage)
-		var text = docController.topLevelIndex.map { docController.markdownPage(for: $0) }.joined(separator: "\n\n\n")
-		text = index + "\n\n" + text
-		DispatchQueue.main.async {
+	func updateViews() {
+		setItemsEnabled(to: !docController.docs.isEmpty)
+	}
+
+	func setItemsEnabled(to enabled: Bool) {
+		formatPopUp.isEnabled = enabled
+		fileCountPopUp.isEnabled = enabled
+		selectedItemsPopUp.isEnabled = enabled
+		accessLevelPopUp.isEnabled = enabled
+		projectTitleTextField.isEnabled = enabled
+	}
+
+	func openProjectFinished() {
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else { return }
 			self.progressIndicator.stopAnimation(nil)
 			self.loadProjectButton.isEnabled = true
+			self.updateViews()
+			self.updateTitleField()
 		}
-		print("Finished!")
+	}
+
+	func updateTitleField() {
+		guard let title = docController.projectTitle else { return }
+		guard let readme = docController.projectReadmeURL else { return }
+		projectTitleTextField.stringValue = title + readme.path
 	}
 }
 

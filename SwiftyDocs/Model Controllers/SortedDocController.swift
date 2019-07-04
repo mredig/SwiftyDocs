@@ -41,6 +41,40 @@ class SwiftDocItemController {
 
 	var minimumAccessibility = Accessibility.internal
 
+	var projectURL: URL?
+	var projectDirectoryURL: URL? {
+		return projectURL?.deletingLastPathComponent()
+	}
+	var projectReadmeURL: URL? {
+		guard let directoryURL = projectDirectoryURL else { return nil }
+		do {
+			let contents = try FileManager.default.contentsOfDirectory(atPath: directoryURL.path)
+			let lcContents: [(original: String, lowercase: String)] = contents.map { ($0, $0.lowercased()) }
+			let readmeMarkdown = lcContents.first { (original: String, lowercase: String) -> Bool in
+				let exists = lowercase == "readme.md"
+				return exists
+			}
+			let readmeNoMarkdown = lcContents.first { (original: String, lowercase: String) -> Bool in
+				let exists = lowercase == "readme"
+				return exists
+			}
+
+			if let readmeMarkdown = readmeMarkdown {
+				return directoryURL.appendingPathComponent(readmeMarkdown.original)
+			}
+			if let readmeNoMarkdown = readmeNoMarkdown {
+				return directoryURL.appendingPathComponent(readmeNoMarkdown.original)
+			}
+
+		} catch {
+			NSLog("Error getting project directory files: \(error)")
+		}
+		return nil
+	}
+	var projectTitle: String? {
+		return projectURL?.deletingPathExtension().lastPathComponent
+	}
+
 	private let markdownGenerator = MarkdownGenerator()
 
 	private let scrapeQueue: OperationQueue = {
