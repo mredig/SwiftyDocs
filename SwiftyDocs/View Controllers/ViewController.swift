@@ -56,13 +56,15 @@ class ViewController: NSViewController {
 	}
 
 	func getSourceDocs() {
-		var text = "## Classes\n" + docController.classesIndex.reduce("") { $0 + "\($1.title)\n" }//.description//docs.description
-		text += "\n## Structs\n" + docController.structsIndex.reduce("") { $0 + "\($1.title)\n" }
-		text += "\n## Enums\n" + docController.enumsIndex.reduce("") { $0 + "\($1.title)\n" }
-		text += "\n## Protocols\n" + docController.protocolsIndex.reduce("") { $0 + "\($1.title)\n" }
-		text += "\n## Extensions\n" + docController.extensionsIndex.reduce("") { $0 + "\($1.title)\n" }
-		text += "\n## Global Funcs\n" + docController.globalFuncsIndex.reduce("") { $0 + "\($1.title)\n" }
-		text += "\n## Type Aliases\n" + docController.typealiasIndex.reduce("") { $0 + "\($1.title)\n" }
+//		var text = "## Classes\n" + docController.classesIndex.reduce("") { $0 + "\($1.title)\n" }//.description//docs.description
+//		text += "\n## Structs\n" + docController.structsIndex.reduce("") { $0 + "\($1.title)\n" }
+//		text += "\n## Enums\n" + docController.enumsIndex.reduce("") { $0 + "\($1.title)\n" }
+//		text += "\n## Protocols\n" + docController.protocolsIndex.reduce("") { $0 + "\($1.title)\n" }
+//		text += "\n## Extensions\n" + docController.extensionsIndex.reduce("") { $0 + "\($1.title)\n" }
+//		text += "\n## Global Funcs\n" + docController.globalFuncsIndex.reduce("") { $0 + "\($1.title)\n" }
+//		text += "\n## Type Aliases\n" + docController.typealiasIndex.reduce("") { $0 + "\($1.title)\n" }
+		let markdownGen = MarkdownGenerator()
+		let text = markdownGen.generateMarkdownDocumentString(fromRootDocItem: docController.classesIndex[0])
 		DispatchQueue.main.async {
 			self.outputText.string = text
 		}
