@@ -81,8 +81,12 @@ class SwiftDocViewController: NSViewController {
 			guard let self = self else { return }
 			if result == NSApplication.ModalResponse.OK {
 				guard let saveURL = savePanel.url else { return }
-//				self.docController.saveSingleFile(to: saveURL, format: .html)
-				self.docController.saveMultifile(to: saveURL, format: .html)
+
+				guard let format = self.getSaveFormat(),
+					let style = self.getOutputStyle()
+					else { return }
+
+				self.docController.save(with: style, to: saveURL, in: format)
 			}
 		}
 	}
@@ -131,7 +135,7 @@ extension SwiftDocViewController: NSMenuItemValidation {
 	}
 }
 
-// MARK: - IB Stuff
+// MARK: - IB customization Stuff
 extension SwiftDocViewController {
 	@IBAction func projectTitleUpdated(_ sender: NSTextField) {
 		docController.projectTitle = sender.stringValue
@@ -218,5 +222,17 @@ extension SwiftDocViewController {
 			outputIWantLabel.stringValue = "I want a"
 			outputFileLabel.stringValue = "file"
 		}
+	}
+
+	private func getOutputStyle() -> OutputStyle? {
+		guard let selectedText = fileCountPopUp.selectedItem?.title else { return nil }
+		guard let output = OutputStyle(rawValue: selectedText) else { return nil }
+		return output
+	}
+
+	private func getSaveFormat() -> SaveFormat? {
+		guard let selectedText = formatPopUp.selectedItem?.title else { return nil }
+		guard let saveStyle = SaveFormat(rawValue: selectedText) else { return nil }
+		return saveStyle
 	}
 }
