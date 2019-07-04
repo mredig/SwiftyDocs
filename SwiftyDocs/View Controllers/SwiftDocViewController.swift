@@ -20,6 +20,7 @@ class SwiftDocViewController: NSViewController {
 	@IBOutlet var progressIndicator: NSProgressIndicator!
 
 	let docController = SwiftDocItemController()
+	private var isLoadingFile = false
 
 	override func viewDidLoad() {
 		setupMinAccessLevelPopUp()
@@ -57,6 +58,7 @@ class SwiftDocViewController: NSViewController {
 				let projectDir = fileURL.deletingLastPathComponent()
 				self.docController.projectURL = fileURL
 				self.docController.clear()
+				self.isLoadingFile = true
 				self.docController.getDocs(fromPath: projectDir.path, completion: self.openProjectFinished)
 				self.progressIndicator.startAnimation(nil)
 				self.loadProjectButton.isEnabled = false
@@ -94,6 +96,7 @@ class SwiftDocViewController: NSViewController {
 	}
 
 	func openProjectFinished() {
+		isLoadingFile = false
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else { return }
 			self.progressIndicator.stopAnimation(nil)
@@ -107,6 +110,19 @@ class SwiftDocViewController: NSViewController {
 
 	func updateTitleField() {
 		projectTitleTextField.stringValue = docController.projectTitle
+	}
+}
+
+extension SwiftDocViewController: NSMenuItemValidation {
+	func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+		switch menuItem.title.lowercased() {
+		case "open…":
+			return !isLoadingFile
+		case "save…":
+			return docController.projectDirectoryURL != nil
+		default:
+			return false
+		}
 	}
 }
 
