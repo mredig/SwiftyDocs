@@ -68,7 +68,7 @@ class MarkdownGenerator {
 			markOut += "* [\(item.title)][\(index)]\n"
 			switch linkStyle {
 			case .singlePage:
-				let linkValue = (item.title as NSString).addingPercentEncoding(withAllowedCharacters: charSet) ?? item.title
+				let linkValue = item.title.lowercased().replacingOccurrences(of: ##"\W"##, with: "", options: .regularExpression, range: nil)
 				links += "[\(index)]:#\(linkValue)\n"
 			case .multiPage:
 				let linkValue = item.title.replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)

@@ -51,6 +51,47 @@ extension String {
 		"source.decl.attribute.prefix": "prefix",
 	]
 
+	static let htmlOutputBefore = """
+		<!doctype html>
+		<html>
+		<head>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" media="screen" type="text/css" href="markdown-css-themes-gh-pages/markdown-alt.css">
+		<title>Marked in the browser</title>
+		</head>
+		<body>
+		<div id="sourceContent" style="display: none ">
+		"""
+	static let htmlOutputAfter = """
+		</div>
+		<div id="content" class="markdown-body"></div>
+		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+		<script src="purify.min.js"></script>
+		<script>
+		var sourceString = document.getElementById('sourceContent').innerHTML
+
+		// Let marked do its normal token generation.
+		tokens = marked.lexer( sourceString );
+
+		// Mark all code blocks as already being escaped.
+		// This prevents the parser from encoding anything inside code blocks
+		tokens.forEach(function( token ) {
+			if ( token.type === "code" ) {
+				token.escaped = true;
+			}
+		});
+
+		// Let marked do its normal parsing, but without encoding the code blocks
+		var markedDown = marked.parser( tokens );
+		markedDown = DOMPurify.sanitize(markedDown);
+		document.getElementById('content').innerHTML = markedDown;
+
+		console.log("removed", DOMPurify.removed);
+		</script>
+		</body>
+		</html>
+		"""
+
 	func shortenSwiftDocClassificationString(useInterpretation: Bool = false) -> String {
 		let rStr = String.mappings[self, default: ""]
 		if rStr.isEmpty {

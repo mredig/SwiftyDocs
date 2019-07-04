@@ -32,6 +32,8 @@
 		33BDD06122CD53830007ABF4 /* Array+SwiftDocItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD06022CD53830007ABF4 /* Array+SwiftDocItem.swift */; };
 		33BDD06522CD60F30007ABF4 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD06422CD60F30007ABF4 /* TODO.md */; };
 		33BDD06722CD73470007ABF4 /* MarkdownGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD06622CD73470007ABF4 /* MarkdownGenerator.swift */; };
+		33BDD06922CDC1070007ABF4 /* marked.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD06822CDC1070007ABF4 /* marked.min.js */; };
+		33BDD06C22CDCA6F0007ABF4 /* purify.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD06A22CDCA6F0007ABF4 /* purify.min.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,9 @@
 		33BDD06022CD53830007ABF4 /* Array+SwiftDocItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SwiftDocItem.swift"; sourceTree = "<group>"; };
 		33BDD06422CD60F30007ABF4 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		33BDD06622CD73470007ABF4 /* MarkdownGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownGenerator.swift; sourceTree = "<group>"; };
+		33BDD06822CDC1070007ABF4 /* marked.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = marked.min.js; path = "SwiftyDocs/Resources/JavaScript Files/marked.min.js"; sourceTree = SOURCE_ROOT; };
+		33BDD06A22CDCA6F0007ABF4 /* purify.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = purify.min.js; path = "SwiftyDocs/Resources/JavaScript Files/purify.min.js"; sourceTree = SOURCE_ROOT; };
+		33BDD06B22CDCA6F0007ABF4 /* purify.min.js.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = purify.min.js.map; path = "SwiftyDocs/Resources/JavaScript Files/purify.min.js.map"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +197,7 @@
 		33BDD02322CBEBA80007ABF4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				33BDD06D22CDCA750007ABF4 /* JavaScript Files */,
 				33BDCFE822CBDD200007ABF4 /* Assets.xcassets */,
 				33BDCFEA22CBDD200007ABF4 /* Main.storyboard */,
 				33BDCFED22CBDD200007ABF4 /* Info.plist */,
@@ -235,6 +241,16 @@
 				33BDD06622CD73470007ABF4 /* MarkdownGenerator.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		33BDD06D22CDCA750007ABF4 /* JavaScript Files */ = {
+			isa = PBXGroup;
+			children = (
+				33BDD06822CDC1070007ABF4 /* marked.min.js */,
+				33BDD06A22CDCA6F0007ABF4 /* purify.min.js */,
+				33BDD06B22CDCA6F0007ABF4 /* purify.min.js.map */,
+			);
+			path = "JavaScript Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,10 +341,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33BDD06922CDC1070007ABF4 /* marked.min.js in Resources */,
 				33BDD06522CD60F30007ABF4 /* TODO.md in Resources */,
 				33BDCFE922CBDD200007ABF4 /* Assets.xcassets in Resources */,
 				33BDCFEC22CBDD200007ABF4 /* Main.storyboard in Resources */,
 				33BDD00322CBDD2C0007ABF4 /* cartfile in Resources */,
+				33BDD06C22CDCA6F0007ABF4 /* purify.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

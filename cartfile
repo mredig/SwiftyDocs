@@ -1,1 +1,3 @@
 github "jpsim/SourceKitten"
+github "markedjs/marked"
+github "cure53/DOMPurify"
