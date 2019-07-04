@@ -148,6 +148,7 @@
 		33BDD0A922CDD3720007ABF4 /* markdown7.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown7.css; path = "Carthage/Checkouts/markdown-css-themes/markdown7.css"; sourceTree = SOURCE_ROOT; };
 		33BDD0AA22CDD3720007ABF4 /* markdown3.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = markdown3.css; path = "Carthage/Checkouts/markdown-css-themes/markdown3.css"; sourceTree = SOURCE_ROOT; };
 		33BDD0AB22CDD3720007ABF4 /* foghorn.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = foghorn.css; path = "Carthage/Checkouts/markdown-css-themes/foghorn.css"; sourceTree = SOURCE_ROOT; };
+		33BDD0BC22CDE94F0007ABF4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +175,7 @@
 		33BDCFD822CBDD1E0007ABF4 = {
 			isa = PBXGroup;
 			children = (
+				33BDD0BC22CDE94F0007ABF4 /* README.md */,
 				33BDD06422CD60F30007ABF4 /* TODO.md */,
 				33BDD00222CBDD2C0007ABF4 /* cartfile */,
 				33BDCFE322CBDD1E0007ABF4 /* SwiftyDocs */,
