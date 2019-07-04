@@ -12,12 +12,15 @@ import SourceKittenFramework
 class SwiftDocViewController: NSViewController {
 
 	@IBOutlet var formatPopUp: NSPopUpButton!
-	@IBOutlet var fileCountPopUp: NSPopUpButton!
 	@IBOutlet var selectedItemsPopUp: NSPopUpButton!
 	@IBOutlet var accessLevelPopUp: NSPopUpButton!
 	@IBOutlet var projectTitleTextField: NSTextField!
 	@IBOutlet var loadProjectButton: NSButton!
 	@IBOutlet var progressIndicator: NSProgressIndicator!
+
+	@IBOutlet var fileCountPopUp: NSPopUpButton!
+	@IBOutlet var outputIWantLabel: NSTextField!
+	@IBOutlet var outputFileLabel: NSTextField!
 
 	let docController = SwiftDocItemController()
 	private var isLoadingFile = false
@@ -195,6 +198,25 @@ extension SwiftDocViewController {
 
 		for style in OutputStyle.allCases {
 			fileCountPopUp.addItem(withTitle: style.rawValue)
+		}
+		fileCountSelectorChanged(fileCountPopUp)
+	}
+
+	@IBAction func fileCountSelectorChanged(_ sender: NSPopUpButton) {
+		guard let selectedText = sender.selectedItem?.title else { return }
+		guard let output = OutputStyle(rawValue: selectedText) else { return }
+
+		updateOutputLabels(context: output)
+	}
+
+	private func updateOutputLabels(context: OutputStyle) {
+		switch context {
+		case .multiPage:
+			outputIWantLabel.stringValue = "I want"
+			outputFileLabel.stringValue = "files"
+		case .singlePage:
+			outputIWantLabel.stringValue = "I want a"
+			outputFileLabel.stringValue = "file"
 		}
 	}
 }

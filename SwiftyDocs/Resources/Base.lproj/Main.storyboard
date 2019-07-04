@@ -813,6 +813,9 @@
                                                         </items>
                                                     </menu>
                                                 </popUpButtonCell>
+                                                <connections>
+                                                    <action selector="fileCountSelectorChanged:" target="XfG-lQ-9wD" id="MHr-tg-OLs"/>
+                                                </connections>
                                             </popUpButton>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wAI-QL-EU2">
                                                 <rect key="frame" x="229" y="-3" width="159" height="25"/>
@@ -889,6 +892,8 @@
                         <outlet property="fileCountPopUp" destination="JJL-NI-kl5" id="RJ3-Sp-XBY"/>
                         <outlet property="formatPopUp" destination="wAI-QL-EU2" id="co7-5X-uMN"/>
                         <outlet property="loadProjectButton" destination="YvJ-A8-ynH" id="0Wy-Gb-VLp"/>
+                        <outlet property="outputFileLabel" destination="qUh-Co-0Tk" id="PiN-mn-sQE"/>
+                        <outlet property="outputIWantLabel" destination="iPL-H4-20Q" id="zAy-om-RAo"/>
                         <outlet property="progressIndicator" destination="jbE-xv-JKa" id="Oub-ru-faa"/>
                         <outlet property="projectTitleTextField" destination="xjh-Xq-yXq" id="lZR-Bn-kAt"/>
                         <outlet property="selectedItemsPopUp" destination="q92-2r-yOb" id="cPf-az-mdh"/>
