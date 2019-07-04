@@ -48,7 +48,11 @@ class MarkdownGenerator {
 		return markdownOut
 	}
 
-	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessibility: Accessibility) -> String {
+	enum LinkStyle {
+		case singlePage
+		case multiPage
+	}
+	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessibility: Accessibility, linkStyle: LinkStyle) -> String {
 
 		var markOut = ""
 		var links = ""
@@ -61,9 +65,16 @@ class MarkdownGenerator {
 				markOut += "#### \(currentTitle)\n\n"
 			}
 			let charSet = CharacterSet(charactersIn: "(:)").inverted
-			let linkValue = (item.title as NSString).addingPercentEncoding(withAllowedCharacters: charSet) ?? item.title
 			markOut += "* [\(item.title)][\(index)]\n"
-			links += "[\(index)]:#\(linkValue)\n"
+			switch linkStyle {
+			case .singlePage:
+				let linkValue = (item.title as NSString).addingPercentEncoding(withAllowedCharacters: charSet) ?? item.title
+				links += "[\(index)]:#\(linkValue)\n"
+			case .multiPage:
+				let linkValue = item.title.replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
+				let folderValue = currentTitle.lowercased().replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
+				links += "[\(index)]:\(folderValue)/\(linkValue).md\n"
+			}
 		}
 
 		return markOut + "\n\n" + links

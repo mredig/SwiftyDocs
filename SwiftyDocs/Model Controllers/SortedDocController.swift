@@ -170,7 +170,7 @@ class SwiftDocItemController {
 	}
 
 	func markdownIndex() -> String {
-		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessibility: minimumAccessibility)
+		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex, minimumAccessibility: minimumAccessibility, linkStyle: .singlePage)
 	}
 
 	
