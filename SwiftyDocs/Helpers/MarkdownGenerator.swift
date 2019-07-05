@@ -35,7 +35,7 @@ class MarkdownGenerator {
 							"""
 				let propSourceFile = "Found in\n* `\(property.sourceFile)`"
 
-				var outDown = "\(propTitle)\n\(propType)\n\n\(propDeclaration)\n\n\(propInfo)"
+				var outDown = "\(propTitle)\n\n\(propType)\n\n\(propDeclaration)\n\n\(propInfo)"
 				outDown += propSourceFile != docSourceFile ? "\n\n\(propSourceFile)" : ""
 
 				children.append(outDown)
@@ -51,7 +51,7 @@ class MarkdownGenerator {
 		return markdownOut
 	}
 
-	func generateMarkdownIndex(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: OutputStyle, format: SaveFormat) -> String {
+	func generateMarkdownContents(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: OutputStyle, format: SaveFormat) -> String {
 
 		var markOut = ""
 		var links = ""

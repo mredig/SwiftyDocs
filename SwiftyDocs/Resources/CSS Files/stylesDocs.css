@@ -1,0 +1,100 @@
+@import "reset.css";
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700&display=swap');
+
+body {
+	font: 14pt/22pt "Quicksand", Helvetica, Arial, sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	background-color: #999;
+	padding: 10px 20px;
+	font-weight: bold;
+	font-family: sans-serif;
+	color: #eee;
+	margin: 10px -10px;
+	font-family: Helvetica, Verdana, sans-serif;
+	background-overflow: visible;
+}
+
+h1,h2,h3,h4,h5,h6:first-of-type {
+	margin-top: 0;
+}
+
+h1,h2 {
+	border-bottom: 5px solid #ccc;
+}
+
+h1 {
+	font-size: 2em;
+}
+h2 {
+	font-size: 1.6em;
+}
+h3 {
+	font-size: 1.4em;
+}
+h4 {
+	font-size: 1.3em;
+}
+h5 {
+	font-size: 1.2em;
+}
+h6 {
+	font-size: 1.1em;
+}
+
+strong {
+	font-weight: 700;
+}
+
+em {
+	font-style: italic;
+	color: #66381C;
+}
+
+code {
+	border: 1px solid #ddd;
+	padding: 1px;
+}
+
+pre {
+	margin: 10px 20px;
+}
+
+pre code {
+	display: inline-block;
+	max-width: 95%;
+	padding: 3px 10px;
+	background-color: #eee;
+	overflow: auto;
+}
+
+pre, code {
+	font: 14pt/20pt "Courier New", Courier, monospace;
+}
+
+p {
+	display: block;
+}
+
+ul li {
+	display: block;
+	margin-bottom: 40px;
+	margin-left: 40px;
+	margin-right: 40px;
+	border-bottom: 5px solid #ccc;
+}
+
+ul li::first-line {
+	font-size: 1.5em;
+}
+
+ul li ul li, ul li ul li::first-line {
+	font-size: 1em;
+	border-style: none;
+	margin-bottom: 10px;
+}
+
+#content {
+	padding: 0px 20px;
+}

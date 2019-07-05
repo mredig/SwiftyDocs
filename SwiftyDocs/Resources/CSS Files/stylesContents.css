@@ -1,0 +1,83 @@
+@import "reset.css";
+
+body {
+	font-size: 14pt;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	background-color: #999;
+	padding: 10px 20px;
+	font-weight: bold;
+	font-family: sans-serif;
+	color: #eee;
+	margin: 10px 0px;
+	font-family: Helvetica, Verdana, sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6:first-of-type {
+	margin-top: 0;
+}
+
+h1 {
+	font-size: 2em;
+}
+h2 {
+	font-size: 1.6em;
+}
+h3 {
+	font-size: 1.4em;
+}
+h4 {
+	font-size: 1.3em;
+}
+h5 {
+	font-size: 1.2em;
+}
+h6 {
+	font-size: 1.1em;
+}
+
+ul {
+	list-style-type: none;
+	margin: 5px 10px;
+	padding: 0;
+}
+
+li {
+	font: 200 15px/1.5 Monaco, "Courier New", Courier, monospace;
+	border-bottom: 1px solid #ccc;
+	height: 200%;
+	margin: 5px 10px;
+	vertical-align: middle;
+}
+
+li:last-child {
+	border: none;
+}
+
+li a {
+	text-decoration: none;
+	color: #000;
+	vertical-align: middle;
+	letter-spacing: 0;
+	animation-name: mymoveBack;
+	animation-duration: 0.3s;
+}
+@keyframes mymove {
+  from {letter-spacing: 0em;}
+  to {letter-spacing: 0.1em;}
+}
+
+@keyframes mymoveBack {
+  from {letter-spacing: 0.1em;}
+  to {letter-spacing: 0em;}
+}
+li a:hover {
+	/*font-size: 110%;*/
+	letter-spacing: 0.1em;
+	animation-name: mymove;
+	animation-duration: 0.3s;
+}
+
+li a:
+

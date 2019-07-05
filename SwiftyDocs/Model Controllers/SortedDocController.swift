@@ -66,6 +66,9 @@ class SwiftDocItemController {
 				return exists
 			}
 
+			if let landingPage = landingPage {
+				return directoryURL.appendingPathComponent(landingPage.original)
+			}
 			if let readmeMarkdown = readmeMarkdown {
 				return directoryURL.appendingPathComponent(readmeMarkdown.original)
 			}
@@ -92,6 +95,7 @@ class SwiftDocItemController {
 	}
 
 	private let markdownGenerator = MarkdownGenerator()
+	private let htmlWrapper = HTMLWrapper()
 
 	private let scrapeQueue: OperationQueue = {
 		let queue = OperationQueue()
@@ -232,12 +236,12 @@ class SwiftDocItemController {
 	}
 
 	func saveSingleFile(to path: URL, format: SaveFormat) {
-		let index = markdownIndex(with: .singlePage, in: format)
+		let index = markdownContents(with: .singlePage, in: format)
 		var text = toplevelIndexMinAccess.map { markdownPage(for: $0) }.joined(separator: "\n\n\n")
 		text = index + "\n\n" + text
 		if format == .html {
 			text = text.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
-			text = wrapInHTML(withTitle: projectTitle, string: text, dependenciesUpDir: false)
+			text = htmlWrapper.wrapInHTML(markdownString: text, withTitle: projectTitle, cssFile: "stylesDocs", dependenciesUpDir: false)
 		}
 
 		var outPath = path
@@ -258,7 +262,8 @@ class SwiftDocItemController {
 	}
 
 	func saveMultifile(to path: URL, format: SaveFormat) {
-		var index = markdownIndex(with: .multiPage, in: format)
+		var contents = markdownContents(with: .multiPage, in: format)
+		var landingPageContents = getLandingPageContents()
 
 		saveDependencyPackage(to: path, linkStyle: .multiPage)
 
@@ -269,7 +274,7 @@ class SwiftDocItemController {
 			var markdown = markdownPage(for: $0)
 			if format == .html {
 				markdown = sanitizeForHTMLEmbedding(string: markdown)
-				markdown = wrapInHTML(withTitle: $0.title, string: markdown, dependenciesUpDir: true)
+				markdown = htmlWrapper.wrapInHTML(markdownString: markdown, withTitle: $0.title, cssFile: "stylesDocs", dependenciesUpDir: true)
 			}
 			let outPath = path
 				.appendingPathComponent($0.kind.stringValue.replacingNonWordCharacters())
@@ -283,17 +288,34 @@ class SwiftDocItemController {
 		}
 		// save contents/index file
 		do {
+			let landingPageURL = path
+				.appendingPathComponent("doclandingpage")
+				.appendingPathExtension(fileExt)
 			let indexURL = path
+				.appendingPathComponent("index")
+				.appendingPathExtension(fileExt)
+			let contentsURL = path
 				.appendingPathComponent("contents")
 				.appendingPathExtension(fileExt)
 			if format == .html {
-				index = sanitizeForHTMLEmbedding(string: index)
-				index = wrapInHTML(withTitle: projectTitle, string: index, dependenciesUpDir: false)
+				contents = sanitizeForHTMLEmbedding(string: contents)
+				contents = htmlWrapper.wrapInHTML(markdownString: contents, withTitle: projectTitle, cssFile: "stylesContents", dependenciesUpDir: false)
+				landingPageContents = htmlWrapper.wrapInHTML(markdownString: landingPageContents, withTitle: projectTitle, cssFile: "markdown-alt", dependenciesUpDir: false)
+				let index = htmlWrapper.generateIndexPage(titled: projectTitle)
+				try index.write(to: indexURL, atomically: true, encoding: .utf8)
 			}
-			try index.write(to: indexURL, atomically: true, encoding: .utf8)
+			try contents.write(to: contentsURL, atomically: true, encoding: .utf8)
+			try landingPageContents.write(to: landingPageURL, atomically: true, encoding: .utf8)
+
 		} catch {
 			NSLog("Failed writing file: \(error)")
 		}
+	}
+
+	func getLandingPageContents() -> String {
+		guard let landingPageURL = projectLandingPageURL else { return "" }
+		let contents = (try? String(contentsOf: landingPageURL)) ?? ""
+		return contents
 	}
 
 	func saveDependencyPackage(to path: URL, linkStyle: OutputStyle) {
@@ -344,8 +366,8 @@ class SwiftDocItemController {
 		return markdownGenerator.generateMarkdownDocumentString(fromRootDocItem: doc, minimumAccessControl: minimumAccessControl)
 	}
 
-	func markdownIndex(with linkStyle: OutputStyle, in format: SaveFormat) -> String {
-		return markdownGenerator.generateMarkdownIndex(fromTopLevelIndex: topLevelIndex,
+	func markdownContents(with linkStyle: OutputStyle, in format: SaveFormat) -> String {
+		return markdownGenerator.generateMarkdownContents(fromTopLevelIndex: topLevelIndex,
 													   minimumAccessControl: minimumAccessControl,
 													   linkStyle: linkStyle,
 													   format: format)
@@ -353,11 +375,5 @@ class SwiftDocItemController {
 
 	private func sanitizeForHTMLEmbedding(string: String) -> String {
 		return string.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
-	}
-
-	private func wrapInHTML(withTitle title: String, string: String, dependenciesUpDir: Bool) -> String {
-		return HTMLWrapper.htmlOutputBefore(withTitle: title, dependenciesUpADir: dependenciesUpDir)
-			+ string
-			+ HTMLWrapper.htmlOutputAfter(dependenciesUpADir: dependenciesUpDir)
 	}
 }

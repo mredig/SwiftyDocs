@@ -11,6 +11,9 @@
 		332716DE22CECC5200984D19 /* reset.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716DD22CECC5200984D19 /* reset.css */; };
 		332716E122CECF7000984D19 /* bootstrap.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 332716E022CECF7000984D19 /* bootstrap.min.js */; };
 		332716E422CECF7D00984D19 /* bootstrap.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716E322CECF7D00984D19 /* bootstrap.min.css */; };
+		332716EB22CF200200984D19 /* stylesContents.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716E722CF200200984D19 /* stylesContents.css */; };
+		332716ED22CF200200984D19 /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716E922CF200200984D19 /* styles.css */; };
+		332716F022CF20FE00984D19 /* stylesDocs.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716EF22CF20FE00984D19 /* stylesDocs.css */; };
 		3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B95E22CE9AFE0061F3CE /* TypeKind.swift */; };
 		3374B96122CE9B460061F3CE /* OutputStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96022CE9B460061F3CE /* OutputStyle.swift */; };
 		3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96222CEBE270061F3CE /* SaveFormat.swift */; };
@@ -115,6 +118,9 @@
 		332716E022CECF7000984D19 /* bootstrap.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = bootstrap.min.js; path = Carthage/Checkouts/bootstrap/dist/js/bootstrap.min.js; sourceTree = SOURCE_ROOT; };
 		332716E222CECF7D00984D19 /* bootstrap.min.css.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = bootstrap.min.css.map; path = Carthage/Checkouts/bootstrap/dist/css/bootstrap.min.css.map; sourceTree = SOURCE_ROOT; };
 		332716E322CECF7D00984D19 /* bootstrap.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = bootstrap.min.css; path = Carthage/Checkouts/bootstrap/dist/css/bootstrap.min.css; sourceTree = SOURCE_ROOT; };
+		332716E722CF200200984D19 /* stylesContents.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = stylesContents.css; sourceTree = "<group>"; };
+		332716E922CF200200984D19 /* styles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styles.css; sourceTree = "<group>"; };
+		332716EF22CF20FE00984D19 /* stylesDocs.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = stylesDocs.css; sourceTree = "<group>"; };
 		3374B95E22CE9AFE0061F3CE /* TypeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeKind.swift; sourceTree = "<group>"; };
 		3374B96022CE9B460061F3CE /* OutputStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputStyle.swift; sourceTree = "<group>"; };
 		3374B96222CEBE270061F3CE /* SaveFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFormat.swift; sourceTree = "<group>"; };
@@ -324,6 +330,9 @@
 		33BDD07022CDD2740007ABF4 /* CSS Files */ = {
 			isa = PBXGroup;
 			children = (
+				332716E922CF200200984D19 /* styles.css */,
+				332716EF22CF20FE00984D19 /* stylesDocs.css */,
+				332716E722CF200200984D19 /* stylesContents.css */,
 				332716E322CECF7D00984D19 /* bootstrap.min.css */,
 				332716E222CECF7D00984D19 /* bootstrap.min.css.map */,
 				33BDD09F22CDD3720007ABF4 /* avenir-white.css */,
@@ -457,8 +466,11 @@
 				33BDD0B922CDD3720007ABF4 /* markdown7.css in Resources */,
 				33BDD0B822CDD3720007ABF4 /* markdown8.css in Resources */,
 				33BDD0AD22CDD3720007ABF4 /* markdown.css in Resources */,
+				332716F022CF20FE00984D19 /* stylesDocs.css in Resources */,
+				332716EB22CF200200984D19 /* stylesContents.css in Resources */,
 				33BDD0B022CDD3720007ABF4 /* markdown2.css in Resources */,
 				33BDD0B422CDD3720007ABF4 /* markdown1.css in Resources */,
+				332716ED22CF200200984D19 /* styles.css in Resources */,
 				33BDD0BB22CDD3720007ABF4 /* foghorn.css in Resources */,
 				33BDD0B122CDD3720007ABF4 /* markdown5.css in Resources */,
 			);

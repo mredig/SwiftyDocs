@@ -9,21 +9,22 @@
 import Foundation
 
 struct HTMLWrapper {
-	static func htmlOutputBefore(withTitle title: String, dependenciesUpADir: Bool) -> String {
+	private func htmlOutputBefore(withTitle title: String, dependenciesUpADir: Bool, cssFile: String) -> String {
 		return """
 		<!doctype html>
 		<html>
 			<head>
 				<meta charset="utf-8"/>
-		<link rel="stylesheet" media="screen" type="text/css" href="\(dependenciesUpADir ? "../" : "")css/markdown-alt.css">
+		<link rel="stylesheet" media="screen" type="text/css" href="\(dependenciesUpADir ? "../" : "")css/\(cssFile).css">
 				<title>\(title)</title>
 			</head>
 			<body>
 				<div id="sourceContent" style="display: none ">
+
 		"""
 	}
 
-	static func htmlOutputAfter(dependenciesUpADir: Bool) -> String {
+	private func htmlOutputAfter(dependenciesUpADir: Bool) -> String {
 		return """
 				</div>
 				<div id="content" class="markdown-body"></div>
@@ -53,6 +54,57 @@ struct HTMLWrapper {
 			</body>
 		</html>
 		"""
+	}
+
+	func wrapInHTML(markdownString: String, withTitle title: String, cssFile: String, dependenciesUpDir: Bool) -> String {
+		return htmlOutputBefore(withTitle: title, dependenciesUpADir: dependenciesUpDir, cssFile: cssFile) + markdownString + htmlOutputAfter(dependenciesUpADir: dependenciesUpDir)
+	}
+
+	func generateIndexPage(titled title: String) -> String {
+
+		let template = """
+			<!doctype html>
+			<html lang="en">
+				<head>
+					<meta charset="utf-8">
+						<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+					<link rel="stylesheet" href="css/bootstrap.min.css">
+					<link rel="stylesheet" media="screen" type="text/css" href="css/styles.css">
+					<title>\(title)</title>
+				</head>
+				<body>
+					<nav class="navbar navbar-dark bg-dark">
+						<a class="navbar-text navbar-brand" href="doclandingpage.html" target="documentationFrame">\(title) Documentation</a>
+						<a class="navbar-text" href="https://github.com/mredig/SwiftyDocs">Made with SwiftyDocs</a>
+					</nav>
+
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-3 docColumn">
+								<iframe id="tableOfContents" src="contents.html" onload="fixLinks()"></iframe>
+							</div>
+							<div class="col-lg-9 docColumn">
+								<iframe id="documentation" src="doclandingpage.html" name="documentationFrame"></iframe>
+							</div>
+						</div>
+					</div>
+					<script type="text/javascript">
+						function fixLinks() {
+							var iframe = document.getElementById('tableOfContents');
+							var innerDoc = (iframe.contentDocument) ? iframe.contentDocument : iframe.contentWindow.document;
+							//console.log("frame", iframe)
+							//console.log("doc", innerDoc)
+							var anchors = innerDoc.getElementsByTagName('a');
+							for (var i=0; i<anchors.length; i++){
+								anchors[i].setAttribute('target', 'documentationFrame');
+							}
+						}
+					</script>
+				</body>
+			</html>
+			"""
+
+		return template
 	}
 
 }

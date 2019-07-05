@@ -1,0 +1,47 @@
+@import "reset.css";
+
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+}
+
+
+#content {
+	width: 1024px;
+	margin-right: auto;
+	margin-left: auto;
+	height: 100%;
+}
+
+#tableOfContents {
+	float: left;
+	height: 100%;
+	width: 100%;
+	/*display: block;*/
+}
+
+#documentation {
+	width: 100%;
+	height: 100%;
+}
+
+/*bootstrap overrides*/
+
+.container, .container-fluid {
+	height: calc(100% - 46px);
+	margin: 0;
+}
+
+.row {
+	height: 100%;
+}
+
+.docColumn {
+	margin: 0;
+	padding: 0;
+}
+
+.navbar {
+	font-family: sans-serif;
+}
