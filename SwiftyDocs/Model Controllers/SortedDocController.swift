@@ -48,11 +48,15 @@ class SwiftDocItemController {
 	var projectDirectoryURL: URL? {
 		return projectURL?.deletingLastPathComponent()
 	}
-	var projectReadmeURL: URL? {
+	var projectLandingPageURL: URL? {
 		guard let directoryURL = projectDirectoryURL else { return nil }
 		do {
 			let contents = try FileManager.default.contentsOfDirectory(atPath: directoryURL.path)
 			let lcContents: [(original: String, lowercase: String)] = contents.map { ($0, $0.lowercased()) }
+			let landingPage = lcContents.first { (original: String, lowercase: String) -> Bool in
+				let exists = lowercase == "doclandingpage.md"
+				return exists
+			}
 			let readmeMarkdown = lcContents.first { (original: String, lowercase: String) -> Bool in
 				let exists = lowercase == "readme.md"
 				return exists
@@ -352,8 +356,8 @@ class SwiftDocItemController {
 	}
 
 	private func wrapInHTML(withTitle title: String, string: String, dependenciesUpDir: Bool) -> String {
-		return String.htmlOutputBefore(withTitle: title, dependenciesUpADir: dependenciesUpDir)
+		return HTMLWrapper.htmlOutputBefore(withTitle: title, dependenciesUpADir: dependenciesUpDir)
 			+ string
-			+ String.htmlOutputAfter(dependenciesUpADir: dependenciesUpDir)
+			+ HTMLWrapper.htmlOutputAfter(dependenciesUpADir: dependenciesUpDir)
 	}
 }

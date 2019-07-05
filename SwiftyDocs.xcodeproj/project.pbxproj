@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		332716DC22CEC6DC00984D19 /* HTMLWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */; };
+		332716DE22CECC5200984D19 /* reset.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716DD22CECC5200984D19 /* reset.css */; };
+		332716E122CECF7000984D19 /* bootstrap.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 332716E022CECF7000984D19 /* bootstrap.min.js */; };
+		332716E422CECF7D00984D19 /* bootstrap.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716E322CECF7D00984D19 /* bootstrap.min.css */; };
 		3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B95E22CE9AFE0061F3CE /* TypeKind.swift */; };
 		3374B96122CE9B460061F3CE /* OutputStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96022CE9B460061F3CE /* OutputStyle.swift */; };
 		3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96222CEBE270061F3CE /* SaveFormat.swift */; };
@@ -105,6 +109,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWrapper.swift; sourceTree = "<group>"; };
+		332716DD22CECC5200984D19 /* reset.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = reset.css; sourceTree = "<group>"; };
+		332716DF22CECF7000984D19 /* bootstrap.min.js.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = bootstrap.min.js.map; path = Carthage/Checkouts/bootstrap/dist/js/bootstrap.min.js.map; sourceTree = SOURCE_ROOT; };
+		332716E022CECF7000984D19 /* bootstrap.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = bootstrap.min.js; path = Carthage/Checkouts/bootstrap/dist/js/bootstrap.min.js; sourceTree = SOURCE_ROOT; };
+		332716E222CECF7D00984D19 /* bootstrap.min.css.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = bootstrap.min.css.map; path = Carthage/Checkouts/bootstrap/dist/css/bootstrap.min.css.map; sourceTree = SOURCE_ROOT; };
+		332716E322CECF7D00984D19 /* bootstrap.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = bootstrap.min.css; path = Carthage/Checkouts/bootstrap/dist/css/bootstrap.min.css; sourceTree = SOURCE_ROOT; };
 		3374B95E22CE9AFE0061F3CE /* TypeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeKind.swift; sourceTree = "<group>"; };
 		3374B96022CE9B460061F3CE /* OutputStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputStyle.swift; sourceTree = "<group>"; };
 		3374B96222CEBE270061F3CE /* SaveFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFormat.swift; sourceTree = "<group>"; };
@@ -294,6 +304,7 @@
 				33BDD06022CD53830007ABF4 /* Array+SwiftDocItem.swift */,
 				33BDD06622CD73470007ABF4 /* MarkdownGenerator.swift */,
 				3374B96022CE9B460061F3CE /* OutputStyle.swift */,
+				332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -301,6 +312,8 @@
 		33BDD06D22CDCA750007ABF4 /* JavaScript Files */ = {
 			isa = PBXGroup;
 			children = (
+				332716E022CECF7000984D19 /* bootstrap.min.js */,
+				332716DF22CECF7000984D19 /* bootstrap.min.js.map */,
 				33BDD06822CDC1070007ABF4 /* marked.min.js */,
 				33BDD06A22CDCA6F0007ABF4 /* purify.min.js */,
 				33BDD06B22CDCA6F0007ABF4 /* purify.min.js.map */,
@@ -311,7 +324,10 @@
 		33BDD07022CDD2740007ABF4 /* CSS Files */ = {
 			isa = PBXGroup;
 			children = (
+				332716E322CECF7D00984D19 /* bootstrap.min.css */,
+				332716E222CECF7D00984D19 /* bootstrap.min.css.map */,
 				33BDD09F22CDD3720007ABF4 /* avenir-white.css */,
+				332716DD22CECC5200984D19 /* reset.css */,
 				33BDD0AB22CDD3720007ABF4 /* foghorn.css */,
 				33BDD0A622CDD3720007ABF4 /* markdown-alt.css */,
 				33BDD09D22CDD3720007ABF4 /* markdown.css */,
@@ -432,9 +448,12 @@
 				33BDD0AF22CDD3720007ABF4 /* avenir-white.css in Resources */,
 				33BDD0B622CDD3720007ABF4 /* markdown-alt.css in Resources */,
 				33BDCFEC22CBDD200007ABF4 /* Main.storyboard in Resources */,
+				332716DE22CECC5200984D19 /* reset.css in Resources */,
 				33BDD00322CBDD2C0007ABF4 /* cartfile in Resources */,
 				33BDD06C22CDCA6F0007ABF4 /* purify.min.js in Resources */,
 				33BDD0B722CDD3720007ABF4 /* markdown4.css in Resources */,
+				332716E122CECF7000984D19 /* bootstrap.min.js in Resources */,
+				332716E422CECF7D00984D19 /* bootstrap.min.css in Resources */,
 				33BDD0B922CDD3720007ABF4 /* markdown7.css in Resources */,
 				33BDD0B822CDD3720007ABF4 /* markdown8.css in Resources */,
 				33BDD0AD22CDD3720007ABF4 /* markdown.css in Resources */,
@@ -493,6 +512,7 @@
 				33BDD06722CD73470007ABF4 /* MarkdownGenerator.swift in Sources */,
 				3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */,
 				33BDD05D22CD2FE00007ABF4 /* AccessControl.swift in Sources */,
+				332716DC22CEC6DC00984D19 /* HTMLWrapper.swift in Sources */,
 				33BDD05422CC78E00007ABF4 /* SortedDocController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
