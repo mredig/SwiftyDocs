@@ -1,18 +1,24 @@
 @import "reset.css";
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
 
 body {
 	font: 14pt/22pt "Quicksand", Helvetica, Arial, sans-serif;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3 {
 	background-color: #999;
+	color: #eee;
+}
+
+h4,h5,h6 {
+	color: #333;
+}
+
+h1,h2,h3,h4,h5,h6 {
 	padding: 10px 20px;
 	font-weight: bold;
-	font-family: sans-serif;
-	color: #eee;
 	margin: 10px -40px;
-	font-family: Helvetica, Verdana, sans-serif;
 	background-overflow: visible;
 }
 
@@ -49,12 +55,13 @@ strong {
 
 em {
 	font-style: italic;
-	color: #66381C;
+	color: rgb(211, 77, 127);
 }
 
 code {
 	border: 1px solid #ddd;
-	padding: 1px;
+	padding: 1px 10px;
+	background-color: hsl(229, 52%, 97%);
 }
 
 pre {
@@ -65,7 +72,7 @@ pre code {
 	display: inline-block;
 	max-width: 95%;
 	padding: 3px 10px;
-	background-color: #eee;
+	background-color: hsl(139, 80%, 97%);
 	overflow: auto;
 }
 
@@ -78,12 +85,16 @@ p {
 	margin-bottom: 10px;
 }
 
+/*unordered lists*/
+
+ul {
+	list-style-type: circle;
+}
+
 ul li {
-	display: block;
-	margin-bottom: 40px;
+	margin-bottom: 20px;
 	margin-left: 40px;
 	margin-right: 40px;
-	border-bottom: 5px solid #ccc;
 }
 
 ul li::first-line {
@@ -95,6 +106,59 @@ ul li ul li, ul li ul li::first-line {
 	border-style: none;
 	margin-bottom: 10px;
 }
+
+/*ordered lists*/
+
+ol li {
+	display: block;
+	margin-bottom: 10px;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+ol {
+	list-style: none;
+	counter-reset: my-awesome-counter;
+}
+ol li {
+	counter-increment: my-awesome-counter;
+}
+ol li::before {
+	content: counter(my-awesome-counter) ". ";
+	color: rgb(211, 77, 127);
+	font-weight: bold;
+}
+
+/*links*/
+
+a:link {
+	color: rgb(211, 77, 127);
+	text-decoration: underline;
+}
+
+a:visited {
+	color: #780F39;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #EF7DAB;
+	text-decoration: underline;
+}
+
+a:active {
+	color: #B77DAB;
+	text-decoration: underline;
+}
+
+/*dividers*/
+
+hr {
+	margin: 40px 40px;
+	border: none;
+	border-bottom: 5px solid #ccc;
+}
+
 
 #content {
 	margin: 0px 40px;
