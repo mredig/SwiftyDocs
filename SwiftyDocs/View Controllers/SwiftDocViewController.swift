@@ -16,6 +16,7 @@ class SwiftDocViewController: NSViewController {
 	@IBOutlet var accessLevelPopUp: NSPopUpButton!
 	@IBOutlet var projectTitleTextField: NSTextField!
 	@IBOutlet var loadProjectButton: NSButton!
+	@IBOutlet var exportButton: NSButton!
 	@IBOutlet var progressIndicator: NSProgressIndicator!
 
 	@IBOutlet var fileCountPopUp: NSPopUpButton!
@@ -40,8 +41,12 @@ class SwiftDocViewController: NSViewController {
 		openProjectDialog()
 	}
 
-	@IBAction func buttonPressed(_ sender: NSButton) {
+	@IBAction func loadButtonPressed(_ sender: NSButton) {
 		openProjectDialog()
+	}
+
+	@IBAction func exportButtonPressed(_ sender: NSButton) {
+		saveProjectDialog()
 	}
 
 	@IBAction func saveDocument(_ sender: NSMenuItem) {
@@ -106,6 +111,7 @@ class SwiftDocViewController: NSViewController {
 		selectedItemsPopUp.isEnabled = enabled
 		accessLevelPopUp.isEnabled = enabled
 		projectTitleTextField.isEnabled = enabled
+		exportButton.isEnabled = enabled
 	}
 
 	func openProjectFinished() {
