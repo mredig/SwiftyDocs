@@ -31,25 +31,30 @@ struct HTMLWrapper {
 				<script src="\(dependenciesUpADir ? "../" : "")js/marked.min.js"></script>
 				<script src="\(dependenciesUpADir ? "../" : "")js/purify.min.js"></script>
 				<script>
-				var sourceString = document.getElementById('sourceContent').innerHTML
+					var sourceString = document.getElementById('sourceContent').innerHTML
 
-				// Let marked do its normal token generation.
-				tokens = marked.lexer( sourceString );
+					// Let marked do its normal token generation.
+					tokens = marked.lexer( sourceString );
 
-				// Mark all code blocks as already being escaped.
-				// This prevents the parser from encoding anything inside code blocks
-				tokens.forEach(function( token ) {
-				if ( token.type === "code" ) {
-						token.escaped = true;
+					// Mark all code blocks as already being escaped.
+					// This prevents the parser from encoding anything inside code blocks
+					tokens.forEach(function( token ) {
+					if ( token.type === "code" ) {
+							token.escaped = true;
+						}
+					});
+
+					// Let marked do its normal parsing, but without encoding the code blocks
+					var markedDown = marked.parser( tokens );
+					markedDown = DOMPurify.sanitize(markedDown);
+					document.getElementById('content').innerHTML = markedDown;
+
+					var codeBlocks = document.getElementById('content').getElementsByTagName('code')
+					for (codeBlock of codeBlocks) {
+						codeBlock.innerText = decodeURIComponent(codeBlock.innerText)
 					}
-				});
 
-				// Let marked do its normal parsing, but without encoding the code blocks
-				var markedDown = marked.parser( tokens );
-				markedDown = DOMPurify.sanitize(markedDown);
-				document.getElementById('content').innerHTML = markedDown;
-
-				console.log("removed", DOMPurify.removed);
+					console.log("removed", DOMPurify.removed);
 				</script>
 			</body>
 		</html>

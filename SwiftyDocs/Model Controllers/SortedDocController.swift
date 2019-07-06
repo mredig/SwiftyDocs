@@ -312,7 +312,8 @@ class SwiftDocItemController {
 			if format == .html {
 				contents = sanitizeForHTMLEmbedding(string: contents)
 				contents = htmlWrapper.wrapInHTML(markdownString: contents, withTitle: projectTitle, cssFile: "stylesContents", dependenciesUpDir: false)
-				landingPageContents = htmlWrapper.wrapInHTML(markdownString: landingPageContents, withTitle: projectTitle, cssFile: "markdown-alt", dependenciesUpDir: false)
+				landingPageContents = sanitizeForHTMLEmbedding(string: landingPageContents)
+				landingPageContents = htmlWrapper.wrapInHTML(markdownString: landingPageContents, withTitle: projectTitle, cssFile: "stylesDocs", dependenciesUpDir: false)
 				let index = htmlWrapper.generateIndexPage(titled: projectTitle)
 				try index.write(to: indexURL, atomically: true, encoding: .utf8)
 			}
@@ -405,6 +406,15 @@ class SwiftDocItemController {
 	}
 
 	private func sanitizeForHTMLEmbedding(string: String) -> String {
-		return string.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
+		var rVal = string //.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
+
+		let ranges = rVal.ranges(of: ##"`.*?`"##, options: .regularExpression, range: nil, locale: nil)
+		let allowedSet = CharacterSet(charactersIn: "<>").inverted
+		for range in ranges.reversed() {
+			guard let newValue = rVal[range].addingPercentEncoding(withAllowedCharacters: allowedSet) else { continue }
+			rVal.replaceSubrange(range, with: newValue)
+		}
+
+		return rVal
 	}
 }

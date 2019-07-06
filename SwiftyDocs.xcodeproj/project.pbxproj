@@ -17,6 +17,7 @@
 		3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B95E22CE9AFE0061F3CE /* TypeKind.swift */; };
 		3374B96122CE9B460061F3CE /* OutputStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96022CE9B460061F3CE /* OutputStyle.swift */; };
 		3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96222CEBE270061F3CE /* SaveFormat.swift */; };
+		338CECDF22D13E52001CC5D3 /* String+Ranges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CECDE22D13E52001CC5D3 /* String+Ranges.swift */; };
 		33989AE922D12008003A94EC /* startLocalServer.command in Resources */ = {isa = PBXBuildFile; fileRef = 33989AE822D12008003A94EC /* startLocalServer.command */; };
 		33989AEB22D1200D003A94EC /* localhost.webloc in Resources */ = {isa = PBXBuildFile; fileRef = 33989AEA22D1200D003A94EC /* localhost.webloc */; };
 		33989AED22D12851003A94EC /* Instructions.md in Resources */ = {isa = PBXBuildFile; fileRef = 33989AEC22D12851003A94EC /* Instructions.md */; };
@@ -127,6 +128,7 @@
 		3374B95E22CE9AFE0061F3CE /* TypeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeKind.swift; sourceTree = "<group>"; };
 		3374B96022CE9B460061F3CE /* OutputStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputStyle.swift; sourceTree = "<group>"; };
 		3374B96222CEBE270061F3CE /* SaveFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFormat.swift; sourceTree = "<group>"; };
+		338CECDE22D13E52001CC5D3 /* String+Ranges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ranges.swift"; sourceTree = "<group>"; };
 		33989AE822D12008003A94EC /* startLocalServer.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = startLocalServer.command; sourceTree = "<group>"; };
 		33989AEA22D1200D003A94EC /* localhost.webloc */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = localhost.webloc; sourceTree = "<group>"; };
 		33989AEC22D12851003A94EC /* Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Instructions.md; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			children = (
 				33BDD02822CC5F150007ABF4 /* StringMap.swift */,
 				33BDD06022CD53830007ABF4 /* Array+SwiftDocItem.swift */,
+				338CECDE22D13E52001CC5D3 /* String+Ranges.swift */,
 				33BDD06622CD73470007ABF4 /* MarkdownGenerator.swift */,
 				3374B96022CE9B460061F3CE /* OutputStyle.swift */,
 				332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */,
@@ -531,6 +534,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				338CECDF22D13E52001CC5D3 /* String+Ranges.swift in Sources */,
 				33BDCFE722CBDD1E0007ABF4 /* SwiftDocViewController.swift in Sources */,
 				3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */,
 				33BDD05922CD0BAF0007ABF4 /* DocScrapeOperation.swift in Sources */,

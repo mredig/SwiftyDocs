@@ -11,7 +11,7 @@ h1,h2,h3,h4,h5,h6 {
 	font-weight: bold;
 	font-family: sans-serif;
 	color: #eee;
-	margin: 10px -10px;
+	margin: 10px -40px;
 	font-family: Helvetica, Verdana, sans-serif;
 	background-overflow: visible;
 }
@@ -75,6 +75,7 @@ pre, code {
 
 p {
 	display: block;
+	margin-bottom: 10px;
 }
 
 ul li {
@@ -96,5 +97,5 @@ ul li ul li, ul li ul li::first-line {
 }
 
 #content {
-	padding: 0px 20px;
+	margin: 0px 40px;
 }

@@ -4,3 +4,5 @@
 * add project title text field
 * add server launch script
 * fix css for landing page
+* refactor markdown generator
+	* dsl ish
