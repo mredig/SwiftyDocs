@@ -4,5 +4,3 @@
 * add project title text field
 * add server launch script
 * fix css for landing page
-* export enabled at wrong time
-* 

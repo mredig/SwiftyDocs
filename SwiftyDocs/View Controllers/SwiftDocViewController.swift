@@ -135,7 +135,7 @@ extension SwiftDocViewController: NSMenuItemValidation {
 		case #selector(openMenuItemPressed):
 			return !isLoadingFile
 		case #selector(saveDocument):
-			return docController.projectDirectoryURL != nil
+			return docController.projectDirectoryURL != nil && !isLoadingFile
 		default:
 			return true
 		}
