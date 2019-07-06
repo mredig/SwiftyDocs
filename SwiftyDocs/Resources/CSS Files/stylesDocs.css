@@ -74,6 +74,7 @@ pre code {
 	padding: 3px 10px;
 	background-color: hsl(139, 80%, 97%);
 	overflow: auto;
+	border:none;
 }
 
 pre, code {

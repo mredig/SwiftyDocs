@@ -15,7 +15,8 @@ struct HTMLWrapper {
 		<html>
 			<head>
 				<meta charset="utf-8"/>
-		<link rel="stylesheet" media="screen" type="text/css" href="\(dependenciesUpADir ? "../" : "")css/\(cssFile).css">
+				<link rel="stylesheet" media="screen" type="text/css" href="\(dependenciesUpADir ? "../" : "")css/\(cssFile).css">
+				<link href="\(dependenciesUpADir ? "../" : "")css/prism.css" rel="stylesheet" />
 				<title>\(title)</title>
 			</head>
 			<body>
@@ -56,6 +57,7 @@ struct HTMLWrapper {
 
 					console.log("removed", DOMPurify.removed);
 				</script>
+				<script src="\(dependenciesUpADir ? "../" : "")js/prism.js"></script>
 			</body>
 		</html>
 		"""
