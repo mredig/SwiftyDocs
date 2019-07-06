@@ -25,9 +25,9 @@ class SwiftDocViewController: NSViewController {
 	let docController = SwiftDocItemController()
 	private var isLoadingFile = false
 
+	// MARK: - initing
 	override func viewDidLoad() {
 		setupMinAccessLevelPopUp()
-		setupSelectedItems()
 		setupOutputOptionsMenus()
 	}
 
@@ -35,6 +35,7 @@ class SwiftDocViewController: NSViewController {
 		updateViews()
 	}
 
+	// MARK: - menu items
 	@IBAction func openMenuItemPressed(_ sender: NSMenuItem) {
 		openProjectDialog()
 	}
@@ -91,8 +92,12 @@ class SwiftDocViewController: NSViewController {
 		}
 	}
 
+	// MARK: - update views etc
 	func updateViews() {
 		setItemsEnabled(to: !docController.docs.isEmpty)
+		updateWindowTitle()
+		updateTitleField()
+		setupSelectedItems()
 	}
 
 	func setItemsEnabled(to enabled: Bool) {
@@ -110,14 +115,15 @@ class SwiftDocViewController: NSViewController {
 			self.progressIndicator.stopAnimation(nil)
 			self.loadProjectButton.isEnabled = true
 			self.updateViews()
-			self.updateTitleField()
-			self.setupSelectedItems()
-
 		}
 	}
 
-	func updateTitleField() {
+	private func updateTitleField() {
 		projectTitleTextField.stringValue = docController.projectTitle
+	}
+
+	private func updateWindowTitle() {
+		view.window?.title = "\(docController.projectTitle)-SwiftyDocs"
 	}
 }
 
@@ -141,6 +147,7 @@ extension SwiftDocViewController {
 	@IBAction func projectTitleUpdated(_ sender: NSTextField) {
 		docController.projectTitle = sender.stringValue
 		sender.stringValue = docController.projectTitle
+		updateViews()
 	}
 
 	func setupMinAccessLevelPopUp() {
@@ -189,11 +196,12 @@ extension SwiftDocViewController {
 		guard let str = sender.selectedItem?.title else { return }
 		let accessLevel = AccessControl.createFrom(string: str)
 		docController.minimumAccessControl = accessLevel
-		setupSelectedItems()
+		updateViews()
 		print(accessLevel)
 	}
 
-	func setupOutputOptionsMenus() {
+	// only needs to occurr once
+	private func setupOutputOptionsMenus() {
 		fileCountPopUp.removeAllItems()
 		formatPopUp.removeAllItems()
 
