@@ -64,7 +64,7 @@ class SwiftDocViewController: NSViewController {
 				self.docController.projectURL = fileURL
 				self.docController.clear()
 				self.isLoadingFile = true
-				self.docController.getDocs(fromPath: projectDir.path, completion: self.openProjectFinished)
+				self.docController.getDocs(from: projectDir, completion: self.openProjectFinished)
 				self.progressIndicator.startAnimation(nil)
 				self.loadProjectButton.isEnabled = false
 			}

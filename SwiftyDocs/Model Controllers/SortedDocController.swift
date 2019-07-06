@@ -180,9 +180,11 @@ class SwiftDocItemController {
 		return items
 	}
 
-	func getDocs(fromPath path: String, completion: @escaping () -> Void) {
+	func getDocs(from projectDirectory: URL, completion: @escaping () -> Void) {
 
-		let docScrapeOp = DocScrapeOperation(path: path)
+		let buildPath = projectDirectory.appendingPathComponent("build")
+		let buildDirAlreadyExists = FileManager.default.fileExists(atPath: buildPath.path)
+		let docScrapeOp = DocScrapeOperation(path: projectDirectory.path)
 		let docFilesOp = BlockOperation { [weak self] in
 			defer { completion() }
 			guard let data = docScrapeOp.jsonData else { return }
@@ -204,9 +206,19 @@ class SwiftDocItemController {
 				return
 			}
 		}
+		let cleanupOp = BlockOperation {
+			if !buildDirAlreadyExists {
+				do {
+					try FileManager.default.removeItem(at: buildPath)
+				} catch {
+					NSLog("Error deleting temp build directory: \(error)")
+				}
+			}
+		}
 
 		docFilesOp.addDependency(docScrapeOp)
-		scrapeQueue.addOperations([docScrapeOp, docFilesOp], waitUntilFinished: false)
+		cleanupOp.addDependency(docScrapeOp)
+		scrapeQueue.addOperations([docScrapeOp, docFilesOp, cleanupOp], waitUntilFinished: false)
 	}
 
 	func search(forTitle title: String?, ofKind kind: TypeKind?, withMinimumAccessControl minimumAccessControl: AccessControl = .internal) -> [SwiftDocItem] {
