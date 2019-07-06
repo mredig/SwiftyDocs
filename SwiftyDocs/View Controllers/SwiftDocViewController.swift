@@ -123,13 +123,14 @@ class SwiftDocViewController: NSViewController {
 
 extension SwiftDocViewController: NSMenuItemValidation {
 	func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-		switch menuItem.title.lowercased() {
-		case "open…":
+		// note to self: this also affects the popup menus in the window
+		guard let action = menuItem.action else { return true }
+		switch action {
+		case #selector(openMenuItemPressed):
 			return !isLoadingFile
-		case "save…":
+		case #selector(saveDocument):
 			return docController.projectDirectoryURL != nil
 		default:
-			// note to self: this also affects the popup menus in the window
 			return true
 		}
 	}
