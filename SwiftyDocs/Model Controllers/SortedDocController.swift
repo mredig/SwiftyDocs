@@ -330,6 +330,7 @@ class SwiftDocItemController {
 		return contents
 	}
 
+	private let fm = FileManager.default
 	func saveDependencyPackage(to path: URL, linkStyle: OutputStyle) {
 		guard var jsURLs = Bundle.main.urls(forResourcesWithExtension: "js", subdirectory: nil, localization: nil) else { return }
 		guard let maps = Bundle.main.urls(forResourcesWithExtension: "map", subdirectory: nil, localization: nil) else { return }
@@ -352,23 +353,41 @@ class SwiftDocItemController {
 
 		let subdirURLs = [path] + subdirs.map { path.appendingPathComponent($0) }
 
-		let fm = FileManager.default
 		do {
 			if fm.fileExists(atPath: path.path) {
 				try fm.removeItem(at: path)
 			}
-			for subdirURL in subdirURLs {
-				try fm.createDirectory(atPath: subdirURL.path, withIntermediateDirectories: true, attributes: nil)
-			}
-			for jsURL in jsURLs {
-				try fm.copyItem(at: jsURL, to: path.appendingPathComponent("js").appendingPathComponent(jsURL.lastPathComponent))
-			}
-			for cssURL in cssURLs {
-				try fm.copyItem(at: cssURL, to: path.appendingPathComponent("css").appendingPathComponent(cssURL.lastPathComponent))
-			}
-
 		} catch {
-			NSLog("Error creating dependency package: \(error)")
+			NSLog("Error overwriting previous export: \(error)")
+		}
+		create(subdirectories: subdirURLs)
+		copy(urls: jsURLs, to: path.appendingPathComponent("js"))
+		copy(urls: cssURLs, to: path.appendingPathComponent("css"))
+
+		let otherFiles = "localhost.webloc startLocalServer.command Instructions.md"
+			.split(separator: " ")
+			.map { String($0) }
+			.map { Bundle.main.url(forResource: $0, withExtension: nil) }
+			.compactMap { $0 }
+		copy(urls: otherFiles, to: path)
+	}
+
+	private func create(subdirectories: [URL]) {
+		for subdirURL in subdirectories {
+			do {
+				try fm.createDirectory(atPath: subdirURL.path, withIntermediateDirectories: true, attributes: nil)
+			} catch {
+				NSLog("Error creating subdirectory: \(error)")
+			}
+		}
+	}
+	private func copy(urls: [URL], to destination: URL) {
+		for url in urls {
+			do {
+				try fm.copyItem(at: url, to: destination.appendingPathComponent(url.lastPathComponent))
+			} catch {
+				NSLog("Error copying package file: \(error)")
+			}
 		}
 	}
 

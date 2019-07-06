@@ -17,6 +17,9 @@
 		3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B95E22CE9AFE0061F3CE /* TypeKind.swift */; };
 		3374B96122CE9B460061F3CE /* OutputStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96022CE9B460061F3CE /* OutputStyle.swift */; };
 		3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96222CEBE270061F3CE /* SaveFormat.swift */; };
+		33989AE922D12008003A94EC /* startLocalServer.command in Resources */ = {isa = PBXBuildFile; fileRef = 33989AE822D12008003A94EC /* startLocalServer.command */; };
+		33989AEB22D1200D003A94EC /* localhost.webloc in Resources */ = {isa = PBXBuildFile; fileRef = 33989AEA22D1200D003A94EC /* localhost.webloc */; };
+		33989AED22D12851003A94EC /* Instructions.md in Resources */ = {isa = PBXBuildFile; fileRef = 33989AEC22D12851003A94EC /* Instructions.md */; };
 		33BDCFE522CBDD1E0007ABF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDCFE422CBDD1E0007ABF4 /* AppDelegate.swift */; };
 		33BDCFE722CBDD1E0007ABF4 /* SwiftDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDCFE622CBDD1E0007ABF4 /* SwiftDocViewController.swift */; };
 		33BDCFE922CBDD200007ABF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33BDCFE822CBDD200007ABF4 /* Assets.xcassets */; };
@@ -124,6 +127,9 @@
 		3374B95E22CE9AFE0061F3CE /* TypeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeKind.swift; sourceTree = "<group>"; };
 		3374B96022CE9B460061F3CE /* OutputStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputStyle.swift; sourceTree = "<group>"; };
 		3374B96222CEBE270061F3CE /* SaveFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFormat.swift; sourceTree = "<group>"; };
+		33989AE822D12008003A94EC /* startLocalServer.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = startLocalServer.command; sourceTree = "<group>"; };
+		33989AEA22D1200D003A94EC /* localhost.webloc */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = localhost.webloc; sourceTree = "<group>"; };
+		33989AEC22D12851003A94EC /* Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Instructions.md; sourceTree = "<group>"; };
 		33BDCFE122CBDD1E0007ABF4 /* SwiftyDocs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyDocs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33BDCFE422CBDD1E0007ABF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33BDCFE622CBDD1E0007ABF4 /* SwiftDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDocViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +200,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33989AE722D11FFD003A94EC /* Other Embedded Files */ = {
+			isa = PBXGroup;
+			children = (
+				33989AEA22D1200D003A94EC /* localhost.webloc */,
+				33989AE822D12008003A94EC /* startLocalServer.command */,
+				33989AEC22D12851003A94EC /* Instructions.md */,
+			);
+			path = "Other Embedded Files";
+			sourceTree = "<group>";
+		};
 		33BDCFD822CBDD1E0007ABF4 = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +280,7 @@
 		33BDD02322CBEBA80007ABF4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				33989AE722D11FFD003A94EC /* Other Embedded Files */,
 				33BDD07022CDD2740007ABF4 /* CSS Files */,
 				33BDD06D22CDCA750007ABF4 /* JavaScript Files */,
 				33BDCFE822CBDD200007ABF4 /* Assets.xcassets */,
@@ -451,6 +468,7 @@
 				33BDD0BA22CDD3720007ABF4 /* markdown3.css in Resources */,
 				33BDD0B222CDD3720007ABF4 /* markdown6.css in Resources */,
 				33BDD06922CDC1070007ABF4 /* marked.min.js in Resources */,
+				33989AE922D12008003A94EC /* startLocalServer.command in Resources */,
 				33BDD0AC22CDD3720007ABF4 /* swiss.css in Resources */,
 				33BDD0B322CDD3720007ABF4 /* markdown10.css in Resources */,
 				33BDCFE922CBDD200007ABF4 /* Assets.xcassets in Resources */,
@@ -462,6 +480,8 @@
 				33BDD06C22CDCA6F0007ABF4 /* purify.min.js in Resources */,
 				33BDD0B722CDD3720007ABF4 /* markdown4.css in Resources */,
 				332716E122CECF7000984D19 /* bootstrap.min.js in Resources */,
+				33989AED22D12851003A94EC /* Instructions.md in Resources */,
+				33989AEB22D1200D003A94EC /* localhost.webloc in Resources */,
 				332716E422CECF7D00984D19 /* bootstrap.min.css in Resources */,
 				33BDD0B922CDD3720007ABF4 /* markdown7.css in Resources */,
 				33BDD0B822CDD3720007ABF4 /* markdown8.css in Resources */,
