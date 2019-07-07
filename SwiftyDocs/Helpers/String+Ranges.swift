@@ -24,4 +24,9 @@ extension String {
 		}
 		return ranges
 	}
+
+	func repeated(count: Int) -> String {
+		let count = max(0, count)
+		return (0..<count).reduce("") { previousValue, _ in previousValue + self }
+	}
 }

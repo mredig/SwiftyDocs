@@ -111,3 +111,115 @@ extension String {
 		return rVal.replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
 	}
 }
+
+protocol MarkdownOut {
+	var rendered: (text: String, footerLinks: [URL]) { get }
+	var finalRender: String { get }
+}
+
+extension MarkdownOut {
+	var finalRender: String {
+		let tRender = rendered
+		let urls = Set(tRender.footerLinks).reduce("") {
+			let hash = $1.hashValue
+			let formattedString = "[\(hash)]:\($1.path)"
+			return $0 + "\n" + formattedString
+		}
+		return "\(tRender.text)\n\n\(urls)"
+	}
+}
+
+struct MarkdownBlock: MarkdownOut {
+	let markdowns: [MarkdownWord]
+	let newLines: Int
+	let joined: String
+
+	var rendered: (text: String, footerLinks: [URL]) {
+//		return markdowns.reduce((text: "", footerLinks: [URL]())) { ($0.text + joined + $1.renderedValue().text, $0.footerLinks + $1.renderedValue().footerLinks) }
+		var tMarkdowns = markdowns.reduce((text: "", footerLinks: [URL]())) { previousTuple, newMarkdown in
+			let newTuple = newMarkdown.rendered
+			return (previousTuple.text + joined + newTuple.text, previousTuple.footerLinks + newTuple.footerLinks)
+		}
+		let newLines = "\n".repeated(count: self.newLines)
+		tMarkdowns.text += newLines
+		return tMarkdowns
+	}
+
+	init(_ markdowns: MarkdownWord ..., newLines: Int = 1, joinedBy joined: String = " ") {
+		self.markdowns = markdowns
+		self.newLines = newLines
+		self.joined = joined
+	}
+}
+
+struct MarkdownLine: MarkdownOut {
+	var rendered: (text: String, footerLinks: [URL]) {
+		return markdowns.reduce((text: "", footerLinks: [URL]()), { (previous, new) -> (text: String, footerLinks: [URL]) in
+			let newTuple = new.rendered
+			return (previous.text + joined + newTuple.text, previous.footerLinks + newTuple.footerLinks)
+		})
+	}
+	let markdowns: [MarkdownWord]
+	let joined: String
+
+	init(_ markdowns: MarkdownWord ..., joinedBy joined: String = " ") {
+		self.markdowns = markdowns
+		self.joined = joined
+	}
+}
+
+enum MarkdownWord: CustomStringConvertible, MarkdownOut {
+	case italics(text: String)
+	case bold(text: String)
+	case link(link: URL, text: String)
+	case header(level: Int, text: String)
+	case orderedListItem(indentation: Int, text: String)
+	case unorderedListItem(indentation: Int, text: String)
+	case horizontalLine
+	case paragraph(text: String)
+	case inlineCode(code: String)
+	case codeBlock(code: String, syntaxHighlighting: String?)
+
+	var rendered: (text: String, footerLinks: [URL]) {
+		var outString = ""
+		var footerLink = [URL]()
+		switch self {
+		case .italics(let text):
+			outString = "*\(text)*"
+		case .bold(let text):
+			outString = "**\(text)**"
+		case .link(let link, let text):
+			outString = "[\(text)][\(link.hashValue)]"
+			footerLink = [link]
+		case .header(let level, let text):
+			let headerLevel = min(max(1, level), 6)
+			let hashtags = "#".repeated(count: headerLevel)
+			outString = hashtags + " \(text)"
+		case .orderedListItem(let indentation, let text):
+			let tabs = "\t".repeated(count: indentation)
+			outString = tabs + "1. \(text)"
+		case .unorderedListItem(let indentation, let text):
+			let tabs = "\t".repeated(count: indentation)
+			outString = tabs + "* \(text)"
+		case .horizontalLine:
+			outString = "___"
+		case .paragraph(let text):
+			outString = text
+		case .inlineCode(let code):
+			outString = "`\(code)`"
+		case .codeBlock(let code, let syntaxHighlighting):
+			outString = """
+				```\(syntaxHighlighting ?? "")
+				\(code)
+				```
+				"""
+		}
+		return (outString, footerLink)
+	}
+	
+
+	var description: String {
+		return rendered.text
+	}
+
+}
