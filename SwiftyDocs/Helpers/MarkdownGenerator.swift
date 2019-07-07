@@ -10,15 +10,17 @@ import Foundation
 
 class MarkdownGenerator {
 	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessControl: AccessControl) -> String {
-		let docHeader = "## \(swiftDocItem.title)"
-		let type = "***\(swiftDocItem.accessControl.stringValue)*** *\(swiftDocItem.kind.stringValue)*"
-		let declaration = """
-						```swift
-						\(swiftDocItem.declaration)
-						```
-						"""
-		let discussion = swiftDocItem.comment ?? "No documentation"
-		let docSourceFile = "Found in\n* `\(swiftDocItem.sourceFile)`"
+		let docHeader = MarkdownBlock(words: .header(level: 2, text: swiftDocItem.title))
+		let type = MarkdownBlock(words: .bold(text: swiftDocItem.accessControl.stringValue), .italics(text: swiftDocItem.kind.stringValue))
+		let declaration = MarkdownBlock(words: .codeBlock(code: swiftDocItem.declaration, syntaxHighlighting: "swift"), newLines: 2)
+		let discussion = MarkdownBlock(words: .paragraph(text: swiftDocItem.comment ?? "No documentation"), newLines: 2)
+
+
+		let foundIn = MarkdownLine(.paragraph(text: "Found in"))
+		let codeStyleFile = MarkdownWord.inlineCode(code: swiftDocItem.sourceFile)
+		let docSourceFile = MarkdownLine(.unorderedListItem(indentation: 0, text: codeStyleFile.rendered.text))
+		let foundInBlock = MarkdownBlock(foundIn, docSourceFile, newLines: 2, joinedBy: "\n")
+
 
 		var children = [String]()
 		if let properties = swiftDocItem.properties {
@@ -43,26 +45,18 @@ class MarkdownGenerator {
 
 					\(propInfo)
 					"""
-				outDown += propSourceFile != docSourceFile ? "\n\n\(propSourceFile)" : ""
+				outDown += propSourceFile != foundInBlock.rendered.text ? "\n\n\(propSourceFile)" : ""
 
 				children.append(outDown)
 			}
 		}
 
-		var markdownOut = """
-			\(docHeader)
-			\(type)
-			\(declaration)
-
-			\(discussion)
-
-			\(docSourceFile)
-
-			\((children.isEmpty ? "" : "\n### Members\n\n"))
-			"""
+		let tVal = [docHeader, type, declaration, discussion, foundInBlock] + (children.isEmpty ? [MarkdownOut]() : [MarkdownBlock(words: .header(level: 3, text: "Members"), newLines: 2)])
+		let markdownOut = MarkdownBlock(tVal, newLines: 2, joinedBy: "")
+		var tRender = markdownOut.finalRender
 
 		for child in children {
-			markdownOut += """
+			tRender += """
 				\(child.replacingOccurrences(of: "\n", with: "\n\t"))
 
 				___
@@ -70,7 +64,7 @@ class MarkdownGenerator {
 				"""
 		}
 
-		return markdownOut
+		return tRender
 	}
 
 	func generateMarkdownContents(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: OutputStyle, format: SaveFormat) -> String {
@@ -130,23 +124,35 @@ extension MarkdownOut {
 }
 
 struct MarkdownBlock: MarkdownOut {
-	let markdowns: [MarkdownWord]
+	let markdowns: [MarkdownOut]
 	let newLines: Int
 	let joined: String
 
 	var rendered: (text: String, footerLinks: [URL]) {
-//		return markdowns.reduce((text: "", footerLinks: [URL]())) { ($0.text + joined + $1.renderedValue().text, $0.footerLinks + $1.renderedValue().footerLinks) }
-		var tMarkdowns = markdowns.reduce((text: "", footerLinks: [URL]())) { previousTuple, newMarkdown in
-			let newTuple = newMarkdown.rendered
-			return (previousTuple.text + joined + newTuple.text, previousTuple.footerLinks + newTuple.footerLinks)
-		}
+		var tMarkdowns = markdowns.reduce((text: "", footerLinks: [URL]()), { (previous, new) in
+			let newTuple = new.rendered
+			return (previous.text + (!previous.text.isEmpty ? joined : "") + newTuple.text,
+					previous.footerLinks + newTuple.footerLinks)
+		})
 		let newLines = "\n".repeated(count: self.newLines)
 		tMarkdowns.text += newLines
 		return tMarkdowns
 	}
 
-	init(_ markdowns: MarkdownWord ..., newLines: Int = 1, joinedBy joined: String = " ") {
+	init(_ markdowns: MarkdownOut ..., newLines: Int = 1, joinedBy joined: String = " ") {
 		self.markdowns = markdowns
+		self.newLines = newLines
+		self.joined = joined
+	}
+
+	init(_ markdowns: [MarkdownOut], newLines: Int = 1, joinedBy joined: String = " ") {
+		self.markdowns = markdowns
+		self.newLines = newLines
+		self.joined = joined
+	}
+
+	init(words: MarkdownWord ..., newLines: Int = 1, joinedBy joined: String = " ") {
+		self.markdowns = words
 		self.newLines = newLines
 		self.joined = joined
 	}
@@ -154,9 +160,10 @@ struct MarkdownBlock: MarkdownOut {
 
 struct MarkdownLine: MarkdownOut {
 	var rendered: (text: String, footerLinks: [URL]) {
-		return markdowns.reduce((text: "", footerLinks: [URL]()), { (previous, new) -> (text: String, footerLinks: [URL]) in
+		return markdowns.reduce((text: "", footerLinks: [URL]()), { (previous, new) in
 			let newTuple = new.rendered
-			return (previous.text + joined + newTuple.text, previous.footerLinks + newTuple.footerLinks)
+			return (previous.text + (!previous.text.isEmpty ? joined : "") + newTuple.text,
+					previous.footerLinks + newTuple.footerLinks)
 		})
 	}
 	let markdowns: [MarkdownWord]
@@ -183,6 +190,7 @@ enum MarkdownWord: CustomStringConvertible, MarkdownOut {
 	var rendered: (text: String, footerLinks: [URL]) {
 		var outString = ""
 		var footerLink = [URL]()
+		
 		switch self {
 		case .italics(let text):
 			outString = "*\(text)*"
