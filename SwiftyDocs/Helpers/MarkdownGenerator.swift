@@ -9,7 +9,6 @@
 import Foundation
 
 class MarkdownGenerator {
-
 	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessControl: AccessControl) -> String {
 		let docHeader = "## \(swiftDocItem.title)"
 		let type = "***\(swiftDocItem.accessControl.stringValue)*** *\(swiftDocItem.kind.stringValue)*"
@@ -35,17 +34,40 @@ class MarkdownGenerator {
 							"""
 				let propSourceFile = "Found in\n* `\(property.sourceFile)`"
 
-				var outDown = "\(propTitle)\n\n\(propType)\n\n\(propDeclaration)\n\n\(propInfo)"
+				var outDown = """
+					\(propTitle)
+
+					\(propType)
+
+					\(propDeclaration)
+
+					\(propInfo)
+					"""
 				outDown += propSourceFile != docSourceFile ? "\n\n\(propSourceFile)" : ""
 
 				children.append(outDown)
 			}
 		}
 
-		var markdownOut = "\(docHeader)\n\(type)\n\(declaration)\n\n\(discussion)\n\n\(docSourceFile)\n\n\((children.isEmpty ? "" : "\n### Members\n\n"))"
+		var markdownOut = """
+			\(docHeader)
+			\(type)
+			\(declaration)
+
+			\(discussion)
+
+			\(docSourceFile)
+
+			\((children.isEmpty ? "" : "\n### Members\n\n"))
+			"""
 
 		for child in children {
-			markdownOut += "\(child.replacingOccurrences(of: "\n", with: "\n\t"))\n\n___\n\n"
+			markdownOut += """
+				\(child.replacingOccurrences(of: "\n", with: "\n\t"))
+
+				___
+
+				"""
 		}
 
 		return markdownOut
