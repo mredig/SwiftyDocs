@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
 
 body {
-	font: 14pt/22pt "Quicksand", Helvetica, Arial, sans-serif;
+	font: 12pt/22pt "Quicksand", Helvetica, Arial, sans-serif;
 }
 
 h1,h2,h3 {
@@ -92,17 +92,18 @@ ul {
 	list-style-type: circle;
 }
 
-ul li {
+ul > li {
+	list-style-type: circle;
 	margin-bottom: 20px;
 	margin-left: 40px;
 	margin-right: 40px;
 }
 
-ul li::first-line {
+ul > li::first-line {
 	font-size: 1.5em;
 }
 
-ul li ul li, ul li ul li::first-line {
+ul > li > ul > li, ul > li > ul > li::first-line {
 	font-size: 1em;
 	border-style: none;
 	margin-bottom: 10px;
@@ -110,25 +111,24 @@ ul li ul li, ul li ul li::first-line {
 
 /*ordered lists*/
 
-ol li {
+ol {
+	counter-reset: olCounter;
+}
+
+ol > li {
+	counter-increment: olCounter;
 	display: block;
 	margin-bottom: 10px;
 	margin-left: 40px;
 	margin-right: 40px;
 }
 
-ol {
-	list-style: none;
-	counter-reset: my-awesome-counter;
-}
-ol li {
-	counter-increment: my-awesome-counter;
-}
-ol li::before {
-	content: counter(my-awesome-counter) ". ";
+ol > li::before {
+	content: counter(olCounter) ". ";
 	color: rgb(211, 77, 127);
 	font-weight: bold;
 }
+
 
 /*links*/
 
