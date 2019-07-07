@@ -155,10 +155,6 @@ class SwiftDocItemController {
 
 			// recursively get all children
 			let children = getDocItemsFrom(containers: container.nestedContainers, sourceFile: sourceFile, parentName: name)
-			
-			// prefer parsed declaration over doc declaration
-			let declaration = container.parsedDeclaration ?? (container.docDeclaration ?? "no declaration")
-
 
 			let newTitle: String
 			switch kind {
@@ -168,14 +164,18 @@ class SwiftDocItemController {
 				newTitle = parentName.isEmpty ? name : parentName + "." + name
 			}
 
-			let newIem = SwiftDocItem(title: newTitle,
-									  accessControl: accessControl,
-									  comment: container.comment,
-									  sourceFile: sourceFile,
-									  kind: kind,
-									  properties: children,
-									  declaration: declaration)
-			items.append(newIem)
+			let strAttributes = container.attributes?.map { $0.name } ?? []
+
+			let newItem = SwiftDocItem(title: newTitle,
+									   accessControl: accessControl,
+									   comment: container.comment,
+									   sourceFile: sourceFile,
+									   kind: kind,
+									   properties: children,
+									   attributes: strAttributes,
+									   docDeclaration: container.docDeclaration,
+									   parsedDeclaration: container.parsedDeclaration)
+			items.append(newItem)
 		}
 		return items
 	}

@@ -9,14 +9,25 @@
 import Foundation
 
 struct SwiftDocItem: Hashable, CustomStringConvertible {
-
 	let title: String
 	let accessControl: AccessControl
 	let comment: String?
 	let sourceFile: String
 	let kind: TypeKind
 	let properties: [SwiftDocItem]?
-	let declaration: String
+	let attributes: [String]
+	var declaration: String {
+		var declaration = parsedDeclaration ?? (docDeclaration ?? "no declaration")
+		// unless it is lazy...
+		if attributes.contains("lazy") {
+			declaration = docDeclaration ?? (parsedDeclaration ?? "no declaration")
+		}
+		// double check that it's clean output
+		return declaration.replacingOccurrences(of: ##"\s+=$"##, with: "", options: .regularExpression, range: nil)
+	}
+
+	private let docDeclaration: String?
+	private let parsedDeclaration: String?
 
 	var description: String {
 		return """
@@ -33,8 +44,9 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 }
 
 extension SwiftDocItem {
-	init(title: String, accessControl: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, declaration: String) {
+	init(title: String, accessControl: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
 		let accessControl = AccessControl.createFrom(string: accessControl)
-		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, declaration: declaration)
+//		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, declaration: declaration)
+		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
 	}
 }
