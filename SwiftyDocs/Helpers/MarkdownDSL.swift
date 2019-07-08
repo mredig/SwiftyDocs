@@ -49,9 +49,7 @@ public enum MDNode: CustomStringConvertible {
 		let tuple = render(inlineLinks: inlineLinks)
 		let links = MDNode.linkCache.map { "[\($0.hashValue)]:\($0)" }.joined(separator: "\n")
 		MDNode.linkCache.removeAll()
-//		let cleaned = cleanupRender(renderedString: tuple.text)
 
-//		return cleaned + "\n" + links
 		return tuple.text + "\n" + links
 	}
 
@@ -100,6 +98,14 @@ public enum MDNode: CustomStringConvertible {
 			for node in nodes {
 				let rendered = node.render(inheritedIndentation: inheritedIndentation, parent: self)
 
+				// in the event that there are consecutive list items, remove excess lines between them
+				if rendered.text.hasPrefix("* ") || rendered.text.hasPrefix("1. ") {
+					if let lastValue = lastValue(in: rVal),
+						lastValue.hasPrefix("* ") || lastValue.hasPrefix("1. ")	{
+						rVal = removeTrailingWhitespace(in: rVal)
+						rVal += "\n"
+					}
+				}
 				rVal += rendered.text + "\n"
 				links += rendered.links
 			}
@@ -107,43 +113,14 @@ public enum MDNode: CustomStringConvertible {
 		}
 	}
 
-	private func cleanupRender(renderedString: String) -> String {
-
-		var lines = renderedString.split(separator: "\n", maxSplits: Int.max, omittingEmptySubsequences: false)
-
-		var previousContent = ""
-		var linesSinceContent = 0
-
-		var linesToRemove = [Int]()
-
-		for (index, line) in lines.enumerated() {
-			let content = line.trimmingCharacters(in: .whitespacesAndNewlines)
-			// if has content
-			if !content.isEmpty {
-				// if both this line and the previous line of content are lists...
-				if content.hasPrefix("1. ") || content.hasPrefix("* ") {
-					if previousContent.hasPrefix("1. ") || previousContent.hasPrefix("* ") {
-						for count in (1..<linesSinceContent + 1).reversed() {
-							// remove excess newlines
-							linesToRemove.append(index - count)
-						}
-					}
-				}
-				// set state for next loop
-				previousContent = content
-				linesSinceContent = 0
-			} else {
-				linesSinceContent += 1
-			}
-		}
-
-		for indexToRemove in linesToRemove.reversed() {
-			lines.remove(at: indexToRemove)
-		}
-
-		return lines.joined(separator: "\n")
+	private func lastValue(in string: String) -> String? {
+		let lines = string.split(separator: "\n")
+		return lines.last?.trimmingCharacters(in: .whitespacesAndNewlines)
 	}
 
+	private func removeTrailingWhitespace(in string: String) -> String {
+		return string.replacingOccurrences(of: ##"\s+$"##, with: "", options: .regularExpression, range: nil)
+	}
 
 	indirect case element(String, MDType, [MDAttribute], MDNode?)
 	case nonIndentedCollection([MDNode])

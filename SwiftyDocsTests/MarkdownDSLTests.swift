@@ -107,7 +107,7 @@ class MarkdownDSLTests: XCTestCase {
 			}
 		}
 		XCTAssertEqual(finalSansLinks.joined(separator: "\n"), correctOutput)
-
+//		print(finalRender)
 	}
 
 	func testSubListing() {
