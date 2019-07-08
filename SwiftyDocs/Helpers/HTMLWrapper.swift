@@ -34,6 +34,11 @@ struct HTMLWrapper {
 				<script>
 					var sourceString = document.getElementById('sourceContent').innerHTML
 
+					marked.setOptions({
+						gfm: true,
+						breaks: true,
+					})
+
 					// Let marked do its normal token generation.
 					tokens = marked.lexer( sourceString );
 
