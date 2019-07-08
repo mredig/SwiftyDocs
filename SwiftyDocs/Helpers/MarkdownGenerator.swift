@@ -10,60 +10,49 @@ import Foundation
 
 class MarkdownGenerator {
 	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessControl: AccessControl) -> String {
-		let docHeader = MarkdownLine(words: .header(level: 2, text: "\(swiftDocItem.title)"))
-		let type = MarkdownLine(words: .bold(text: "\(swiftDocItem.accessControl.stringValue)"), .italics(text: "\(swiftDocItem.kind.stringValue)"))
-		let declaration = MarkdownLine(words: .codeBlock(code: "\(swiftDocItem.declaration)", syntaxHighlighting: "swift"), newLines: 2)
-		let discussion = MarkdownLine(words: "\(swiftDocItem.comment ?? "No documentation")", newLines: 2)
 
-		let foundIn = MarkdownLine(words: .text("Found in"))
-		let docSourceFile = MarkdownLine(words: .unorderedListItem(indentation: 0, text: .inlineCode(code: "\(swiftDocItem.sourceFile)")))
-		let foundInBlock = MarkdownLine(foundIn, docSourceFile, newLines: 2, joinedBy: "\n")
+		let sourceFile: MDNode = .nonIndentedCollection([
+				.paragraphWithInlineElements([.italics("Found in:")]),
+				.unorderedListItem("\(MDNode.codeInline(swiftDocItem.sourceFile))")
+			])
+		var rootDoc: MDNode = .document(
+			.header(2, swiftDocItem.title),
+			.paragraphWithInlineElements([.bold(swiftDocItem.accessControl.stringValue), .italics(swiftDocItem.kind.stringValue)]),
+			.codeBlock(swiftDocItem.declaration, syntax: "swift"),
+			.paragraph(swiftDocItem.comment ?? "No documentation"),
+			.newline(),
+			sourceFile
+		)
 
-		var children = [String]()
+		var children = [MDNode]()
 		if let properties = swiftDocItem.properties {
 			for property in properties {
 				guard property.accessControl >= minimumAccessControl else { continue }
-				let propTitle = "* **\(property.title)**"
-				let propType = "***\(property.accessControl.stringValue)*** *\(property.kind.stringValue)*"
-				let propInfo = (property.comment ?? "No documentation")
-				let propDeclaration =  """
-							```swift
-							\(property.declaration)
-							```
-							"""
-				let propSourceFile = "Found in\n* `\(property.sourceFile)`"
 
-				var outDown = """
-					\(propTitle)
+				let propertySourceFile: MDNode = .nonIndentedCollection([
+					.paragraphWithInlineElements([.italics("Found in:")]),
+					.unorderedListItem("\(MDNode.codeInline(property.sourceFile))")
+				])
 
-					\(propType)
+				var propertyDoc: MDNode = .unorderedListItem("\(MDNode.bold(property.title))",
+					.paragraphWithInlineElements([.boldItalics(property.accessControl.stringValue), .italics(property.kind.stringValue)]),
+					.paragraph(property.comment ?? "No documentation"),
+					.codeBlock(property.declaration, syntax: "swift")
+				)
 
-					\(propDeclaration)
-
-					\(propInfo)
-					"""
-				outDown += propSourceFile != foundInBlock.rendered.text ? "\n\n\(propSourceFile)" : ""
-
-				children.append(outDown)
+				if sourceFile != propertySourceFile {
+					propertyDoc = propertyDoc.appending(node: propertySourceFile)
+				}
+				children.append(propertyDoc)
 			}
 		}
 
-		let tVal = [docHeader, type, declaration, discussion, foundInBlock] +
-			(children.isEmpty ? [MarkdownLine]() : [MarkdownLine(words: .header(level: 3, text: "Members"), newLines: 2)])
-
-		let markdownOut = MarkdownLineComposer(tVal)
-		var tRender = markdownOut.finalRender
-
-		for child in children {
-			tRender += """
-				\(child.replacingOccurrences(of: "\n", with: "\n\t"))
-
-				___
-
-				"""
+		if !children.isEmpty {
+			rootDoc = rootDoc.appending(nodes: [.header(3, "Members"), .newline()])
+			rootDoc = rootDoc.appending(nodes: children)
 		}
 
-		return tRender
+		return rootDoc.finalRender()
 	}
 
 	func generateMarkdownContents(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: OutputStyle, format: SaveFormat) -> String {

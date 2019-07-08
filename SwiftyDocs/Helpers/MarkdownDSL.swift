@@ -68,11 +68,13 @@ public enum MDNode: CustomStringConvertible {
 				}
 			}
 
+
+			let additionalIndentation = "\t".repeated(count: attrs.getIndentation())
+			rVal = "\(additionalIndentation)\(rVal)"
+			rVal = rVal.replacingOccurrences(of: "\n", with: "\n\(additionalIndentation + "\t".repeated(count: inheritedIndentation))", options: .regularExpression, range: nil)
 			if type == .block {
 				rVal += "\n"
 			}
-			let additionalIndentation = "\t".repeated(count: attrs.getIndentation())
-			rVal = "\(additionalIndentation)\(rVal)"
 
 			let childRender = children?.render(inheritedIndentation: inheritedIndentation + 1, parent: self, inlineLinks: inlineLinks)
 			rVal += childRender?.text ?? ""
@@ -163,16 +165,16 @@ extension MDNode {
 	}
 
 	public static func paragraph(_ text: String, indentation: Int = 0) -> MDNode {
-		return .element(text, .block, [.indentation(indentation)], .indentedCollection([]))
+		return .element(text, .block, [.indentation(indentation)], nil)
 	}
 
 	public static func paragraphWithInlineElements(_ elements: [MDNode], indentation: Int = 0) -> MDNode {
 		let value = elements.map { $0.render().text }.joined(separator: " ")
-		return .element(value, .block, [.indentation(indentation)], .indentedCollection([]))
+		return .element(value, .block, [.indentation(indentation)], nil)
 	}
 
 	public static func text(_ text: String, indentation: Int = 0) -> MDNode {
-		return .element(text, .inline, [.indentation(indentation)], .indentedCollection([]))
+		return .element(text, .inline, [.indentation(indentation)], nil)
 	}
 
 	public static func unorderedListItem(_ text: String, _ children: MDNode ..., indentation: Int = 0) -> MDNode {
@@ -184,33 +186,37 @@ extension MDNode {
 	}
 
 	public static func codeBlock(_ text: String, syntax: String = "", indentation: Int = 0) -> MDNode {
-		return .element("```\(syntax)\n\(text)\n```", .block, [.indentation(indentation)], .indentedCollection([]))
+		return .element("```\(syntax)\n\(text)\n```", .block, [.indentation(indentation)], nil)
+	}
+
+	public static func codeInline(_ text: String) -> MDNode {
+		return .element("`\(text)`", .inline, [], nil)
 	}
 
 	public static func link(_ text: String, _ destination: String) -> MDNode {
 		let url = URL(string: destination) ?? URL(string: "#")!
 		MDNode.linkCache.insert(url)
-		return .element("[\(text)]", .inline, [.linkURL(url)], .indentedCollection([]))
+		return .element("[\(text)]", .inline, [.linkURL(url)], nil)
 	}
 
 	public static func italics(_ text: String) -> MDNode {
-		return .element("*\(text)*", .inline, [], .indentedCollection([]))
+		return .element("*\(text)*", .inline, [], nil)
 	}
 
 	public static func bold(_ text: String) -> MDNode {
-		return .element("**\(text)**", .inline, [], .indentedCollection([]))
+		return .element("**\(text)**", .inline, [], nil)
 	}
 
 	public static func boldItalics(_ text: String) -> MDNode {
-		return .element("***\(text)***", .inline, [], .indentedCollection([]))
+		return .element("***\(text)***", .inline, [], nil)
 	}
 
 	public static func newline() -> MDNode {
-		return .element("\n", .inline, [], .nonIndentedCollection([]))
+		return .element("\n", .inline, [], nil)
 	}
 
 	public static func hr() -> MDNode {
-		return .element("___", .block, [], .nonIndentedCollection([]))
+		return .element("___", .block, [], nil)
 	}
 
 	public func appending(nodes: [MDNode]) -> MDNode {
@@ -232,5 +238,31 @@ extension MDNode {
 
 	public func appending(node: MDNode) -> MDNode {
 		return self.appending(nodes: [node])
+	}
+}
+
+// this is witchcraft... i dont have to implement anything!
+extension MDNode.MDAttribute: Equatable {}
+
+extension MDNode: Equatable {
+	public static func ==(lhs: MDNode, rhs: MDNode) -> Bool {
+		switch lhs {
+		case .element(let text, let type, let attr, let child):
+			if case .element(let rText, let rType, let rAttr, let rChild) = rhs {
+				return text == rText &&
+					type == rType &&
+					attr == rAttr &&
+					child == rChild
+			}
+		case .indentedCollection(let children):
+			if case .indentedCollection(let rChildren) = rhs {
+				return children == rChildren
+			}
+		case .nonIndentedCollection(let children):
+			if case .nonIndentedCollection(let rChildren) = rhs {
+				return children == rChildren
+			}
+		}
+		return false
 	}
 }

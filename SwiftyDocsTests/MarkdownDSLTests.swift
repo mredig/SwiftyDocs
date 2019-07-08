@@ -192,4 +192,25 @@ class MarkdownDSLTests: XCTestCase {
 
 		print(doc3.finalRender())
 	}
+
+	func testEquatable() {
+		let attr1 = MDNode.MDAttribute.indentation(2)
+		let attr2 = MDNode.MDAttribute.indentation(3)
+		let attr3 = MDNode.MDAttribute.linkURL(URL(string: "/")!)
+
+		let attr4 = MDNode.MDAttribute.indentation(2)
+		let attr5 = MDNode.MDAttribute.indentation(3)
+		let attr6 = MDNode.MDAttribute.linkURL(URL(string: "/")!)
+
+		XCTAssertNotEqual(attr1, attr2)
+		XCTAssertNotEqual(attr1, attr3)
+		XCTAssertEqual(attr1, attr4)
+
+		XCTAssertEqual(attr2, attr5)
+		XCTAssertNotEqual(attr2, attr3)
+
+		XCTAssertEqual(attr3, attr6)
+		XCTAssertNotEqual(attr3, attr5)
+
+	}
 }
