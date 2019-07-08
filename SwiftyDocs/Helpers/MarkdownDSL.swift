@@ -187,10 +187,6 @@ extension MDNode {
 		return .element("```\(syntax)\n\(text)\n```", .block, [.indentation(indentation)], .indentedCollection([]))
 	}
 
-	public static func line(_ children: MDNode ...) -> MDNode {
-		return .nonIndentedCollection(children)
-	}
-
 	public static func link(_ text: String, _ destination: String) -> MDNode {
 		let url = URL(string: destination) ?? URL(string: "#")!
 		MDNode.linkCache.insert(url)
@@ -217,7 +213,24 @@ extension MDNode {
 		return .element("___", .block, [], .nonIndentedCollection([]))
 	}
 
-	public func appending(linkText name: String, destination: String) -> MDNode {
-		return MDNode.nonIndentedCollection([self, .link(name, destination)])
+	public func appending(nodes: [MDNode]) -> MDNode {
+		switch self {
+		case .nonIndentedCollection(let existingNodes):
+			return .nonIndentedCollection(existingNodes + nodes)
+		case .indentedCollection(let existingNodes):
+			return .indentedCollection(existingNodes + nodes)
+		case .element(let text, let type, let attrs, let child):
+			let newChild: MDNode
+			if let child = child {
+				newChild = child.appending(nodes: nodes)
+			} else {
+				newChild = .indentedCollection(nodes)
+			}
+			return .element(text, type, attrs, newChild)
+		}
+	}
+
+	public func appending(node: MDNode) -> MDNode {
+		return self.appending(nodes: [node])
 	}
 }

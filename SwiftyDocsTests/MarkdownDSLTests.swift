@@ -137,4 +137,59 @@ class MarkdownDSLTests: XCTestCase {
 		XCTAssertEqual(doc.finalRender(), correctOutput)
 	}
 
+
+	func testAppending() {
+		let doc: MDNode = .document(
+			.header(1, "Doc 1"),
+			.paragraph("This is my first doc!"),
+			.codeBlock("lets add a code block... public var poop")
+		)
+
+		let doc2: MDNode = .indentedCollection([
+			.header(3, "Doc 2"),
+
+			.unorderedListItem("\(MDNode.bold("mockData"))"),
+			.paragraphWithInlineElements([.boldItalics("internal"), .italics("instance property")], indentation: 1),
+			.codeBlock("let mockData: Data?", syntax: "swift", indentation: 1),
+			.paragraph("this should be part of doc1", indentation: 1),
+			.paragraph("Found in", indentation: 1),
+			.unorderedListItem("`NetworkHandler/NetworkHandler.swift`", indentation: 1),
+			.hr(),
+
+			.unorderedListItem("\(MDNode.bold("mockData2"))"),
+			.paragraphWithInlineElements([.boldItalics("external"), .italics("global property")], indentation: 1),
+			.codeBlock("let mockData: Data?", syntax: "swift", indentation: 1),
+			.paragraph("this should be part of doc1", indentation: 1),
+			.paragraph("Found in", indentation: 1),
+			.unorderedListItem("`NetworkHandler/NetworkHandler.swift`", indentation: 1),
+			.hr(),
+
+			.unorderedListItem("\(MDNode.bold("mockData"))",
+				.paragraphWithInlineElements([.boldItalics("internal"), .italics("instance property")]),
+				.codeBlock("let mockData: Data?", syntax: "swift"),
+				.paragraph("this should be part of doc1"),
+				.paragraph("Found in"),
+				.unorderedListItem("`NetworkHandler/NetworkHandler.swift`")
+			),
+			.hr()
+		])
+
+		var doc3 = doc
+		for _ in 0..<5 {
+			let tDoc: MDNode = .indentedCollection([
+				.unorderedListItem("\(MDNode.bold("mockData"))",
+					.paragraphWithInlineElements([.boldItalics("internal"), .italics("instance property")]),
+					.codeBlock("let mockData: Data?", syntax: "swift"),
+					.paragraph("this should be part of doc1"),
+					.paragraph("Found in"),
+					.unorderedListItem("`NetworkHandler/NetworkHandler.swift`")
+				),
+				.hr()
+			])
+			doc3 = doc3.appending(node: tDoc)
+		}
+
+
+		print(doc3.finalRender())
+	}
 }
