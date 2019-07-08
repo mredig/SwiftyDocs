@@ -12,7 +12,10 @@ import XCTest
 class MarkdownDSLTests: XCTestCase {
 
 	func testItemsRenders() {
-		
+		var node: MDNode = .header(1, "Header 1")
+		XCTAssertEqual(node.description, "# Header 1")
+		XCTAssertEqual(node.render().text, "# Header 1\n")
+		XCTAssertEqual(node.finalRender(), "# Header 1\n\n")
 	}
 
 	// this is ugly and i won't be surprised if it breaks in the future.
@@ -58,7 +61,7 @@ class MarkdownDSLTests: XCTestCase {
 
 		let correctOutput = """
 				#### MyDoc
-				\t
+
 				these are some of my words. I will just talk about stuff.
 
 				This is an inline *italicized* **text.** ***Rejoice!***

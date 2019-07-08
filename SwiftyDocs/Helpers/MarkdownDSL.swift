@@ -24,9 +24,11 @@ public enum MDNode: CustomStringConvertible {
 	// make sure this is an inline value
 	public var description: String {
 		let rendered = render(inlineLinks: true)
-		return rendered.text
+		return rendered.text.trimmingCharacters(in: .whitespacesAndNewlines)
 	}
 
+	/// This is a HACK. It's BAD!
+	/// You cannot juggle multiple documents at the same time - they all need to be done sequentially!
 	static var linkCache = Set<URL>()
 
 	var type: MDType? {
@@ -47,9 +49,10 @@ public enum MDNode: CustomStringConvertible {
 		let tuple = render(inlineLinks: inlineLinks)
 		let links = MDNode.linkCache.map { "[\($0.hashValue)]:\($0)" }.joined(separator: "\n")
 		MDNode.linkCache.removeAll()
-		let cleaned = cleanupRender(renderedString: tuple.text)
+//		let cleaned = cleanupRender(renderedString: tuple.text)
 
-		return cleaned + "\n" + links
+//		return cleaned + "\n" + links
+		return tuple.text + "\n" + links
 	}
 
 	func render(inheritedIndentation: Int = 0, parent: MDNode? = nil, inlineLinks: Bool = false) -> (text: String, links: [URL]) {
@@ -73,9 +76,9 @@ public enum MDNode: CustomStringConvertible {
 			let additionalIndentation = "\t".repeated(count: attrs.getIndentation())
 			rVal = "\(additionalIndentation)\(rVal)"
 
-			let childRender = children.render(inheritedIndentation: inheritedIndentation + 1, parent: self, inlineLinks: inlineLinks)
-			rVal += childRender.text
-			links += childRender.links
+			let childRender = children?.render(inheritedIndentation: inheritedIndentation + 1, parent: self, inlineLinks: inlineLinks)
+			rVal += childRender?.text ?? ""
+			links += childRender?.links ?? []
 			return (rVal, links)
 
 		case .indentedCollection(let nodes):
@@ -142,7 +145,7 @@ public enum MDNode: CustomStringConvertible {
 	}
 
 
-	indirect case element(String, MDType, [MDAttribute], MDNode)
+	indirect case element(String, MDType, [MDAttribute], MDNode?)
 	case nonIndentedCollection([MDNode])
 	case indentedCollection([MDNode])
 }
@@ -172,14 +175,14 @@ extension MDNode {
 		return nonIndentedCollection(children)
 	}
 
-	public static func element(_ value: String, _ type: MDType, attributes: [MDAttribute], _ children: MDNode...) -> MDNode {
-		return .element(String(describing: value), type, attributes, .indentedCollection(children))
+	public static func element(_ value: String, _ type: MDType, attributes: [MDAttribute], _ child: MDNode?) -> MDNode {
+		return .element(String(describing: value), type, attributes, child)
 	}
 
 	public static func header(_ headerValue: Int, _ text: String) -> MDNode {
 		let headerValue = min(max(headerValue, 1), 6)
 		let hashTags = "#".repeated(count: headerValue)
-		return .element("\(hashTags) \(text)", .block, attributes: [], .indentedCollection([]) )
+		return .element("\(hashTags) \(text)", .block, attributes: [], nil)
 	}
 
 	public static func paragraph(_ text: String, indentation: Int = 0) -> MDNode {
@@ -230,7 +233,11 @@ extension MDNode {
 	}
 
 	public static func newline() -> MDNode {
-		return .element("\n", .inline, [], .indentedCollection([]))
+		return .element("\n", .inline, [], .nonIndentedCollection([]))
+	}
+
+	public static func hr() -> MDNode {
+		return .element("___", .block, [], .nonIndentedCollection([]))
 	}
 
 	public func appending(linkText name: String, destination: String) -> MDNode {
