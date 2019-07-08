@@ -406,7 +406,7 @@ class SwiftDocItemController {
 	}
 
 	private func sanitizeForHTMLEmbedding(string: String) -> String {
-		var rVal = string //.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
+		var rVal = string.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
 
 		let ranges = rVal.ranges(of: ##"`.*?`"##, options: .regularExpression, range: nil, locale: nil)
 		let allowedSet = CharacterSet(charactersIn: "<>").inverted
