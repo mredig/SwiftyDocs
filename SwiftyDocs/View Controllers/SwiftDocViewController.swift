@@ -11,9 +11,11 @@ import SourceKittenFramework
 
 class SwiftDocViewController: NSViewController {
 
+	@IBOutlet var masterStackView: NSStackView!
 	@IBOutlet var formatPopUp: NSPopUpButton!
 	@IBOutlet var selectedItemsPopUp: NSPopUpButton!
 	@IBOutlet var accessLevelPopUp: NSPopUpButton!
+	@IBOutlet var projectTitleLabel: NSTextField!
 	@IBOutlet var projectTitleTextField: NSTextField!
 	@IBOutlet var loadProjectButton: NSButton!
 	@IBOutlet var exportButton: NSButton!
@@ -34,6 +36,7 @@ class SwiftDocViewController: NSViewController {
 
 	override func viewWillAppear() {
 		updateViews()
+		projectTitleTextField.isHidden = true
 	}
 
 	// MARK: - menu items
@@ -103,6 +106,7 @@ class SwiftDocViewController: NSViewController {
 		updateWindowTitle()
 		updateTitleField()
 		setupSelectedItems()
+		view.window?.setContentSize(NSSize(width: 480, height: 1))
 	}
 
 	func setItemsEnabled(to enabled: Bool) {
@@ -126,6 +130,7 @@ class SwiftDocViewController: NSViewController {
 
 	private func updateTitleField() {
 		projectTitleTextField.stringValue = docController.projectTitle
+		projectTitleLabel.stringValue = docController.projectTitle
 	}
 
 	private func updateWindowTitle() {
@@ -150,6 +155,10 @@ extension SwiftDocViewController: NSMenuItemValidation {
 
 // MARK: - IB customization Stuff
 extension SwiftDocViewController {
+	@IBAction func renameDocsPressed(_ sender: NSButton) {
+		projectTitleTextField.isHidden.toggle()
+	}
+
 	@IBAction func projectTitleUpdated(_ sender: NSTextField) {
 		docController.projectTitle = sender.stringValue
 		sender.stringValue = docController.projectTitle

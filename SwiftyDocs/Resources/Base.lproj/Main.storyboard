@@ -395,6 +395,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="maxSize" type="size" width="1280" height="500"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -412,41 +413,71 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="SwiftDocViewController" customModule="SwiftyDocs" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="388"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YvJ-A8-ynH">
-                                <rect key="frame" x="14" y="224" width="117" height="32"/>
-                                <buttonCell key="cell" type="push" title="Load Project" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IlP-aC-Sf4">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="loadButtonPressed:" target="XfG-lQ-9wD" id="0fZ-Ld-nSE"/>
-                                </connections>
-                            </button>
-                            <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="jbE-xv-JKa">
-                                <rect key="frame" x="145" y="233" width="315" height="20"/>
-                            </progressIndicator>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xjh-Xq-yXq">
-                                <rect key="frame" x="20" y="184" width="440" height="27"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="27" id="QEy-Os-MJn"/>
-                                </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" placeholderString="Project Title" drawsBackground="YES" id="PiN-mO-WTC">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <action selector="projectTitleUpdated:" target="XfG-lQ-9wD" id="XiT-Cc-nb5"/>
-                                </connections>
-                            </textField>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GOw-DH-hIL">
-                                <rect key="frame" x="20" y="20" width="440" height="144"/>
+                                <rect key="frame" x="20" y="20" width="440" height="348"/>
                                 <subviews>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="klm-Cq-Ig9">
+                                        <rect key="frame" x="0.0" y="327" width="440" height="21"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YvJ-A8-ynH">
+                                                <rect key="frame" x="-6" y="-7" width="117" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Load Project" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IlP-aC-Sf4">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="loadButtonPressed:" target="XfG-lQ-9wD" id="0fZ-Ld-nSE"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="inP-Gi-Tnj">
+                                                <rect key="frame" x="123" y="2" width="222" height="17"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Project Title" id="X7B-rp-9rr">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button toolTip="Rename Documentation Title" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VO1-Fo-6wC">
+                                                <rect key="frame" x="357" y="-7" width="89" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Rename" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xVc-ag-E3a">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="renameDocsPressed:" target="XfG-lQ-9wD" id="Pny-uo-784"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xjh-Xq-yXq">
+                                        <rect key="frame" x="0.0" y="280" width="440" height="27"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="QEy-Os-MJn"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" placeholderString="Project Title" drawsBackground="YES" id="PiN-mO-WTC">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <action selector="projectTitleUpdated:" target="XfG-lQ-9wD" id="XiT-Cc-nb5"/>
+                                        </connections>
+                                    </textField>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uiC-8r-YXM">
-                                        <rect key="frame" x="0.0" y="123" width="440" height="21"/>
+                                        <rect key="frame" x="0.0" y="239" width="440" height="21"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="59T-8u-4SL">
                                                 <rect key="frame" x="-2" y="2" width="142" height="17"/>
@@ -478,10 +509,10 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ITe-Da-YXL">
-                                        <rect key="frame" x="0.0" y="82" width="440" height="21"/>
+                                        <rect key="frame" x="0.0" y="152" width="440" height="67"/>
                                         <subviews>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q92-2r-yOb">
-                                                <rect key="frame" x="-3" y="-3" width="446" height="25"/>
+                                                <rect key="frame" x="-3" y="20" width="446" height="25"/>
                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="C0t-1d-wq0">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="menu"/>
@@ -497,7 +528,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dl4-I3-nMa">
-                                        <rect key="frame" x="0.0" y="41" width="440" height="21"/>
+                                        <rect key="frame" x="0.0" y="111" width="440" height="21"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iPL-H4-20Q">
                                                 <rect key="frame" x="-2" y="2" width="41" height="17"/>
@@ -561,6 +592,12 @@
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
+                                    <customView horizontalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="tsq-eZ-1TL">
+                                        <rect key="frame" x="0.0" y="41" width="440" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" id="igX-8z-REn"/>
+                                        </constraints>
+                                    </customView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0G9-vI-ZE5">
                                         <rect key="frame" x="-6" y="-7" width="452" height="32"/>
                                         <buttonCell key="cell" type="push" title="Export Documentation" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vlu-HW-Hu1">
@@ -573,6 +610,8 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="klm-Cq-Ig9" firstAttribute="width" secondItem="GOw-DH-hIL" secondAttribute="width" id="0l9-zx-Ndz"/>
+                                    <constraint firstItem="tsq-eZ-1TL" firstAttribute="width" secondItem="GOw-DH-hIL" secondAttribute="width" id="HWu-jy-tUS"/>
                                     <constraint firstItem="ITe-Da-YXL" firstAttribute="width" secondItem="uiC-8r-YXM" secondAttribute="width" id="ITY-5r-nOA"/>
                                     <constraint firstItem="0G9-vI-ZE5" firstAttribute="width" secondItem="Dl4-I3-nMa" secondAttribute="width" id="NfK-BL-PiM"/>
                                     <constraint firstItem="uiC-8r-YXM" firstAttribute="width" secondItem="GOw-DH-hIL" secondAttribute="width" id="WM3-CB-V4t"/>
@@ -583,28 +622,32 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="jbE-xv-JKa">
+                                <rect key="frame" x="-3" y="375" width="486" height="20"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="YvJ-A8-ynH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="LVN-1H-rgp"/>
+                            <constraint firstItem="GOw-DH-hIL" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="GjE-tl-yPF"/>
+                            <constraint firstItem="jbE-xv-JKa" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="-6" id="HGa-lN-65c"/>
                             <constraint firstItem="GOw-DH-hIL" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Rwp-OA-jAL"/>
-                            <constraint firstItem="GOw-DH-hIL" firstAttribute="top" secondItem="xjh-Xq-yXq" secondAttribute="bottom" constant="20" id="Tjx-5K-2Ar"/>
-                            <constraint firstItem="jbE-xv-JKa" firstAttribute="leading" secondItem="YvJ-A8-ynH" secondAttribute="trailing" constant="20" id="Tq3-O1-5SM"/>
-                            <constraint firstItem="YvJ-A8-ynH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="V9h-47-4CD"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GOw-DH-hIL" secondAttribute="bottom" constant="20" id="YZa-nH-z8J"/>
-                            <constraint firstItem="jbE-xv-JKa" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="bry-kx-RzU"/>
-                            <constraint firstItem="xjh-Xq-yXq" firstAttribute="top" secondItem="YvJ-A8-ynH" secondAttribute="bottom" constant="20" id="f2S-7L-aYs"/>
-                            <constraint firstItem="xjh-Xq-yXq" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="fyS-ZN-XO5"/>
+                            <constraint firstAttribute="bottom" secondItem="GOw-DH-hIL" secondAttribute="bottom" constant="20" id="YZa-nH-z8J"/>
+                            <constraint firstItem="jbE-xv-JKa" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="-3" id="fGO-Qb-PbF"/>
                             <constraint firstAttribute="trailing" secondItem="GOw-DH-hIL" secondAttribute="trailing" constant="20" id="lye-fk-J74"/>
-                            <constraint firstAttribute="trailing" secondItem="jbE-xv-JKa" secondAttribute="trailing" constant="20" id="mLI-ah-WyW"/>
-                            <constraint firstAttribute="trailing" secondItem="xjh-Xq-yXq" secondAttribute="trailing" constant="20" id="xH0-Dg-cIW"/>
+                            <constraint firstAttribute="trailing" secondItem="jbE-xv-JKa" secondAttribute="trailing" constant="-3" id="mLI-ah-WyW"/>
                         </constraints>
                     </view>
                     <connections>
@@ -613,16 +656,18 @@
                         <outlet property="fileCountPopUp" destination="JJL-NI-kl5" id="RJ3-Sp-XBY"/>
                         <outlet property="formatPopUp" destination="wAI-QL-EU2" id="co7-5X-uMN"/>
                         <outlet property="loadProjectButton" destination="YvJ-A8-ynH" id="0Wy-Gb-VLp"/>
+                        <outlet property="masterStackView" destination="GOw-DH-hIL" id="Nw4-8G-mDi"/>
                         <outlet property="outputFileLabel" destination="qUh-Co-0Tk" id="PiN-mn-sQE"/>
                         <outlet property="outputIWantLabel" destination="iPL-H4-20Q" id="zAy-om-RAo"/>
                         <outlet property="progressIndicator" destination="jbE-xv-JKa" id="Oub-ru-faa"/>
+                        <outlet property="projectTitleLabel" destination="inP-Gi-Tnj" id="f9q-gz-hVc"/>
                         <outlet property="projectTitleTextField" destination="xjh-Xq-yXq" id="lZR-Bn-kAt"/>
                         <outlet property="selectedItemsPopUp" destination="q92-2r-yOb" id="cPf-az-mdh"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="656"/>
+            <point key="canvasLocation" x="75" y="739"/>
         </scene>
     </scenes>
 </document>
