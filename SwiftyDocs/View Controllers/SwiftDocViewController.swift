@@ -106,7 +106,7 @@ class SwiftDocViewController: NSViewController {
 		updateWindowTitle()
 		updateTitleField()
 		setupSelectedItems()
-		view.window?.setContentSize(NSSize(width: 480, height: 1))
+//		view.window?.setContentSize(NSSize(width: 480, height: 1))
 	}
 
 	func setItemsEnabled(to enabled: Bool) {
@@ -156,7 +156,13 @@ extension SwiftDocViewController: NSMenuItemValidation {
 // MARK: - IB customization Stuff
 extension SwiftDocViewController {
 	@IBAction func renameDocsPressed(_ sender: NSButton) {
-		projectTitleTextField.isHidden.toggle()
+		NSAnimationContext.runAnimationGroup { (context) in
+			context.duration = 1
+			context.allowsImplicitAnimation = true
+
+			projectTitleTextField.isHidden.toggle()
+			view.layoutSubtreeIfNeeded()
+		}
 	}
 
 	@IBAction func projectTitleUpdated(_ sender: NSTextField) {
