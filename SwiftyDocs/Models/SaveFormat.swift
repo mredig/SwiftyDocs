@@ -11,4 +11,5 @@ import Foundation
 enum SaveFormat: String, CaseIterable {
 	case html
 	case markdown
+	case docset
 }

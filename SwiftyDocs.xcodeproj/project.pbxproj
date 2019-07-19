@@ -14,6 +14,11 @@
 		332716EB22CF200200984D19 /* stylesContents.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716E722CF200200984D19 /* stylesContents.css */; };
 		332716ED22CF200200984D19 /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716E922CF200200984D19 /* styles.css */; };
 		332716F022CF20FE00984D19 /* stylesDocs.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716EF22CF20FE00984D19 /* stylesDocs.css */; };
+		3334A1EA22E0D73B00C60D7C /* InfoPlistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3334A1E922E0D73B00C60D7C /* InfoPlistModel.swift */; };
+		3334A1EC22E0DAF400C60D7C /* SQLController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3334A1EB22E0DAF400C60D7C /* SQLController.swift */; };
+		3334A1EE22E0E5B500C60D7C /* SQLite.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3334A1ED22E0E5B400C60D7C /* SQLite.framework.dSYM */; };
+		3334A1F022E0E5C400C60D7C /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3334A1EF22E0E5C400C60D7C /* SQLite.framework */; };
+		3334A1F122E0E5C400C60D7C /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3334A1EF22E0E5C400C60D7C /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B95E22CE9AFE0061F3CE /* TypeKind.swift */; };
 		3374B96122CE9B460061F3CE /* OutputStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96022CE9B460061F3CE /* OutputStyle.swift */; };
 		3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96222CEBE270061F3CE /* SaveFormat.swift */; };
@@ -89,6 +94,7 @@
 			files = (
 				33BDD01A22CBDEDA0007ABF4 /* Yams.framework in Embed Frameworks */,
 				33BDD01822CBDEDA0007ABF4 /* SWXMLHash.framework in Embed Frameworks */,
+				3334A1F122E0E5C400C60D7C /* SQLite.framework in Embed Frameworks */,
 				33BDD01622CBDEDA0007ABF4 /* SourceKittenFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -100,6 +106,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				3334A1EE22E0E5B500C60D7C /* SQLite.framework.dSYM in CopyFiles */,
 				33BDD01E22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM in CopyFiles */,
 				33BDD01F22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM in CopyFiles */,
 				33BDD02022CBDF1E0007ABF4 /* Yams.framework.dSYM in CopyFiles */,
@@ -129,6 +136,10 @@
 		332716E722CF200200984D19 /* stylesContents.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = stylesContents.css; sourceTree = "<group>"; };
 		332716E922CF200200984D19 /* styles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styles.css; sourceTree = "<group>"; };
 		332716EF22CF20FE00984D19 /* stylesDocs.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = stylesDocs.css; sourceTree = "<group>"; };
+		3334A1E922E0D73B00C60D7C /* InfoPlistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistModel.swift; sourceTree = "<group>"; };
+		3334A1EB22E0DAF400C60D7C /* SQLController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLController.swift; sourceTree = "<group>"; };
+		3334A1ED22E0E5B400C60D7C /* SQLite.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SQLite.framework.dSYM; sourceTree = "<group>"; };
+		3334A1EF22E0E5C400C60D7C /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SQLite.framework; sourceTree = "<group>"; };
 		3374B95E22CE9AFE0061F3CE /* TypeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeKind.swift; sourceTree = "<group>"; };
 		3374B96022CE9B460061F3CE /* OutputStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputStyle.swift; sourceTree = "<group>"; };
 		3374B96222CEBE270061F3CE /* SaveFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFormat.swift; sourceTree = "<group>"; };
@@ -196,6 +207,7 @@
 			files = (
 				33BDD01922CBDEDA0007ABF4 /* Yams.framework in Frameworks */,
 				33BDD01722CBDEDA0007ABF4 /* SWXMLHash.framework in Frameworks */,
+				3334A1F022E0E5C400C60D7C /* SQLite.framework in Frameworks */,
 				33BDD01522CBDEDA0007ABF4 /* SourceKittenFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +281,8 @@
 		33BDD01122CBDE4C0007ABF4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3334A1EF22E0E5C400C60D7C /* SQLite.framework */,
+				3334A1ED22E0E5B400C60D7C /* SQLite.framework.dSYM */,
 				33BDD01C22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM */,
 				33BDD01B22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM */,
 				33BDD01D22CBDF1E0007ABF4 /* Yams.framework.dSYM */,
@@ -310,6 +324,7 @@
 				3374B96222CEBE270061F3CE /* SaveFormat.swift */,
 				3374B95E22CE9AFE0061F3CE /* TypeKind.swift */,
 				33BDD05C22CD2FE00007ABF4 /* AccessControl.swift */,
+				3334A1E922E0D73B00C60D7C /* InfoPlistModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -327,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				33BDD05322CC78E00007ABF4 /* SortedDocController.swift */,
+				3334A1EB22E0DAF400C60D7C /* SQLController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -556,6 +572,7 @@
 				33BDCFE522CBDD1E0007ABF4 /* AppDelegate.swift in Sources */,
 				33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */,
 				33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */,
+				3334A1EC22E0DAF400C60D7C /* SQLController.swift in Sources */,
 				33BDD06122CD53830007ABF4 /* Array+SwiftDocItem.swift in Sources */,
 				33BDD02622CBEBBB0007ABF4 /* InputDoc.swift in Sources */,
 				3374B96122CE9B460061F3CE /* OutputStyle.swift in Sources */,
@@ -564,6 +581,7 @@
 				3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */,
 				33BDD05D22CD2FE00007ABF4 /* AccessControl.swift in Sources */,
 				332716DC22CEC6DC00984D19 /* HTMLWrapper.swift in Sources */,
+				3334A1EA22E0D73B00C60D7C /* InfoPlistModel.swift in Sources */,
 				33BDD05422CC78E00007ABF4 /* SortedDocController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
