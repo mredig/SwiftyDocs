@@ -20,6 +20,7 @@ class SwiftDocViewController: NSViewController {
 	@IBOutlet var loadProjectButton: NSButton!
 	@IBOutlet var exportButton: NSButton!
 	@IBOutlet var progressIndicator: NSProgressIndicator!
+	@IBOutlet var renameButton: NSButton!
 
 	@IBOutlet var fileCountPopUp: NSPopUpButton!
 	@IBOutlet var outputIWantLabel: NSTextField!
@@ -71,6 +72,7 @@ class SwiftDocViewController: NSViewController {
 				let projectDir = fileURL.deletingLastPathComponent()
 				self.docController.projectURL = fileURL
 				self.docController.clear()
+				self.updateViews()
 				self.isLoadingFile = true
 				self.docController.getDocs(from: projectDir, completion: self.openProjectFinished)
 				self.progressIndicator.startAnimation(nil)
@@ -110,6 +112,7 @@ class SwiftDocViewController: NSViewController {
 	}
 
 	func setItemsEnabled(to enabled: Bool) {
+		renameButton.isEnabled = enabled
 		formatPopUp.isEnabled = enabled
 		fileCountPopUp.isEnabled = enabled
 		selectedItemsPopUp.isEnabled = enabled

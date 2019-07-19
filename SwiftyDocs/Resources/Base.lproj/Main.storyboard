@@ -666,6 +666,7 @@
                         <outlet property="progressIndicator" destination="jbE-xv-JKa" id="Oub-ru-faa"/>
                         <outlet property="projectTitleLabel" destination="inP-Gi-Tnj" id="f9q-gz-hVc"/>
                         <outlet property="projectTitleTextField" destination="xjh-Xq-yXq" id="lZR-Bn-kAt"/>
+                        <outlet property="renameButton" destination="VO1-Fo-6wC" id="XLv-Vw-KHq"/>
                         <outlet property="selectedItemsPopUp" destination="q92-2r-yOb" id="cPf-az-mdh"/>
                     </connections>
                 </viewController>
