@@ -24,7 +24,7 @@
 		3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96222CEBE270061F3CE /* SaveFormat.swift */; };
 		337E84BA22D2F7E100EAF39A /* MarkdownDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337E84B922D2F7E100EAF39A /* MarkdownDSL.swift */; };
 		337E84BC22D2F85200EAF39A /* MarkdownDSLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337E84BB22D2F85200EAF39A /* MarkdownDSLTests.swift */; };
-		338CECDF22D13E52001CC5D3 /* String+Ranges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CECDE22D13E52001CC5D3 /* String+Ranges.swift */; };
+		338CECDF22D13E52001CC5D3 /* String+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CECDE22D13E52001CC5D3 /* String+Extra.swift */; };
 		338CECE222D15BDD001CC5D3 /* prism.css in Resources */ = {isa = PBXBuildFile; fileRef = 338CECE122D15BDD001CC5D3 /* prism.css */; };
 		338CECE422D15BEC001CC5D3 /* prism.js in Resources */ = {isa = PBXBuildFile; fileRef = 338CECE322D15BEC001CC5D3 /* prism.js */; };
 		33989AE922D12008003A94EC /* startLocalServer.command in Resources */ = {isa = PBXBuildFile; fileRef = 33989AE822D12008003A94EC /* startLocalServer.command */; };
@@ -48,7 +48,7 @@
 		33BDD02622CBEBBB0007ABF4 /* InputDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02522CBEBBB0007ABF4 /* InputDoc.swift */; };
 		33BDD02922CC5F150007ABF4 /* StringMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02822CC5F150007ABF4 /* StringMap.swift */; };
 		33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02A22CC65130007ABF4 /* SwiftDocItem.swift */; };
-		33BDD05422CC78E00007ABF4 /* SortedDocController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05322CC78E00007ABF4 /* SortedDocController.swift */; };
+		33BDD05422CC78E00007ABF4 /* SwiftDocItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05322CC78E00007ABF4 /* SwiftDocItemController.swift */; };
 		33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */; };
 		33BDD05922CD0BAF0007ABF4 /* DocScrapeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */; };
 		33BDD05D22CD2FE00007ABF4 /* AccessControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05C22CD2FE00007ABF4 /* AccessControl.swift */; };
@@ -129,7 +129,7 @@
 		3374B96222CEBE270061F3CE /* SaveFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFormat.swift; sourceTree = "<group>"; };
 		337E84B922D2F7E100EAF39A /* MarkdownDSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownDSL.swift; sourceTree = "<group>"; };
 		337E84BB22D2F85200EAF39A /* MarkdownDSLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownDSLTests.swift; sourceTree = "<group>"; };
-		338CECDE22D13E52001CC5D3 /* String+Ranges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ranges.swift"; sourceTree = "<group>"; };
+		338CECDE22D13E52001CC5D3 /* String+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extra.swift"; sourceTree = "<group>"; };
 		338CECE122D15BDD001CC5D3 /* prism.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = prism.css; sourceTree = "<group>"; };
 		338CECE322D15BEC001CC5D3 /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = prism.js; sourceTree = "<group>"; };
 		33989AE822D12008003A94EC /* startLocalServer.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = startLocalServer.command; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 		33BDD02522CBEBBB0007ABF4 /* InputDoc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDoc.swift; sourceTree = "<group>"; };
 		33BDD02822CC5F150007ABF4 /* StringMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringMap.swift; sourceTree = "<group>"; };
 		33BDD02A22CC65130007ABF4 /* SwiftDocItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDocItem.swift; sourceTree = "<group>"; };
-		33BDD05322CC78E00007ABF4 /* SortedDocController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedDocController.swift; sourceTree = "<group>"; };
+		33BDD05322CC78E00007ABF4 /* SwiftDocItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDocItemController.swift; sourceTree = "<group>"; };
 		33BDD05622CD0BAF0007ABF4 /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
 		33BDD05722CD0BAF0007ABF4 /* DocScrapeOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocScrapeOperation.swift; sourceTree = "<group>"; };
 		33BDD05C22CD2FE00007ABF4 /* AccessControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessControl.swift; sourceTree = "<group>"; };
@@ -309,7 +309,7 @@
 		33BDD05E22CD300F0007ABF4 /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				33BDD05322CC78E00007ABF4 /* SortedDocController.swift */,
+				33BDD05322CC78E00007ABF4 /* SwiftDocItemController.swift */,
 				3334A1EB22E0DAF400C60D7C /* SQLController.swift */,
 			);
 			path = "Model Controllers";
@@ -320,7 +320,7 @@
 			children = (
 				33BDD02822CC5F150007ABF4 /* StringMap.swift */,
 				33BDD06022CD53830007ABF4 /* Array+SwiftDocItem.swift */,
-				338CECDE22D13E52001CC5D3 /* String+Ranges.swift */,
+				338CECDE22D13E52001CC5D3 /* String+Extra.swift */,
 				33BDD06622CD73470007ABF4 /* MarkdownGenerator.swift */,
 				337E84B922D2F7E100EAF39A /* MarkdownDSL.swift */,
 				3374B96022CE9B460061F3CE /* OutputStyle.swift */,
@@ -500,7 +500,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				338CECDF22D13E52001CC5D3 /* String+Ranges.swift in Sources */,
+				338CECDF22D13E52001CC5D3 /* String+Extra.swift in Sources */,
 				33BDCFE722CBDD1E0007ABF4 /* SwiftDocViewController.swift in Sources */,
 				3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */,
 				337E84BA22D2F7E100EAF39A /* MarkdownDSL.swift in Sources */,
@@ -518,7 +518,7 @@
 				33BDD05D22CD2FE00007ABF4 /* AccessControl.swift in Sources */,
 				332716DC22CEC6DC00984D19 /* HTMLWrapper.swift in Sources */,
 				3334A1EA22E0D73B00C60D7C /* InfoPlistModel.swift in Sources */,
-				33BDD05422CC78E00007ABF4 /* SortedDocController.swift in Sources */,
+				33BDD05422CC78E00007ABF4 /* SwiftDocItemController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

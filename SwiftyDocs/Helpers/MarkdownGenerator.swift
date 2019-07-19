@@ -76,13 +76,3 @@ class MarkdownGenerator {
 		return rootMD.finalRender()
 	}
 }
-
-extension String {
-	func replacingNonWordCharacters(lowercased: Bool = true) -> String {
-		var rVal = self
-		if lowercased {
-			rVal = rVal.lowercased()
-		}
-		return rVal.replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
-	}
-}

@@ -30,3 +30,13 @@ extension String {
 		return (0..<count).reduce("") { previousValue, _ in previousValue + self }
 	}
 }
+
+extension String {
+	func replacingNonWordCharacters(lowercased: Bool = true) -> String {
+		var rVal = self
+		if lowercased {
+			rVal = rVal.lowercased()
+		}
+		return rVal.replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
+	}
+}
