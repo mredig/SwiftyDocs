@@ -475,6 +475,7 @@
                                         </textFieldCell>
                                         <connections>
                                             <action selector="projectTitleUpdated:" target="XfG-lQ-9wD" id="XiT-Cc-nb5"/>
+                                            <outlet property="delegate" destination="XfG-lQ-9wD" id="oWz-6j-tpA"/>
                                         </connections>
                                     </textField>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uiC-8r-YXM">

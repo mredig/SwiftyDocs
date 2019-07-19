@@ -108,7 +108,6 @@ class SwiftDocViewController: NSViewController {
 		updateWindowTitle()
 		updateTitleField()
 		setupSelectedItems()
-//		view.window?.setContentSize(NSSize(width: 480, height: 1))
 	}
 
 	func setItemsEnabled(to enabled: Bool) {
@@ -279,5 +278,15 @@ extension SwiftDocViewController {
 		guard let selectedText = formatPopUp.selectedItem?.title else { return nil }
 		guard let saveStyle = SaveFormat(rawValue: selectedText) else { return nil }
 		return saveStyle
+	}
+}
+
+extension SwiftDocViewController: NSControlTextEditingDelegate {
+	func controlTextDidChange(_ obj: Notification) {
+		if let textField = obj.object as? NSTextField {
+			if textField == projectTitleTextField {
+				projectTitleUpdated(textField)
+			}
+		}
 	}
 }
