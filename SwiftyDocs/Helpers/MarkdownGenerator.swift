@@ -57,30 +57,33 @@ class MarkdownGenerator {
 
 	func generateMarkdownContents(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: OutputStyle, format: SaveFormat) -> String {
 
-		var markOut = ""
-		var links = ""
 		var currentTitle = ""
-		for (index, item) in (topLevelIndex.sorted { $0.kind.stringValue < $1.kind.stringValue }).enumerated() {
+		var rootMD: MDNode = .document()
+		for item in (topLevelIndex.sorted { $0.kind.stringValue < $1.kind.stringValue }) {
 			guard item.accessControl >= minimumAccessControl else { continue }
+
 			if currentTitle != item.kind.stringValue.capitalized {
 				currentTitle = item.kind.stringValue.capitalized
-				markOut += currentTitle.isEmpty ? "" : "\n"
-				markOut += "#### \(currentTitle)\n\n"
+				rootMD = rootMD.appending(node: .header(4, currentTitle))
 			}
-			markOut += "* [\(item.title)][\(index)]\n"
+
+			let link: MDNode
 			switch linkStyle {
 			case .singlePage:
 				let linkValue = item.title.replacingNonWordCharacters()
-				links += "[\(index)]:#\(linkValue)\n"
+				link = MDNode.link("\(item.title)", "#\(linkValue)")
 			case .multiPage:
 				let fileExt = format == .html ? "html" : "md"
 				let linkValue = item.title.replacingNonWordCharacters(lowercased: false)
 				let folderValue = currentTitle.replacingNonWordCharacters()
-				links += "[\(index)]:\(folderValue)/\(linkValue).\(fileExt)\n"
+				link = MDNode.link("\(item.title)", "\(folderValue)/\(linkValue).\(fileExt)")
 			}
+
+			rootMD = rootMD.appending(node: .paragraphWithInlineElements([.text("* "), link]))
+			rootMD = rootMD.appending(node: .newline())
 		}
 
-		return markOut + "\n\n" + links
+		return rootMD.finalRender()
 	}
 }
 
