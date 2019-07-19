@@ -70,13 +70,9 @@ class MarkdownGenerator {
 			let link: MDNode
 			switch linkStyle {
 			case .singlePage:
-				let linkValue = item.title.replacingNonWordCharacters()
-				link = MDNode.link("\(item.title)", "#\(linkValue)")
+				link = MDNode.link("\(item.title)", item.htmlLink(output: linkStyle))
 			case .multiPage:
-				let fileExt = format == .html ? "html" : "md"
-				let linkValue = item.title.replacingNonWordCharacters(lowercased: false)
-				let folderValue = currentTitle.replacingNonWordCharacters()
-				link = MDNode.link("\(item.title)", "\(folderValue)/\(linkValue).\(fileExt)")
+				link = MDNode.link("\(item.title)", item.htmlLink(format: format, output: linkStyle))
 			}
 
 			rootMD = rootMD.appending(node: .paragraphWithInlineElements([.text("* "), link]))

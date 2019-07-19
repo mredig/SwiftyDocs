@@ -41,6 +41,21 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 
 			"""
 	}
+
+	func htmlLink(format: SaveFormat = .html, output: OutputStyle) -> String {
+		let folderValue = kind.stringValue.capitalized.replacingNonWordCharacters()
+		let link: String
+		switch output {
+		case .multiPage:
+			let fileExt = format != .markdown ? "html" : "md"
+			let fileName = title.replacingNonWordCharacters(lowercased: false) + "." + fileExt
+			link = "\(folderValue)/\(fileName)"
+		case .singlePage:
+			link = "#\(title.replacingNonWordCharacters())"
+		}
+
+		return link
+	}
 }
 
 extension SwiftDocItem {
