@@ -243,6 +243,18 @@ extension SwiftDocViewController {
 		updateOutputLabels(context: output)
 	}
 
+	@IBAction func formatPopupChanged(_ sender: NSPopUpButton) {
+		guard let selectedItem = sender.selectedItem else { return }
+		switch selectedItem.title {
+		case SaveFormat.docset.rawValue:
+			fileCountPopUp.selectItem(withTitle: OutputStyle.singlePage.rawValue)
+			fileCountPopUp.item(withTitle: OutputStyle.multiPage.rawValue)?.isHidden = true
+		default:
+			fileCountPopUp.item(withTitle: OutputStyle.multiPage.rawValue)?.isHidden = false
+		}
+		fileCountSelectorChanged(fileCountPopUp)
+	}
+
 	private func updateOutputLabels(context: OutputStyle) {
 		switch context {
 		case .multiPage:

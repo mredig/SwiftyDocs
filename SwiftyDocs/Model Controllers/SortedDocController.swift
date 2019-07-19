@@ -248,6 +248,11 @@ class SwiftDocItemController {
 	}
 
 	func saveSingleFile(to path: URL, format: SaveFormat) {
+		guard format != .docset else {
+			saveDocset(to: path)
+			return
+		}
+
 		let index = markdownContents(with: .singlePage, in: format)
 		var text = toplevelIndexMinAccess.map { markdownPage(for: $0) }.joined(separator: "\n\n\n")
 		text = index + "\n\n" + text
@@ -264,6 +269,9 @@ class SwiftDocItemController {
 			outPath.appendPathExtension("html")
 		case .markdown:
 			outPath.appendPathExtension("md")
+		case .docset:
+			// not possible to happen, but switch needs to be exhaustive
+			break
 		}
 
 		do {
@@ -322,6 +330,41 @@ class SwiftDocItemController {
 
 		} catch {
 			NSLog("Failed writing file: \(error)")
+		}
+	}
+
+	func saveDocset(to path: URL) {
+		let packageDir = path.appendingPathExtension("docset")
+		let contentsDir = packageDir.appendingPathComponent("Contents")
+		let infoPlistURL = contentsDir.appendingPathComponent("Info.plist")
+		let resourcesDir = contentsDir.appendingPathComponent("Resources")
+		let sqlIndex = resourcesDir.appendingPathComponent("docSet.dsidx")
+		let docsDir = resourcesDir.appendingPathComponent("Documents")
+
+		do {
+			try fm.createDirectory(atPath: docsDir.path, withIntermediateDirectories: true, attributes: nil)
+		} catch {
+			NSLog("There was an error creating the docset directories: \(error)")
+		}
+		saveMultifile(to: docsDir, format: .html)
+
+		let infoPlistData = createInfoPlist()
+		do {
+			try infoPlistData.write(to: infoPlistURL)
+		} catch {
+			NSLog("There was an error writing the Info.plist: \(error)")
+		}
+
+		do {
+			let sqlController = try SQLController(at: sqlIndex)
+			sqlController.initialzeTable()
+
+			let rows = getSQLInfoForRows()
+			for row in rows {
+				sqlController.addRow(with: row.name, type: row.type, path: row.path)
+			}
+		} catch {
+			NSLog("There was an error creating the SQL Index: \(error)")
 		}
 	}
 
@@ -390,6 +433,50 @@ class SwiftDocItemController {
 				NSLog("Error copying package file: \(error)")
 			}
 		}
+	}
+
+	private func getSQLInfoForRows() -> [(name: String, type: String, path: String)] {
+		var rows: [(name: String, type: String, path: String)] = []
+
+		var currentTitle = ""
+
+		for item in (topLevelIndex.sorted { $0.kind.stringValue < $1.kind.stringValue }) {
+			guard item.accessControl >= minimumAccessControl else { continue }
+			if currentTitle != item.kind.stringValue.capitalized {
+				currentTitle = item.kind.stringValue.capitalized
+			}
+			let folderValue = currentTitle.replacingNonWordCharacters()
+			let linkValue = item.title.replacingNonWordCharacters(lowercased: false) + ".html"
+
+			let name = item.title
+			let type = item.kind.docSetType
+			let path = "\(folderValue)/\(linkValue)"
+			rows.append((name, type, path))
+		}
+
+		return rows
+	}
+
+	// MARK: - info plist generation
+
+	private func createInfoPlist() -> Data {
+		let cleanProjectTitle = projectTitle.replacingNonWordCharacters()
+
+		let infoPlist = InfoPlistModel(bundleID: "com.swiftdocs.\(cleanProjectTitle)",
+									bundleName: projectTitle,
+									platformFamily: cleanProjectTitle.lowercased(),
+									dashIndexFilePath: "doclandingpage.html",
+									dashDocSetFamily: "dashtoc")
+
+		let encoder = PropertyListEncoder()
+		do {
+			let data = try encoder.encode(infoPlist)
+			return data
+		} catch {
+			NSLog("Error creating info.plist: \(error)")
+		}
+
+		return Data()
 	}
 
 	// MARK: - Markdown Generation

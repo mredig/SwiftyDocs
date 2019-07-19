@@ -48,6 +48,19 @@ enum TypeKind: Hashable {
 		}
 	}
 
+	var docSetType: String {
+		switch self {
+		case .extension: return "Extension"
+		case .enum: return "Enum"
+		case .class: return "Class"
+		case .struct: return "Struct"
+		case .protocol: return "Protocol"
+		case .globalFunc: return "Function"
+		case .typealias: return "Alias"
+		case .other(let value): return value.capitalized
+		}
+	}
+
 	static func createFrom(string: String) -> TypeKind {
 		switch string.lowercased() {
 		case "extension": return .extension
