@@ -55,7 +55,7 @@ class MarkdownGenerator {
 		return rootDoc.finalRender()
 	}
 
-	func generateMarkdownContents(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: OutputStyle, format: SaveFormat) -> String {
+	func generateMarkdownContents(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: PageCount, format: SaveFormat) -> String {
 
 		var currentTitle = ""
 		var rootMD: MDNode = .document()

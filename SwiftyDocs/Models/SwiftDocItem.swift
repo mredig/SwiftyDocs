@@ -42,7 +42,7 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 			"""
 	}
 
-	func htmlLink(format: SaveFormat = .html, output: OutputStyle) -> String {
+	func htmlLink(format: SaveFormat = .html, output: PageCount) -> String {
 		let folderValue = kind.stringValue.capitalized.replacingNonWordCharacters()
 		let link: String
 		switch output {

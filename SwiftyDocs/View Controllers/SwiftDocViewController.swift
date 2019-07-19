@@ -232,7 +232,7 @@ extension SwiftDocViewController {
 			formatPopUp.addItem(withTitle: format.rawValue)
 		}
 
-		for style in OutputStyle.allCases {
+		for style in PageCount.allCases {
 			fileCountPopUp.addItem(withTitle: style.rawValue)
 		}
 		fileCountSelectorChanged(fileCountPopUp)
@@ -240,7 +240,7 @@ extension SwiftDocViewController {
 
 	@IBAction func fileCountSelectorChanged(_ sender: NSPopUpButton) {
 		guard let selectedText = sender.selectedItem?.title else { return }
-		guard let output = OutputStyle(rawValue: selectedText) else { return }
+		guard let output = PageCount(rawValue: selectedText) else { return }
 
 		updateOutputLabels(context: output)
 	}
@@ -249,15 +249,15 @@ extension SwiftDocViewController {
 		guard let selectedItem = sender.selectedItem else { return }
 		switch selectedItem.title {
 		case SaveFormat.docset.rawValue:
-			fileCountPopUp.selectItem(withTitle: OutputStyle.singlePage.rawValue)
-			fileCountPopUp.item(withTitle: OutputStyle.multiPage.rawValue)?.isHidden = true
+			fileCountPopUp.selectItem(withTitle: PageCount.singlePage.rawValue)
+			fileCountPopUp.item(withTitle: PageCount.multiPage.rawValue)?.isHidden = true
 		default:
-			fileCountPopUp.item(withTitle: OutputStyle.multiPage.rawValue)?.isHidden = false
+			fileCountPopUp.item(withTitle: PageCount.multiPage.rawValue)?.isHidden = false
 		}
 		fileCountSelectorChanged(fileCountPopUp)
 	}
 
-	private func updateOutputLabels(context: OutputStyle) {
+	private func updateOutputLabels(context: PageCount) {
 		switch context {
 		case .multiPage:
 			outputIWantLabel.stringValue = "I want"
@@ -268,9 +268,9 @@ extension SwiftDocViewController {
 		}
 	}
 
-	private func getOutputStyle() -> OutputStyle? {
+	private func getOutputStyle() -> PageCount? {
 		guard let selectedText = fileCountPopUp.selectedItem?.title else { return nil }
-		guard let output = OutputStyle(rawValue: selectedText) else { return nil }
+		guard let output = PageCount(rawValue: selectedText) else { return nil }
 		return output
 	}
 

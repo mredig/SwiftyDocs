@@ -20,7 +20,7 @@
 		3334A1F022E0E5C400C60D7C /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3334A1EF22E0E5C400C60D7C /* SQLite.framework */; };
 		3334A1F122E0E5C400C60D7C /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3334A1EF22E0E5C400C60D7C /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B95E22CE9AFE0061F3CE /* TypeKind.swift */; };
-		3374B96122CE9B460061F3CE /* OutputStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96022CE9B460061F3CE /* OutputStyle.swift */; };
+		3374B96122CE9B460061F3CE /* PageCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96022CE9B460061F3CE /* PageCount.swift */; };
 		3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96222CEBE270061F3CE /* SaveFormat.swift */; };
 		337E84BA22D2F7E100EAF39A /* MarkdownDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337E84B922D2F7E100EAF39A /* MarkdownDSL.swift */; };
 		337E84BC22D2F85200EAF39A /* MarkdownDSLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337E84BB22D2F85200EAF39A /* MarkdownDSLTests.swift */; };
@@ -125,7 +125,7 @@
 		3334A1ED22E0E5B400C60D7C /* SQLite.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SQLite.framework.dSYM; sourceTree = "<group>"; };
 		3334A1EF22E0E5C400C60D7C /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SQLite.framework; sourceTree = "<group>"; };
 		3374B95E22CE9AFE0061F3CE /* TypeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeKind.swift; sourceTree = "<group>"; };
-		3374B96022CE9B460061F3CE /* OutputStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputStyle.swift; sourceTree = "<group>"; };
+		3374B96022CE9B460061F3CE /* PageCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCount.swift; sourceTree = "<group>"; };
 		3374B96222CEBE270061F3CE /* SaveFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFormat.swift; sourceTree = "<group>"; };
 		337E84B922D2F7E100EAF39A /* MarkdownDSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownDSL.swift; sourceTree = "<group>"; };
 		337E84BB22D2F85200EAF39A /* MarkdownDSLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownDSLTests.swift; sourceTree = "<group>"; };
@@ -323,7 +323,7 @@
 				338CECDE22D13E52001CC5D3 /* String+Extra.swift */,
 				33BDD06622CD73470007ABF4 /* MarkdownGenerator.swift */,
 				337E84B922D2F7E100EAF39A /* MarkdownDSL.swift */,
-				3374B96022CE9B460061F3CE /* OutputStyle.swift */,
+				3374B96022CE9B460061F3CE /* PageCount.swift */,
 				332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */,
 			);
 			path = Helpers;
@@ -511,7 +511,7 @@
 				3334A1EC22E0DAF400C60D7C /* SQLController.swift in Sources */,
 				33BDD06122CD53830007ABF4 /* Array+SwiftDocItem.swift in Sources */,
 				33BDD02622CBEBBB0007ABF4 /* InputDoc.swift in Sources */,
-				3374B96122CE9B460061F3CE /* OutputStyle.swift in Sources */,
+				3374B96122CE9B460061F3CE /* PageCount.swift in Sources */,
 				33BDD02922CC5F150007ABF4 /* StringMap.swift in Sources */,
 				33BDD06722CD73470007ABF4 /* MarkdownGenerator.swift in Sources */,
 				3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */,

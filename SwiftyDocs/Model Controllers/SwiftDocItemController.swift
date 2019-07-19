@@ -238,7 +238,7 @@ class SwiftDocItemController {
 
 	// MARK: - Saving
 
-	func save(with style: OutputStyle, to path: URL, in format: SaveFormat) {
+	func save(with style: PageCount, to path: URL, in format: SaveFormat) {
 		switch style {
 		case .multiPage:
 			saveMultifile(to: path, format: format)
@@ -374,7 +374,7 @@ class SwiftDocItemController {
 	}
 
 	private let fm = FileManager.default
-	func saveDependencyPackage(to path: URL, linkStyle: OutputStyle) {
+	func saveDependencyPackage(to path: URL, linkStyle: PageCount) {
 		guard var jsURLs = Bundle.main.urls(forResourcesWithExtension: "js", subdirectory: nil, localization: nil) else { return }
 		guard let maps = Bundle.main.urls(forResourcesWithExtension: "map", subdirectory: nil, localization: nil) else { return }
 		jsURLs += maps
@@ -482,7 +482,7 @@ class SwiftDocItemController {
 		return markdownGenerator.generateMarkdownDocumentString(fromRootDocItem: doc, minimumAccessControl: minimumAccessControl)
 	}
 
-	func markdownContents(with linkStyle: OutputStyle, in format: SaveFormat) -> String {
+	func markdownContents(with linkStyle: PageCount, in format: SaveFormat) -> String {
 		return markdownGenerator.generateMarkdownContents(fromTopLevelIndex: topLevelIndex,
 													   minimumAccessControl: minimumAccessControl,
 													   linkStyle: linkStyle,

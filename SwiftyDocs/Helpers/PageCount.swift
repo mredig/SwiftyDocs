@@ -1,5 +1,5 @@
 //
-//  OutputStyle.swift
+//  PageCount.swift
 //  SwiftyDocs
 //
 //  Created by Michael Redig on 7/4/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum OutputStyle: String, CaseIterable {
+enum PageCount: String, CaseIterable {
 	case multiPage = "multiple"
 	case singlePage = "single"
 }
