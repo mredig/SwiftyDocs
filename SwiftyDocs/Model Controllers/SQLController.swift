@@ -18,7 +18,7 @@ class SQLController {
 		initialzeTable()
 	}
 
-	func initialzeTable() {
+	private func initialzeTable() {
 		searchIndex = Table("searchIndex")
 		guard let searchIndex = searchIndex else { return }
 		let idExpression = Expression<Int64>("id")

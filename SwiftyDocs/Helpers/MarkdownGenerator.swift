@@ -67,13 +67,7 @@ class MarkdownGenerator {
 				rootMD = rootMD.appending(node: .header(4, currentTitle))
 			}
 
-			let link: MDNode
-			switch linkStyle {
-			case .singlePage:
-				link = MDNode.link("\(item.title)", item.htmlLink(output: linkStyle))
-			case .multiPage:
-				link = MDNode.link("\(item.title)", item.htmlLink(format: format, output: linkStyle))
-			}
+			let link = MDNode.link("\(item.title)", item.htmlLink(format: format, output: linkStyle))
 
 			rootMD = rootMD.appending(node: .paragraphWithInlineElements([.text("* "), link]))
 			rootMD = rootMD.appending(node: .newline())

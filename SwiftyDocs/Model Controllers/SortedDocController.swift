@@ -357,7 +357,6 @@ class SwiftDocItemController {
 
 		do {
 			let sqlController = try SQLController(at: sqlIndex)
-			sqlController.initialzeTable()
 
 			let rows = getSQLInfoForRows()
 			for row in rows {
@@ -445,12 +444,10 @@ class SwiftDocItemController {
 			if currentTitle != item.kind.stringValue.capitalized {
 				currentTitle = item.kind.stringValue.capitalized
 			}
-			let folderValue = currentTitle.replacingNonWordCharacters()
-			let linkValue = item.title.replacingNonWordCharacters(lowercased: false) + ".html"
 
 			let name = item.title
 			let type = item.kind.docSetType
-			let path = "\(folderValue)/\(linkValue)"
+			let path = item.htmlLink(output: .multiPage)
 			rows.append((name, type, path))
 		}
 
