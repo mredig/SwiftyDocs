@@ -85,8 +85,19 @@ class SwiftDocViewController: NSViewController {
 		let savePanel = NSSavePanel()
 		savePanel.canCreateDirectories = true
 		savePanel.title = "Save your project"
-		savePanel.message = "SwiftyDocs will create a folder in your destination containing all documentation files."
+		savePanel.message = "SwiftyDocs will create a folder in your destination containing all generated documentation files."
 		savePanel.nameFieldStringValue = docController.projectTitle + "-Documentation"
+
+		if formatPopUp.selectedItem?.title == SaveFormat.docset.rawValue {
+			savePanel.isExtensionHidden = false
+			savePanel.allowedFileTypes = ["docset"]
+			savePanel.nameFieldStringValue = docController.projectTitle
+			savePanel.message = "SwiftyDocs will create a docset in your destination containing all generated documentation."
+		} else {
+			savePanel.isExtensionHidden = true
+			savePanel.message = "SwiftyDocs will create a folder in your destination containing all generated documentation files."
+			savePanel.nameFieldStringValue = docController.projectTitle + "-Documentation"
+		}
 
 		savePanel.begin { [weak self] (result) in
 			guard let self = self else { return }

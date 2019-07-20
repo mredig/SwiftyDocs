@@ -334,7 +334,7 @@ class SwiftDocItemController {
 	}
 
 	func saveDocset(to path: URL) {
-		let packageDir = path.appendingPathExtension("docset")
+		let packageDir = path.path.hasSuffix(".docset") ? path : path.appendingPathExtension("docset")
 		let contentsDir = packageDir.appendingPathComponent("Contents")
 		let infoPlistURL = contentsDir.appendingPathComponent("Info.plist")
 		let resourcesDir = contentsDir.appendingPathComponent("Resources")
