@@ -57,7 +57,9 @@ enum TypeKind: Hashable {
 		case .protocol: return "Protocol"
 		case .globalFunc: return "Function"
 		case .typealias: return "Alias"
-		case .other(let value): return value.capitalized
+		case .other(let value):
+			let last = String(value.split(separator: " ").last ?? Substring(""))
+			return last.capitalized
 		}
 	}
 

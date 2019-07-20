@@ -489,15 +489,11 @@ class SwiftDocItemController {
 													   format: format)
 	}
 
-	private func sanitizeForHTMLEmbedding(string: String) -> String {
+	func sanitizeForHTMLEmbedding(string: String) -> String {
 		var rVal = string.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
 
-		let ranges = rVal.ranges(of: ##"`.*?`"##, options: .regularExpression, range: nil, locale: nil)
-		let allowedSet = CharacterSet(charactersIn: "<>").inverted
-		for range in ranges.reversed() {
-			guard let newValue = rVal[range].addingPercentEncoding(withAllowedCharacters: allowedSet) else { continue }
-			rVal.replaceSubrange(range, with: newValue)
-		}
+		let allowedSet = CharacterSet(charactersIn: "<>?_").inverted
+		rVal = rVal.addingPercentEncoding(withAllowedCharacters: allowedSet) ?? rVal
 
 		return rVal
 	}

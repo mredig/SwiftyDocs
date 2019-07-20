@@ -32,12 +32,12 @@ struct HTMLWrapper {
 				<script src="\(dependenciesUpADir ? "../" : "")js/marked.min.js"></script>
 				<script src="\(dependenciesUpADir ? "../" : "")js/purify.min.js"></script>
 				<script>
-					var sourceString = document.getElementById('sourceContent').innerHTML
+					var sourceString = document.getElementById('sourceContent').innerHTML;
 
 					marked.setOptions({
 						gfm: true,
 						breaks: true,
-					})
+					});
 
 					// Let marked do its normal token generation.
 					tokens = marked.lexer( sourceString );
@@ -55,9 +55,15 @@ struct HTMLWrapper {
 					markedDown = DOMPurify.sanitize(markedDown);
 					document.getElementById('content').innerHTML = markedDown;
 
-					var codeBlocks = document.getElementById('content').getElementsByTagName('code')
-					for (codeBlock of codeBlocks) {
-						codeBlock.innerText = decodeURIComponent(codeBlock.innerText)
+					var content = document.getElementById('content');
+					content.innerHTML = decodeURIComponent(content.innerHTML);
+
+					var properties = document.getElementsByTagName('ul');
+					var reg = /##--(.*)\\/(.*)\\/(.*)--##/g;
+
+					for (property of properties) {
+						let replaceString = "<a name='//apple_ref/cpp/\\$1/\\$2' class='dashAnchor'>\\$3</a>"
+						property.innerHTML = property.innerHTML.replace(reg, replaceString)
 					}
 
 					console.log("removed", DOMPurify.removed);

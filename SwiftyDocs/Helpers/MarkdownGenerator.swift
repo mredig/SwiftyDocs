@@ -9,7 +9,7 @@
 import Foundation
 
 class MarkdownGenerator {
-	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessControl: AccessControl) -> String {
+	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessControl: AccessControl, includeTOCLinks: Bool = true) -> String {
 
 		let sourceFile: MDNode = .nonIndentedCollection([
 				.paragraphWithInlineElements([.italics("Found in:")]),
@@ -34,7 +34,8 @@ class MarkdownGenerator {
 					.unorderedListItem("\(MDNode.codeInline(property.sourceFile))")
 				])
 
-				var propertyDoc: MDNode = .unorderedListItem("\(MDNode.bold(property.title))",
+				let tocLink = includeTOCLinks ? "##--\(property.kind.docSetType)/\(property.title.percentEscaped)/\(property.title)--##" : property.title
+				var propertyDoc: MDNode = .unorderedListItem("\(tocLink)",
 					.paragraphWithInlineElements([.boldItalics(property.accessControl.stringValue), .italics(property.kind.stringValue)]),
 					.paragraph(property.comment ?? "No documentation"),
 					.codeBlock(property.declaration, syntax: "swift")

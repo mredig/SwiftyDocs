@@ -39,4 +39,8 @@ extension String {
 		}
 		return rVal.replacingOccurrences(of: ##"\W+"##, with: "-", options: .regularExpression, range: nil)
 	}
+
+	var percentEscaped: String {
+		return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+	}
 }
