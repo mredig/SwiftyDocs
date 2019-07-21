@@ -8,6 +8,17 @@
 
 import Foundation
 
+/**
+This is only used temporarily to read in the JSON from SourceKitten. This JSON is a bit of a mess and therefore this struct has gotten a bit messy. For that reason, I have decided to only make use of it temporarily to generated a slightly friendlier struct format that is nicer to work with.
+
+The process effectively goes like this:
+1. SourceKitten compiles the input project and extracts the documentation data
+1. SourceKitten outputs JSON data, that is then decoded by this struct.
+1. This struct uses different coding keys upon decoding than from encoding. The decoding keys match the JSON provided by SourceKitten. The new coding keys match the JSON required by `SwiftDocItem` in a sibling struct file.
+1. (this reaches beyond the scope of this file here, but as long as I'm detailing the information, here goes:) The data spends most of its time residing in the SwiftDocItem format. This format is recursive to contain child properties, methods, and other types.
+1. `SwiftDocItemController` handles the collection of `SwiftDocItems` and many other related tasks, including managing the export of said items.
+1. When exporting, SwiftDocItemController facilitates the conversion to Markdown (which happens regardless of output format), collects all files (including dependencies), and outputs them to the desired directory.
+*/
 struct DocFile: Codable, CustomStringConvertible {
 	enum DeCodingKeys: String, CodingKey {
 		case topLevelContainers = "key.substructure"

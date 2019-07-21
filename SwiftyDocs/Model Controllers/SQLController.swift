@@ -8,6 +8,9 @@
 
 import SQLite
 
+/**
+The controller where the SQLite db index gets generated for Dash docsets
+*/
 class SQLController {
 
 	let dbConnection: Connection

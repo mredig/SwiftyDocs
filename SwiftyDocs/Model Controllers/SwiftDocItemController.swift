@@ -8,46 +8,63 @@
 
 import Foundation
 
+/**
+The primary brains of this software. This contains the collection of `SwiftDocItems` and performs logic related to exporting as well.
+*/
 class SwiftDocItemController {
 
 	// MARK: - properties
+	/// The source of truth for all the doc items
 	private(set) var docs: [SwiftDocItem] = []
 
+	/// All classes
 	var classesIndex: [SwiftDocItem] {
 		return search(forTitle: nil, ofKind: .class, withMinimumAccessControl: .private)
 	}
+	/// All structs
 	var structsIndex: [SwiftDocItem] {
 		return search(forTitle: nil, ofKind: .struct, withMinimumAccessControl: .private)
 	}
+	/// All enums
 	var enumsIndex: [SwiftDocItem] {
 		return search(forTitle: nil, ofKind: .enum, withMinimumAccessControl: .private)
 	}
+	/// All protocols
 	var protocolsIndex: [SwiftDocItem] {
 		return search(forTitle: nil, ofKind: .protocol, withMinimumAccessControl: .private)
 	}
+	/// All extensions
 	var extensionsIndex: [SwiftDocItem] {
 		return search(forTitle: nil, ofKind: .extension, withMinimumAccessControl: .private)
 	}
+	/// All global functions
 	var globalFuncsIndex: [SwiftDocItem] {
 		return search(forTitle: nil, ofKind: .globalFunc, withMinimumAccessControl: .private)
 	}
+	/// All type aliases
 	var typealiasIndex: [SwiftDocItem] {
 		return search(forTitle: nil, ofKind: .typealias, withMinimumAccessControl: .private)
 	}
 
+	/// All items accessible globally
 	var topLevelIndex: [SwiftDocItem] {
 		return classesIndex + structsIndex + enumsIndex + protocolsIndex + extensionsIndex + globalFuncsIndex + typealiasIndex
 	}
+	/// All items accesible globally, but only access control greater than or equal to that chosen by `minimumAccessControl`
 	var toplevelIndexMinAccess: [SwiftDocItem] {
 		return topLevelIndex.filter { $0.accessControl >= minimumAccessControl }
 	}
 
+	/// The lowest access control items that should be output. For example, when set to internal, many functions will ignore anything set to fileprivate or private, but include everything else. Defaults to internal.
 	var minimumAccessControl = AccessControl.internal
 
+	/// The URL of the project selected for output
 	var projectURL: URL?
+	/// The URL of the directory the selected project resides in
 	var projectDirectoryURL: URL? {
 		return projectURL?.deletingLastPathComponent()
 	}
+	/// The URL of the first page that should be shown when using a separated file output. It prioritizes a markdown file titled "doclandingpage.md", so that users may customize the first thing their users encounter when viewing documentation. It falls back to any variation of capitalization for a `Readme.md` file, then to a `Readme` file. If none of these exist, no landing page is included in the exported documentation.
 	var projectLandingPageURL: URL? {
 		guard let directoryURL = projectDirectoryURL else { return nil }
 		do {
@@ -81,7 +98,9 @@ class SwiftDocItemController {
 		}
 		return nil
 	}
+
 	private var _projectTitle: String?
+	/// Stores the title of the project. This is used for headers in the exported files and a default name implementation when saving the export. 
 	var projectTitle: String {
 		get {
 			return _projectTitle ?? (projectURL?.deletingPathExtension().lastPathComponent ?? "Documentation")
