@@ -8,7 +8,13 @@
 
 import Foundation
 
+/**
+A helper class to generate markdown from an input `SwiftDocItem`.
+*/
 class MarkdownGenerator {
+	/**
+	Generates a markdown String and returns the result. `includeTOCLinks` is togglable - embeds property and method entries within a class, struct, enum, etc in a unique string structure that the markdown renderer/custom javascript will find and replace with docset compatible TOC links. Generally harmless if you're not using docsets, but you can turn it off if you're finding that it's causing you trouble.
+	*/
 	func generateMarkdownDocumentString(fromRootDocItem swiftDocItem: SwiftDocItem, minimumAccessControl: AccessControl, includeTOCLinks: Bool = true) -> String {
 
 		let sourceFile: MDNode = .nonIndentedCollection([
@@ -56,6 +62,9 @@ class MarkdownGenerator {
 		return rootDoc.finalRender()
 	}
 
+	/**
+	Generates a contents page from an array of top level `SwiftDocItem`s.
+	*/
 	func generateMarkdownContents(fromTopLevelIndex topLevelIndex: [SwiftDocItem], minimumAccessControl: AccessControl, linkStyle: PageCount, format: SaveFormat) -> String {
 
 		var currentTitle = ""

@@ -9,7 +9,9 @@
 import Foundation
 
 extension String {
-
+	/**
+	The output from SourceKitten is not user friendly, so this is a mapping to convert those strings to user friendly alternatives.
+	*/
 	private static let mappings = [
 		"source.lang.swift.accessibility.private": "private",
 		"source.lang.swift.accessibility.fileprivate": "fileprivate",
@@ -51,6 +53,7 @@ extension String {
 		"source.decl.attribute.prefix": "prefix",
 	]
 
+	/// This is the where the actual magic happens, mapping the source strings to the destination strings.
 	func shortenSwiftDocClassificationString(useInterpretation: Bool = false) -> String {
 		let rStr = String.mappings[self, default: ""]
 		if rStr.isEmpty {

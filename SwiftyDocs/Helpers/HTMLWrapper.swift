@@ -8,6 +8,11 @@
 
 import Foundation
 
+/**
+Helper class only intended to wrap generated content in html for built in rendering.
+
+Technically, it leaves the markdown as is and just wraps it in html. The markdown is embedded in a div that is hidden from view. Then the js library called `Marked` takes that as input, renders it into html and outputs it into the next div. A couple other things are done for cleanup and to account for special characters.
+*/
 struct HTMLWrapper {
 	private func htmlOutputBefore(withTitle title: String, dependenciesUpADir: Bool, cssFile: String) -> String {
 		return """
@@ -78,6 +83,11 @@ struct HTMLWrapper {
 		return htmlOutputBefore(withTitle: title, dependenciesUpADir: dependenciesUpDir, cssFile: cssFile) + markdownString + htmlOutputAfter(dependenciesUpADir: dependenciesUpDir)
 	}
 
+	/**
+	For the multipage setup, an index page is nothing more than two iframes. One frame hosts the contents listing while the other hosts the actual documentation. To get this setup to work, a short js script modifies all the links in the contents to make sure they open in the main frame and NOT in the contents frame.
+
+	Due to weird security reasons, this setup does not work if you are opening the index as a filepath and not from a hosted server. For that reason, an easy to use double click script is included so that you can test your output using the built in python http server.
+	*/
 	func generateIndexPage(titled title: String) -> String {
 
 		let template = """
@@ -93,7 +103,7 @@ struct HTMLWrapper {
 				<body>
 					<nav class="navbar navbar-dark bg-dark">
 						<a class="navbar-text navbar-brand" href="doclandingpage.html" target="documentationFrame">\(title) Documentation</a>
-						<a class="navbar-text" href="https://github.com/mredig/SwiftyDocs">Made with SwiftyDocs</a>
+						<a class="navbar-text" href="https://redeggproductions.com/downloads/swiftydocs/">Made with SwiftyDocs</a>
 					</nav>
 
 					<div class="container-fluid">

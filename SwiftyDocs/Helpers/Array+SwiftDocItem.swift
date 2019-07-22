@@ -9,6 +9,7 @@
 import Foundation
 
 extension Array where Element == SwiftDocItem {
+	/// Enumerates all items and their children of an array of SwiftDocItems
 	func enumeratedChildren() -> [SwiftDocItem] {
 		var enumerated = [SwiftDocItem]()
 		for item in self {
@@ -20,6 +21,7 @@ extension Array where Element == SwiftDocItem {
 		return enumerated
 	}
 
+	/// Recursively gets all children from a SwiftDocItem
 	private func getChildren(from item: SwiftDocItem) -> [SwiftDocItem]? {
 		guard let children = item.properties else {
 			return nil
