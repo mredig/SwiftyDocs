@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+InfoPlistModel is a `Codable` struct to simplify generating the Info.plist for docset generation.
+*/
 struct InfoPlistModel: Codable {
 	let bundleID: String
 	let bundleName: String

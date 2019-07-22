@@ -489,6 +489,9 @@ class SwiftDocItemController {
 			}
 		}
 	}
+	/**
+	Copies files from an array of urls to a destination directory url.
+	*/
 	private func copy(urls: [URL], to destination: URL) {
 		for url in urls {
 			do {
@@ -499,6 +502,9 @@ class SwiftDocItemController {
 		}
 	}
 
+	/**
+	Extracts the name, type, and path for each top level item to be passed into the SQLite index generator
+	*/
 	private func getSQLInfoForRows() -> [(name: String, type: String, path: String)] {
 		var rows: [(name: String, type: String, path: String)] = []
 
@@ -521,6 +527,9 @@ class SwiftDocItemController {
 
 	// MARK: - info plist generation
 
+	/**
+	Generates an Info.plist for the docset format
+	*/
 	private func createInfoPlist() -> Data {
 		let cleanProjectTitle = projectTitle.replacingNonWordCharacters()
 
@@ -543,10 +552,16 @@ class SwiftDocItemController {
 
 	// MARK: - Markdown Generation
 
+	/**
+	Generates a markdown document for a given SwiftDocItem.
+	*/
 	func markdownPage(for doc: SwiftDocItem) -> String {
 		return markdownGenerator.generateMarkdownDocumentString(fromRootDocItem: doc, minimumAccessControl: minimumAccessControl)
 	}
 
+	/**
+	Generates an contents page in markdown format for all top level `SwiftDocItem`s.
+	*/
 	func markdownContents(with linkStyle: PageCount, in format: SaveFormat) -> String {
 		return markdownGenerator.generateMarkdownContents(fromTopLevelIndex: topLevelIndex,
 													   minimumAccessControl: minimumAccessControl,
@@ -554,6 +569,9 @@ class SwiftDocItemController {
 													   format: format)
 	}
 
+	/**
+	Converts special characters common to both markdown, html, and swift to percent escaped values from a given string so that they don't interfere with the rendering of the final output.
+	*/
 	func sanitizeForHTMLEmbedding(string: String) -> String {
 		var rVal = string.replacingOccurrences(of: ##"</div>"##, with: ##"<\/div>"##)
 

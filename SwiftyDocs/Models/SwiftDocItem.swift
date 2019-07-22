@@ -56,7 +56,7 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 			"""
 	}
 
-	/// A consistent, relative linking path used for html output.
+	/// A consistent, relative linking path used for html output. 
 	func htmlLink(format: SaveFormat = .html, output: PageCount) -> String {
 		let folderValue = kind.stringValue.capitalized.replacingNonWordCharacters()
 		let link: String

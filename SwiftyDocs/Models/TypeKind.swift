@@ -8,9 +8,15 @@
 
 import Foundation
 
+/**
+Differentiates types of Types.
+*/
 enum TypeKind: Hashable {
 	case `extension`, `enum`, `class`, `struct`, `protocol`, globalFunc, `typealias`, other(String)
 
+	/**
+	Equatable implementation.
+	*/
 	static func == (lhs: TypeKind, rhs: TypeKind) -> Bool {
 		switch lhs {
 		case .extension:
@@ -33,8 +39,14 @@ enum TypeKind: Hashable {
 		return false
 	}
 
+	/**
+	Types that reside at the top level of the exported document.
+	*/
 	static let topLevelCases: [TypeKind] = [.extension, .enum, .class, .struct, .protocol, .globalFunc, .typealias]
 
+	/**
+	A string value associated with each type.
+	*/
 	var stringValue: String {
 		switch self {
 		case .extension: return "extension"
@@ -48,6 +60,9 @@ enum TypeKind: Hashable {
 		}
 	}
 
+	/**
+	docset specific strings to properly classify types in a docset.
+	*/
 	var docSetType: String {
 		switch self {
 		case .extension: return "Extension"
@@ -63,6 +78,9 @@ enum TypeKind: Hashable {
 		}
 	}
 
+	/**
+	Creates and returns a new `TypeKind` from a given string. These strings should match output from the String extension implementation of `shortenSwiftDocClassificationString`
+	*/
 	static func createFrom(string: String) -> TypeKind {
 		switch string.lowercased() {
 		case "extension": return .extension

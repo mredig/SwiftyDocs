@@ -9,24 +9,40 @@
 import Cocoa
 import SourceKittenFramework
 
+/**
+The view controller for the primary GUI window.
+*/
 class SwiftDocViewController: NSViewController {
 
 	@IBOutlet var masterStackView: NSStackView!
+	/// The popup button where you can select the destination format.
 	@IBOutlet var formatPopUp: NSPopUpButton!
+	/// The popup button that shows the result of the selected access control level.
 	@IBOutlet var selectedItemsPopUp: NSPopUpButton!
+	/// Popup that allows selecting the access control level.
 	@IBOutlet var accessLevelPopUp: NSPopUpButton!
+	/// Read only label that displays the project title.
 	@IBOutlet var projectTitleLabel: NSTextField!
+	/// Editable text field that allows changing the project title.
 	@IBOutlet var projectTitleTextField: NSTextField!
+	/// Button that loads a project for exporting. Equivalent to File->Open
 	@IBOutlet var loadProjectButton: NSButton!
+	/// Button that initiates the export. Equivalent to File->Save
 	@IBOutlet var exportButton: NSButton!
+	/// Indicator showing that work is in progress.
 	@IBOutlet var progressIndicator: NSProgressIndicator!
+	/// Button that toggles showing the field that allows renaming the project.
 	@IBOutlet var renameButton: NSButton!
-
+	/// Popup that allows you to choose if you multiple files or a single file for output.
 	@IBOutlet var fileCountPopUp: NSPopUpButton!
+	/// Label that changes contextually.
 	@IBOutlet var outputIWantLabel: NSTextField!
+	/// Label that changes contextually.
 	@IBOutlet var outputFileLabel: NSTextField!
 
+	/// and instance of SwiftDocItemController
 	let docController = SwiftDocItemController()
+	/// Tracks the state of whether a file is loading or not to determine the enabling of UI widgets.
 	private var isLoadingFile = false
 
 	// MARK: - initing
@@ -114,6 +130,7 @@ class SwiftDocViewController: NSViewController {
 	}
 
 	// MARK: - update views etc
+	/// simple function to update UI state based on current state.
 	func updateViews() {
 		setItemsEnabled(to: !docController.docs.isEmpty)
 		updateWindowTitle()
@@ -121,7 +138,8 @@ class SwiftDocViewController: NSViewController {
 		setupSelectedItems()
 	}
 
-	func setItemsEnabled(to enabled: Bool) {
+	/// toggles ui elements' enabled state
+	private func setItemsEnabled(to enabled: Bool) {
 		renameButton.isEnabled = enabled
 		formatPopUp.isEnabled = enabled
 		fileCountPopUp.isEnabled = enabled
@@ -131,7 +149,8 @@ class SwiftDocViewController: NSViewController {
 		exportButton.isEnabled = enabled
 	}
 
-	func openProjectFinished() {
+	/// What runs upon completion of opening the selected project.
+	private func openProjectFinished() {
 		isLoadingFile = false
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else { return }
@@ -141,11 +160,13 @@ class SwiftDocViewController: NSViewController {
 		}
 	}
 
+	/// updates the title field from the current project title
 	private func updateTitleField() {
 		projectTitleTextField.stringValue = docController.projectTitle
 		projectTitleLabel.stringValue = docController.projectTitle
 	}
 
+	/// updates the window title
 	private func updateWindowTitle() {
 		view.window?.title = "\(docController.projectTitle)-SwiftyDocs"
 	}
@@ -168,6 +189,7 @@ extension SwiftDocViewController: NSMenuItemValidation {
 
 // MARK: - IB customization Stuff
 extension SwiftDocViewController {
+	/// toggles the hidden state of the renaming text field
 	@IBAction func renameDocsPressed(_ sender: NSButton) {
 		NSAnimationContext.runAnimationGroup { (context) in
 			context.duration = 1
@@ -178,13 +200,15 @@ extension SwiftDocViewController {
 		}
 	}
 
+	/// runs when the project title changes
 	@IBAction func projectTitleUpdated(_ sender: NSTextField) {
 		docController.projectTitle = sender.stringValue
 		sender.stringValue = docController.projectTitle
 		updateViews()
 	}
 
-	func setupMinAccessLevelPopUp() {
+	/// populates and selects the minimum access level popup
+	private func setupMinAccessLevelPopUp() {
 		accessLevelPopUp.removeAllItems()
 		for level in AccessControl.allCases {
 			accessLevelPopUp.addItem(withTitle: level.stringValue)
@@ -192,7 +216,8 @@ extension SwiftDocViewController {
 		accessLevelPopUp.selectItem(withTitle: AccessControl.internal.stringValue)
 	}
 
-	func setupSelectedItems() {
+	/// populates and checks the items that are selected for export as a result of the chosen minimum access level
+	private func setupSelectedItems() {
 		selectedItemsPopUp.removeAllItems()
 		if !docController.classesIndex.isEmpty {
 			let header = selectedItemsPopUp.menu?.addItem(withTitle: "Exported Items", action: nil, keyEquivalent: "")
@@ -221,11 +246,13 @@ extension SwiftDocViewController {
 		selectedItemsPopUp.selectItem(at: 1)
 	}
 
+	/// when setting up the selected items popup, this assists in generating a string for each entry
 	private func getMenuTitle(for docItem: SwiftDocItem, indendation: Int = 0) -> String {
 		let indentationStr = (0..<indendation).map { _ in "\t" }.joined()
 		return "\(indentationStr)\(docItem.title) (\(docItem.kind.stringValue))"
 	}
 
+	/// updates the selected items popup based on the minimum access level when the minimum access level pop changes (also saves that value to the `docController`)
 	@IBAction func minimumAccessLevelPopUpChanged(_ sender: NSPopUpButton) {
 		guard let str = sender.selectedItem?.title else { return }
 		let accessLevel = AccessControl.createFrom(string: str)
@@ -235,6 +262,7 @@ extension SwiftDocViewController {
 	}
 
 	// only needs to occurr once
+	/// populates and selects the default output options popups
 	private func setupOutputOptionsMenus() {
 		fileCountPopUp.removeAllItems()
 		formatPopUp.removeAllItems()
@@ -249,6 +277,7 @@ extension SwiftDocViewController {
 		fileCountSelectorChanged(fileCountPopUp)
 	}
 
+	/// runs when the popup is toggled between multiple or single file output
 	@IBAction func fileCountSelectorChanged(_ sender: NSPopUpButton) {
 		guard let selectedText = sender.selectedItem?.title else { return }
 		guard let output = PageCount(rawValue: selectedText) else { return }
@@ -256,6 +285,7 @@ extension SwiftDocViewController {
 		updateOutputLabels(context: output)
 	}
 
+	/// runs when the pop is toggled between markdown, html, or docset outputs
 	@IBAction func formatPopupChanged(_ sender: NSPopUpButton) {
 		guard let selectedItem = sender.selectedItem else { return }
 		switch selectedItem.title {
@@ -268,6 +298,7 @@ extension SwiftDocViewController {
 		fileCountSelectorChanged(fileCountPopUp)
 	}
 
+	/// updates the output labels next to the popups to read more like correct english, depending on whether the output is plural or not.
 	private func updateOutputLabels(context: PageCount) {
 		switch context {
 		case .multiPage:
@@ -279,12 +310,14 @@ extension SwiftDocViewController {
 		}
 	}
 
+	/// getter for getting the PageCount from the page count popup
 	private func getOutputStyle() -> PageCount? {
 		guard let selectedText = fileCountPopUp.selectedItem?.title else { return nil }
 		guard let output = PageCount(rawValue: selectedText) else { return nil }
 		return output
 	}
 
+	/// getter for getting the SaveFormat from the save format count popup
 	private func getSaveFormat() -> SaveFormat? {
 		guard let selectedText = formatPopUp.selectedItem?.title else { return nil }
 		guard let saveStyle = SaveFormat(rawValue: selectedText) else { return nil }
@@ -293,6 +326,7 @@ extension SwiftDocViewController {
 }
 
 extension SwiftDocViewController: NSControlTextEditingDelegate {
+	/// fires when the text field changes any characters
 	func controlTextDidChange(_ obj: Notification) {
 		if let textField = obj.object as? NSTextField {
 			if textField == projectTitleTextField {

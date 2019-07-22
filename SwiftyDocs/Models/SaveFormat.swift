@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+Used to determine the output format that's exported.
+*/
 enum SaveFormat: String, CaseIterable {
 	case html
 	case markdown
