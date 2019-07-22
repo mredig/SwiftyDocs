@@ -16,7 +16,7 @@ class SwiftDocViewController: NSViewController {
 
 	@IBOutlet var masterStackView: NSStackView!
 	/// The popup button where you can select the destination format.
-	@IBOutlet var formatPopUp: NSPopUpButton!
+	@IBOutlet var saveFormatPopUp: NSPopUpButton!
 	/// The popup button that shows the result of the selected access control level.
 	@IBOutlet var selectedItemsPopUp: NSPopUpButton!
 	/// Popup that allows selecting the access control level.
@@ -34,7 +34,7 @@ class SwiftDocViewController: NSViewController {
 	/// Button that toggles showing the field that allows renaming the project.
 	@IBOutlet var renameButton: NSButton!
 	/// Popup that allows you to choose if you multiple files or a single file for output.
-	@IBOutlet var fileCountPopUp: NSPopUpButton!
+	@IBOutlet var pageCountPopUp: NSPopUpButton!
 	/// Label that changes contextually.
 	@IBOutlet var outputIWantLabel: NSTextField!
 	/// Label that changes contextually.
@@ -104,7 +104,7 @@ class SwiftDocViewController: NSViewController {
 		savePanel.message = "SwiftyDocs will create a folder in your destination containing all generated documentation files."
 		savePanel.nameFieldStringValue = docController.projectTitle + "-Documentation"
 
-		if formatPopUp.selectedItem?.title == SaveFormat.docset.rawValue {
+		if saveFormatPopUp.selectedItem?.title == SaveFormat.docset.rawValue {
 			savePanel.isExtensionHidden = false
 			savePanel.allowedFileTypes = ["docset"]
 			savePanel.nameFieldStringValue = docController.projectTitle
@@ -141,8 +141,8 @@ class SwiftDocViewController: NSViewController {
 	/// toggles ui elements' enabled state
 	private func setItemsEnabled(to enabled: Bool) {
 		renameButton.isEnabled = enabled
-		formatPopUp.isEnabled = enabled
-		fileCountPopUp.isEnabled = enabled
+		saveFormatPopUp.isEnabled = enabled
+		pageCountPopUp.isEnabled = enabled
 		selectedItemsPopUp.isEnabled = enabled
 		accessLevelPopUp.isEnabled = enabled
 		projectTitleTextField.isEnabled = enabled
@@ -264,21 +264,21 @@ extension SwiftDocViewController {
 	// only needs to occurr once
 	/// populates and selects the default output options popups
 	private func setupOutputOptionsMenus() {
-		fileCountPopUp.removeAllItems()
-		formatPopUp.removeAllItems()
+		pageCountPopUp.removeAllItems()
+		saveFormatPopUp.removeAllItems()
 
 		for format in SaveFormat.allCases {
-			formatPopUp.addItem(withTitle: format.rawValue)
+			saveFormatPopUp.addItem(withTitle: format.rawValue)
 		}
 
 		for style in PageCount.allCases {
-			fileCountPopUp.addItem(withTitle: style.rawValue)
+			pageCountPopUp.addItem(withTitle: style.rawValue)
 		}
-		fileCountSelectorChanged(fileCountPopUp)
+		pageCountSelectorChanged(pageCountPopUp)
 	}
 
 	/// runs when the popup is toggled between multiple or single file output
-	@IBAction func fileCountSelectorChanged(_ sender: NSPopUpButton) {
+	@IBAction func pageCountSelectorChanged(_ sender: NSPopUpButton) {
 		guard let selectedText = sender.selectedItem?.title else { return }
 		guard let output = PageCount(rawValue: selectedText) else { return }
 
@@ -286,16 +286,16 @@ extension SwiftDocViewController {
 	}
 
 	/// runs when the pop is toggled between markdown, html, or docset outputs
-	@IBAction func formatPopupChanged(_ sender: NSPopUpButton) {
+	@IBAction func saveFormatPopupChanged(_ sender: NSPopUpButton) {
 		guard let selectedItem = sender.selectedItem else { return }
 		switch selectedItem.title {
 		case SaveFormat.docset.rawValue:
-			fileCountPopUp.selectItem(withTitle: PageCount.singlePage.rawValue)
-			fileCountPopUp.item(withTitle: PageCount.multiPage.rawValue)?.isHidden = true
+			pageCountPopUp.selectItem(withTitle: PageCount.singlePage.rawValue)
+			pageCountPopUp.item(withTitle: PageCount.multiPage.rawValue)?.isHidden = true
 		default:
-			fileCountPopUp.item(withTitle: PageCount.multiPage.rawValue)?.isHidden = false
+			pageCountPopUp.item(withTitle: PageCount.multiPage.rawValue)?.isHidden = false
 		}
-		fileCountSelectorChanged(fileCountPopUp)
+		pageCountSelectorChanged(pageCountPopUp)
 	}
 
 	/// updates the output labels next to the popups to read more like correct english, depending on whether the output is plural or not.
@@ -312,14 +312,14 @@ extension SwiftDocViewController {
 
 	/// getter for getting the PageCount from the page count popup
 	private func getOutputStyle() -> PageCount? {
-		guard let selectedText = fileCountPopUp.selectedItem?.title else { return nil }
+		guard let selectedText = pageCountPopUp.selectedItem?.title else { return nil }
 		guard let output = PageCount(rawValue: selectedText) else { return nil }
 		return output
 	}
 
 	/// getter for getting the SaveFormat from the save format count popup
 	private func getSaveFormat() -> SaveFormat? {
-		guard let selectedText = formatPopUp.selectedItem?.title else { return nil }
+		guard let selectedText = saveFormatPopUp.selectedItem?.title else { return nil }
 		guard let saveStyle = SaveFormat(rawValue: selectedText) else { return nil }
 		return saveStyle
 	}

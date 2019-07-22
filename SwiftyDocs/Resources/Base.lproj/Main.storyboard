@@ -553,7 +553,7 @@
                                                     </menu>
                                                 </popUpButtonCell>
                                                 <connections>
-                                                    <action selector="fileCountSelectorChanged:" target="XfG-lQ-9wD" id="MHr-tg-OLs"/>
+                                                    <action selector="pageCountSelectorChanged:" target="XfG-lQ-9wD" id="MHr-tg-OLs"/>
                                                 </connections>
                                             </popUpButton>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wAI-QL-EU2">
@@ -569,7 +569,7 @@
                                                     </menu>
                                                 </popUpButtonCell>
                                                 <connections>
-                                                    <action selector="formatPopupChanged:" target="XfG-lQ-9wD" id="pGq-q4-5v1"/>
+                                                    <action selector="saveFormatPopupChanged:" target="XfG-lQ-9wD" id="pGq-q4-5v1"/>
                                                 </connections>
                                             </popUpButton>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qUh-Co-0Tk">
@@ -658,16 +658,16 @@
                     <connections>
                         <outlet property="accessLevelPopUp" destination="5gI-VN-Sk8" id="2FN-5F-YET"/>
                         <outlet property="exportButton" destination="0G9-vI-ZE5" id="5HB-8C-eCJ"/>
-                        <outlet property="fileCountPopUp" destination="JJL-NI-kl5" id="RJ3-Sp-XBY"/>
-                        <outlet property="formatPopUp" destination="wAI-QL-EU2" id="co7-5X-uMN"/>
                         <outlet property="loadProjectButton" destination="YvJ-A8-ynH" id="0Wy-Gb-VLp"/>
                         <outlet property="masterStackView" destination="GOw-DH-hIL" id="Nw4-8G-mDi"/>
                         <outlet property="outputFileLabel" destination="qUh-Co-0Tk" id="PiN-mn-sQE"/>
                         <outlet property="outputIWantLabel" destination="iPL-H4-20Q" id="zAy-om-RAo"/>
+                        <outlet property="pageCountPopUp" destination="JJL-NI-kl5" id="RJ3-Sp-XBY"/>
                         <outlet property="progressIndicator" destination="jbE-xv-JKa" id="Oub-ru-faa"/>
                         <outlet property="projectTitleLabel" destination="inP-Gi-Tnj" id="f9q-gz-hVc"/>
                         <outlet property="projectTitleTextField" destination="xjh-Xq-yXq" id="lZR-Bn-kAt"/>
                         <outlet property="renameButton" destination="VO1-Fo-6wC" id="XLv-Vw-KHq"/>
+                        <outlet property="saveFormatPopUp" destination="wAI-QL-EU2" id="co7-5X-uMN"/>
                         <outlet property="selectedItemsPopUp" destination="q92-2r-yOb" id="cPf-az-mdh"/>
                     </connections>
                 </viewController>
