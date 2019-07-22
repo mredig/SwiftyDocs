@@ -45,7 +45,7 @@
 		33BDD01E22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 33BDD01B22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM */; };
 		33BDD01F22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 33BDD01C22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM */; };
 		33BDD02022CBDF1E0007ABF4 /* Yams.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 33BDD01D22CBDF1E0007ABF4 /* Yams.framework.dSYM */; };
-		33BDD02622CBEBBB0007ABF4 /* InputDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02522CBEBBB0007ABF4 /* InputDoc.swift */; };
+		33BDD02622CBEBBB0007ABF4 /* DocFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02522CBEBBB0007ABF4 /* DocFile.swift */; };
 		33BDD02922CC5F150007ABF4 /* StringMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02822CC5F150007ABF4 /* StringMap.swift */; };
 		33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02A22CC65130007ABF4 /* SwiftDocItem.swift */; };
 		33BDD05422CC78E00007ABF4 /* SwiftDocItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD05322CC78E00007ABF4 /* SwiftDocItemController.swift */; };
@@ -152,7 +152,7 @@
 		33BDD01B22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SWXMLHash.framework.dSYM; sourceTree = "<group>"; };
 		33BDD01C22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = SourceKittenFramework.framework.dSYM; sourceTree = "<group>"; };
 		33BDD01D22CBDF1E0007ABF4 /* Yams.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Yams.framework.dSYM; sourceTree = "<group>"; };
-		33BDD02522CBEBBB0007ABF4 /* InputDoc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDoc.swift; sourceTree = "<group>"; };
+		33BDD02522CBEBBB0007ABF4 /* DocFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocFile.swift; sourceTree = "<group>"; };
 		33BDD02822CC5F150007ABF4 /* StringMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringMap.swift; sourceTree = "<group>"; };
 		33BDD02A22CC65130007ABF4 /* SwiftDocItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDocItem.swift; sourceTree = "<group>"; };
 		33BDD05322CC78E00007ABF4 /* SwiftDocItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDocItemController.swift; sourceTree = "<group>"; };
@@ -287,7 +287,7 @@
 		33BDD02422CBEBB10007ABF4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				33BDD02522CBEBBB0007ABF4 /* InputDoc.swift */,
+				33BDD02522CBEBBB0007ABF4 /* DocFile.swift */,
 				33BDD02A22CC65130007ABF4 /* SwiftDocItem.swift */,
 				3374B96222CEBE270061F3CE /* SaveFormat.swift */,
 				3374B95E22CE9AFE0061F3CE /* TypeKind.swift */,
@@ -510,7 +510,7 @@
 				33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */,
 				3334A1EC22E0DAF400C60D7C /* SQLController.swift in Sources */,
 				33BDD06122CD53830007ABF4 /* Array+SwiftDocItem.swift in Sources */,
-				33BDD02622CBEBBB0007ABF4 /* InputDoc.swift in Sources */,
+				33BDD02622CBEBBB0007ABF4 /* DocFile.swift in Sources */,
 				3374B96122CE9B460061F3CE /* PageCount.swift in Sources */,
 				33BDD02922CC5F150007ABF4 /* StringMap.swift in Sources */,
 				33BDD06722CD73470007ABF4 /* MarkdownGenerator.swift in Sources */,

@@ -14,7 +14,7 @@ This is only used temporarily to read in the JSON from SourceKitten. This JSON i
 The process effectively goes like this:
 1. SourceKitten compiles the input project and extracts the documentation data
 1. SourceKitten outputs JSON data, that is then decoded by this struct.
-1. This struct uses different coding keys upon decoding than from encoding. The decoding keys match the JSON provided by SourceKitten. The new coding keys match the JSON required by `SwiftDocItem` in a sibling struct file.
+1. The data is then converted to `SwiftDocItem`s
 1. (this reaches beyond the scope of this file here, but as long as I'm detailing the information, here goes:) The data spends most of its time residing in the SwiftDocItem format. This format is recursive to contain child properties, methods, and other types.
 1. `SwiftDocItemController` handles the collection of `SwiftDocItems` and many other related tasks, including managing the export of said items.
 1. When exporting, SwiftDocItemController facilitates the conversion to Markdown (which happens regardless of output format), collects all files (including dependencies), and outputs them to the desired directory.

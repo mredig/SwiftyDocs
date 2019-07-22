@@ -64,7 +64,11 @@ class SwiftDocItemController {
 	var projectDirectoryURL: URL? {
 		return projectURL?.deletingLastPathComponent()
 	}
-	/// The URL of the first page that should be shown when using a separated file output. It prioritizes a markdown file titled "doclandingpage.md", so that users may customize the first thing their users encounter when viewing documentation. It falls back to any variation of capitalization for a `Readme.md` file, then to a `Readme` file. If none of these exist, no landing page is included in the exported documentation.
+	/**
+	The URL of the first page that should be shown when using a separated file output. It prioritizes a markdown file titled "doclandingpage.md", so that users may customize the first thing their users encounter when viewing documentation. It falls back to any variation of capitalization for a `Readme.md` file, then to a `Readme` file. If none of these exist, no landing page is included in the exported documentation.
+
+	The term "Landing Page" is used to disambiguate between the role of an `index.html` file and an index, conceptually. Where an index usually contains a listing of all items contained within, but an `index.html` is simply the default page output when nothing specific is requested. The `index.html` file in this case needs to either be the actual documentation (in the case of single file output) or a page gluing the list of contents to the actual documentation (in the case of the multifile output). As these two roles are very distinguished, but their terms overlap, the need to disambiguate is necessary.
+	*/
 	var projectLandingPageURL: URL? {
 		guard let directoryURL = projectDirectoryURL else { return nil }
 		do {
@@ -100,7 +104,7 @@ class SwiftDocItemController {
 	}
 
 	private var _projectTitle: String?
-	/// Stores the title of the project. This is used for headers in the exported files and a default name implementation when saving the export. 
+	/// Stores the title of the project. This is used for headers in the exported files and a default name implementation when saving the export.
 	var projectTitle: String {
 		get {
 			return _projectTitle ?? (projectURL?.deletingPathExtension().lastPathComponent ?? "Documentation")
@@ -115,6 +119,7 @@ class SwiftDocItemController {
 
 	private let markdownGenerator = MarkdownGenerator()
 	private let htmlWrapper = HTMLWrapper()
+	private let fm = FileManager.default
 
 	private let scrapeQueue: OperationQueue = {
 		let queue = OperationQueue()
@@ -124,15 +129,24 @@ class SwiftDocItemController {
 
 	// MARK: - inits
 
+	/**
+	Initializes a new SwiftDocItemController
+	*/
 	init() {}
 
 	// MARK: - CRUD
+	/**
+	Accepts an array of `DocFile`s as input and, after converting them to a `SwiftDocItem`, adds them to the `docs` array.
+	*/
 	func add(docs: [DocFile]) {
 		for doc in docs {
 			add(doc: doc)
 		}
 	}
 
+	/**
+	Adds a single `DocFile`, after converting it to a `SwiftDocItem`, to the `docs` array
+	*/
 	func add(doc: DocFile) {
 		guard let items = getDocItemsFrom(containers: doc.topLevelContainers,
 										  sourceFile: doc.filePath?.path ?? "")
@@ -140,11 +154,17 @@ class SwiftDocItemController {
 		docs.append(contentsOf: items)
 	}
 
+	/**
+	Removes all items from the `docs` array.
+	*/
 	func clear() {
 		docs.removeAll()
 	}
 
-	func getDocItemsFrom(containers: [DocFile.DocContainer]?, sourceFile: String, parentName: String = "") -> [SwiftDocItem]? {
+	/**
+	Given an array of `DocFile`s, converts them to the `SwiftDocItem` format and returns an optional array of `SwiftDocItem`s. Recurses through every `DocFile`'s children and converts those as well, but instead of adding them to the array, it instead sets them as children of the `SwiftDocItem` they descend from.
+	*/
+	private func getDocItemsFrom(containers: [DocFile.DocContainer]?, sourceFile: String, parentName: String = "") -> [SwiftDocItem]? {
 		guard let containers = containers else { return nil }
 
 		var sourceFile = sourceFile
@@ -199,6 +219,9 @@ class SwiftDocItemController {
 		return items
 	}
 
+	/**
+	Given a directory URL containing an Xcode Project, gets the doc output from SourceKitten, converts it from JSON -> `DocFile` -> `SwiftDocItem` -> adds to the `docs` array.
+	*/
 	func getDocs(from projectDirectory: URL, completion: @escaping () -> Void) {
 
 		let buildPath = projectDirectory.appendingPathComponent("build")
@@ -240,6 +263,9 @@ class SwiftDocItemController {
 		scrapeQueue.addOperations([docScrapeOp, docFilesOp, cleanupOp], waitUntilFinished: false)
 	}
 
+	/**
+	Searches all the docs for matching parameters. Powers the computed properties above, but could also be utilized for user input, if such a feature was desired.
+	*/
 	func search(forTitle title: String?, ofKind kind: TypeKind?, withMinimumAccessControl minimumAccessControl: AccessControl = .internal) -> [SwiftDocItem] {
 		var output = docs.enumeratedChildren().filter { $0.accessControl >= minimumAccessControl }
 
@@ -257,6 +283,9 @@ class SwiftDocItemController {
 
 	// MARK: - Saving
 
+	/**
+	Initiates saving at the given path (`URL`) with the given style (`PageCount`) and format (`SaveFormat`).
+	*/
 	func save(with style: PageCount, to path: URL, in format: SaveFormat) {
 		switch style {
 		case .multiPage:
@@ -266,7 +295,10 @@ class SwiftDocItemController {
 		}
 	}
 
-	func saveSingleFile(to path: URL, format: SaveFormat) {
+	/**
+	Initiates saving a single file in a given format. The format consists of a generated index at the top of the file, with each additional entry appended to the end. The HTML formatted output also includes css and js to assist in rendering the documentation nicely.
+	*/
+	private func saveSingleFile(to path: URL, format: SaveFormat) {
 		guard format != .docset else {
 			saveDocset(to: path)
 			return
@@ -300,7 +332,10 @@ class SwiftDocItemController {
 		}
 	}
 
-	func saveMultifile(to path: URL, format: SaveFormat) {
+	/**
+	Initiates saving multiple files in a given format. The format consists of a generated index file for navigation, generates a landing page based on readme files present (see `projectLandingPageURL`), and generates an individual file for each major entry. The HTML formatted output also includes css and js to assist in rendering the documentation nicely.
+	*/
+	private func saveMultifile(to path: URL, format: SaveFormat) {
 		var contents = markdownContents(with: .multiPage, in: format)
 		var landingPageContents = getLandingPageContents()
 
@@ -352,7 +387,10 @@ class SwiftDocItemController {
 		}
 	}
 
-	func saveDocset(to path: URL) {
+	/**
+	Initiates saving a docset to a given path (`URL`). The format is identical to the multiple html files, just with some additional metadata like a SQLite index and Info.plist file.
+	*/
+	private func saveDocset(to path: URL) {
 		let packageDir = path.path.hasSuffix(".docset") ? path : path.appendingPathExtension("docset")
 		let contentsDir = packageDir.appendingPathComponent("Contents")
 		let infoPlistURL = contentsDir.appendingPathComponent("Info.plist")
@@ -386,13 +424,18 @@ class SwiftDocItemController {
 		}
 	}
 
-	func getLandingPageContents() -> String {
+	/**
+	Gathers contents for the landing page to be used in multifile exports.
+	*/
+	private func getLandingPageContents() -> String {
 		guard let landingPageURL = projectLandingPageURL else { return "" }
 		let contents = (try? String(contentsOf: landingPageURL)) ?? ""
 		return contents
 	}
 
-	private let fm = FileManager.default
+	/**
+	Saves all css and js required for proper html rendering in the path requested.
+	*/
 	func saveDependencyPackage(to path: URL, linkStyle: PageCount) {
 		guard var jsURLs = Bundle.main.urls(forResourcesWithExtension: "js", subdirectory: nil, localization: nil) else { return }
 		guard let maps = Bundle.main.urls(forResourcesWithExtension: "map", subdirectory: nil, localization: nil) else { return }
@@ -434,6 +477,9 @@ class SwiftDocItemController {
 		copy(urls: otherFiles, to: path)
 	}
 
+	/**
+	Given a list of urls, creates a directory at each url, creating intermediate directories if they don't already exist.
+	*/
 	private func create(subdirectories: [URL]) {
 		for subdirURL in subdirectories {
 			do {
