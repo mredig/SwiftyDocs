@@ -12,7 +12,14 @@ import Foundation
 Differentiates types of Types.
 */
 enum TypeKind: Hashable {
-	case `extension`, `enum`, `class`, `struct`, `protocol`, globalFunc, `typealias`, other(String)
+	case `extension`
+	case `enum`
+	case `class`
+	case `struct`
+	case `protocol`
+	case globalFunc
+	case `typealias`
+	case other(String)
 
 	/**
 	Equatable implementation.

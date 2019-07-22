@@ -54,12 +54,17 @@ struct DocFile: Codable, CustomStringConvertible {
 		init(from aDecoder: Decoder) throws {
 			let container = try aDecoder.container(keyedBy: DeCodingKeys.self)
 
-			self.accessControl = try container.decodeIfPresent(String.self, forKey: .accessControl)?.shortenSwiftDocClassificationString()
-			self.docDeclaration = try container.decodeIfPresent(String.self, forKey: .docDeclaration)
-			self.parsedDeclaration = try container.decodeIfPresent(String.self, forKey: .parsedDeclaration)
-			self.comment = try container.decodeIfPresent(String.self, forKey: .comment)
-			self.name = try container.decodeIfPresent(String.self, forKey: .name)
-			self.kind = try container.decode(String.self, forKey: .kind).shortenSwiftDocClassificationString()
+			let docDeclaration = try container.decodeIfPresent(String.self, forKey: .docDeclaration)
+			self.docDeclaration = docDeclaration
+			let parsedDeclaration = try container.decodeIfPresent(String.self, forKey: .parsedDeclaration)
+			self.parsedDeclaration = parsedDeclaration
+			let comment = try container.decodeIfPresent(String.self, forKey: .comment)
+			self.comment = comment
+			let name = try container.decodeIfPresent(String.self, forKey: .name)
+			self.name = name
+			let association = docDeclaration ?? parsedDeclaration ?? comment ?? name
+			self.kind = try container.decode(String.self, forKey: .kind).shortenSwiftDocClassificationString(associatedWith: association)
+			self.accessControl = try container.decodeIfPresent(String.self, forKey: .accessControl)?.shortenSwiftDocClassificationString(associatedWith: association)
 			self.inheritedTypes = try container.decodeIfPresent([InheritedType].self, forKey: .inheritedTypes)
 			self.attributes = try container.decodeIfPresent([Attribute].self, forKey: .attributes)
 			self.nestedContainers = try container.decodeIfPresent([NestedContainer].self, forKey: .nestedContainers)

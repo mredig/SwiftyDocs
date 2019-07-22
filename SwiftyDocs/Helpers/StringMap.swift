@@ -30,6 +30,7 @@ extension String {
 		"source.lang.swift.decl.var.local": "local",
 		"source.lang.swift.decl.var.static": "static",
 		"source.lang.swift.decl.var.instance": "instance property",
+		"source.lang.swift.decl.var.parameter": "parameter",
 		"source.lang.swift.decl.function.method.static": "static",
 		"source.lang.swift.decl.generic_type_param": "generic type parameter",
 		"source.lang.swift.decl.protocol": "protocol",
@@ -43,6 +44,9 @@ extension String {
 		"source.decl.attribute.convenience": "convenience",
 		"source.decl.attribute.lazy": "lazy",
 		"source.decl.attribute.open": "open",
+		"source.decl.attribute.override": "override",
+		"source.decl.attribute.dynamic": "dynamic",
+		"source.decl.attribute.indirect": "indirect",
 		"source.decl.attribute.fileprivate": "fileprivate",
 		"source.decl.attribute.public": "public",
 		"source.decl.attribute.private": "private",
@@ -51,13 +55,22 @@ extension String {
 		"source.decl.attribute.discardableResult": "discardable result",
 		"source.decl.attribute.mutating": "mutating",
 		"source.decl.attribute.prefix": "prefix",
+		"source.decl.attribute.NSApplicationMain": "@NSApplicationMain",
+		"source.decl.attribute.iboutlet": "@IBOutlet",
+		"source.decl.attribute.ibaction": "@IBAction"
 	]
 
 	/// This is the where the actual magic happens, mapping the source strings to the destination strings.
-	func shortenSwiftDocClassificationString(useInterpretation: Bool = false) -> String {
+	func shortenSwiftDocClassificationString(useInterpretation: Bool = false, associatedWith association: String? = nil) -> String {
 		let rStr = String.mappings[self, default: ""]
 		if rStr.isEmpty {
-			NSLog("No interpretation for: '\(self) - please update `StringMap.swift` and make a pull request'")
+			let logString: String
+			if let association = association {
+				logString = "No interpretation for: '\(self)' (associated with '\(association)') - please update `StringMap.swift` and make a pull request"
+			} else {
+				logString = "No interpretation for: '\(self)' - please update `StringMap.swift` and make a pull request"
+			}
+			NSLog(logString)
 			if useInterpretation {
 				return self.split(separator: ".").map { String($0) }.last ?? rStr
 			} else {
