@@ -247,6 +247,33 @@ class SwiftDocItemController {
 		return docs
 	}
 
+	/// Consolidates extensions on types external to the project with multiple implementations into one SwiftDocItem. Need to figure out how to do.
+	private func mergeExternalExtensions(in docs: [SwiftDocItem]) -> [SwiftDocItem] {
+		var docs = docs
+		// do a pass finding extensions on top level - save to set/array
+		let extensionTitles = docs
+						.filter { $0.kind == .extension }
+						.reduce(into: Set<String>()) { $0.insert($1.title) }
+		// do a second pass removing them into a temp array/set/merging
+		var extensionGroups = [SwiftDocItem]()
+		for extensionTitle in extensionTitles {
+			var extensionGroup: SwiftDocItem?
+			while let extensionIndex = docs.lastIndex(where: { $0.title == extensionTitle && $0.kind == .extension }) {
+				if extensionGroup == nil {
+					extensionGroup = SwiftDocItem(title: extensionTitle, accessControl: .open, comment: "The following are extensions on the \(extensionTitle) Type.", sourceFile: projectTitle, kind: .extension, properties: nil, attributes: [], docDeclaration: nil, parsedDeclaration: nil)
+				}
+				extensionGroup?.extensions.append(docs[extensionIndex])
+				docs.remove(at: extensionIndex)
+			}
+			guard let unwrappedExtensionGroup = extensionGroup else { continue }
+			extensionGroups.append(unwrappedExtensionGroup)
+		}
+		// append them back to docs
+		docs.append(contentsOf: extensionGroups)
+
+		return docs
+	}
+
 	/**
 	Given a directory URL containing an Xcode Project, gets the doc output from SourceKitten, converts it from JSON -> `DocFile` -> `SwiftDocItem` -> adds to the `docs` array.
 	*/
@@ -259,6 +286,7 @@ class SwiftDocItemController {
 			defer {
 				if let self = self {
 					self.docs = self.mergeInternalExtensions(in: self.docs)
+					self.docs = self.mergeExternalExtensions(in: self.docs)
 				}
 				completion()
 			}
