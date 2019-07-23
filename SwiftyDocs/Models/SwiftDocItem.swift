@@ -60,6 +60,7 @@ class SwiftDocItem: Hashable, CustomStringConvertible, CustomDebugStringConverti
 		return description
 	}
 
+	/// Creates a new SwiftDocItem
 	init(title: String, accessControl: AccessControl, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
 		self.title = title
 		self.accessControl = accessControl
@@ -88,6 +89,7 @@ class SwiftDocItem: Hashable, CustomStringConvertible, CustomDebugStringConverti
 		return link
 	}
 
+	/// Equatable implementation
 	static func ==(lhs: SwiftDocItem, rhs: SwiftDocItem) -> Bool {
 		return lhs.title == rhs.title &&
 			lhs.accessControl == rhs.accessControl &&
@@ -99,6 +101,7 @@ class SwiftDocItem: Hashable, CustomStringConvertible, CustomDebugStringConverti
 			lhs.declaration == rhs.declaration
 	}
 
+	/// Generates the hash value for Hashable
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(title)
 		hasher.combine(accessControl)
@@ -113,14 +116,14 @@ class SwiftDocItem: Hashable, CustomStringConvertible, CustomDebugStringConverti
 
 /// Convenience initializers
 extension SwiftDocItem {
-	/// A convenient initializer
+	/// Creates a new SwiftDocItem with provided extensions. Also accepts a string for access control as opposed to an `AccessControl` enum.
 	convenience init(title: String, accessControl acString: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, extensions: [SwiftDocItem], attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
 		let accessControl = AccessControl.createFrom(string: acString)
 		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
 		self.extensions = extensions
 	}
 
-	/// Another convenient initializer
+	/// Creates a new SwiftDocItem with no extensions. Accepts a string for access control as opposed to an `AccessControl` enum.
 	convenience init(title: String, accessControl acString: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
 		self.init(title: title, accessControl: acString, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, extensions: [], attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
 	}
