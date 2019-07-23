@@ -30,33 +30,24 @@ class MarkdownGenerator {
 			sourceFile
 		)
 
-		var children = [MDNode]()
-		if let properties = swiftDocItem.properties {
-			for property in properties {
-				guard property.accessControl >= minimumAccessControl else { continue }
+		let children = setupChildrenProperties(from: swiftDocItem.properties,
+											   minimumAccessControl: minimumAccessControl,
+											   parentSourceFile: sourceFile,
+											   includeTOCLinks: includeTOCLinks)
 
-				let propertySourceFile: MDNode = .nonIndentedCollection([
-					.paragraphWithInlineElements([.italics("Found in:")]),
-					.unorderedListItem("\(MDNode.codeInline(property.sourceFile))")
-				])
-
-				let tocLink = includeTOCLinks ? "##--\(property.kind.docSetType)/\(property.title.percentEscaped)/\(property.title)--##" : property.title
-				var propertyDoc: MDNode = .unorderedListItem("\(tocLink)",
-					.paragraphWithInlineElements([.boldItalics(property.accessControl.stringValue), .italics(property.kind.stringValue)]),
-					.paragraph(property.comment ?? "No documentation"),
-					.codeBlock(property.declaration, syntax: "swift")
-				)
-
-				if sourceFile != propertySourceFile {
-					propertyDoc = propertyDoc.appending(node: propertySourceFile)
-				}
-				children.append(propertyDoc)
-			}
-		}
+		let extensions = setupChildrenProperties(from: swiftDocItem.extensions,
+												 minimumAccessControl: minimumAccessControl,
+												 parentSourceFile: sourceFile,
+												 includeTOCLinks: includeTOCLinks)
 
 		if !children.isEmpty {
 			rootDoc = rootDoc.appending(nodes: [.header(3, "Members"), .newline()])
 			rootDoc = rootDoc.appending(nodes: children)
+		}
+
+		if !extensions.isEmpty {
+			rootDoc = rootDoc.appending(nodes: [.header(3, "Extensions"), .newline()])
+			rootDoc = rootDoc.appending(nodes: extensions)
 		}
 
 		return rootDoc.finalRender()
@@ -84,5 +75,39 @@ class MarkdownGenerator {
 		}
 
 		return rootMD.finalRender()
+	}
+
+	private func setupChildrenProperties(from children: [SwiftDocItem]?, minimumAccessControl: AccessControl, parentSourceFile: MDNode, includeTOCLinks: Bool) -> [MDNode] {
+		guard let children = children else { return [] }
+		var outChildren = [MDNode]()
+		for child in children {
+			guard child.accessControl >= minimumAccessControl else { continue }
+
+			if child.kind == .extension {
+				outChildren.append(contentsOf: setupChildrenProperties(from: child.properties,
+																	   minimumAccessControl: minimumAccessControl,
+																	   parentSourceFile: parentSourceFile,
+																	   includeTOCLinks: includeTOCLinks))
+				continue
+			}
+
+			let childSourceFile: MDNode = .nonIndentedCollection([
+				.paragraphWithInlineElements([.italics("Found in:")]),
+				.unorderedListItem("\(MDNode.codeInline(child.sourceFile))")
+				])
+
+			let tocLink = includeTOCLinks ? "##--\(child.kind.docSetType)/\(child.title.percentEscaped)/\(child.title)--##" : child.title
+			var childDoc: MDNode = .unorderedListItem("\(tocLink)",
+				.paragraphWithInlineElements([.boldItalics(child.accessControl.stringValue), .italics(child.kind.stringValue)]),
+				.paragraph(child.comment ?? "No documentation"),
+				.codeBlock(child.declaration, syntax: "swift")
+			)
+
+			if parentSourceFile != childSourceFile {
+				childDoc = childDoc.appending(node: childSourceFile)
+			}
+			outChildren.append(childDoc)
+		}
+		return outChildren
 	}
 }

@@ -14,8 +14,16 @@ The primary brains of this software. This contains the collection of `SwiftDocIt
 class SwiftDocItemController {
 
 	// MARK: - properties
+	private var _docs: [SwiftDocItem] = []
 	/// The source of truth for all the doc items
-	private(set) var docs: [SwiftDocItem] = []
+	private(set) var docs: [SwiftDocItem] {
+		get {
+			return _docs
+		}
+		set {
+			_docs = processExtensions(in: newValue)
+		}
+	}
 
 	/// All classes
 	var classesIndex: [SwiftDocItem] {
@@ -219,6 +227,23 @@ class SwiftDocItemController {
 		return items
 	}
 
+	private func processExtensions(in docs: [SwiftDocItem]) -> [SwiftDocItem] {
+		var docs = docs
+		var indicies = [Int]()
+		for (extIndex, anExtension) in docs.enumerated() where anExtension.kind == .extension {
+			for (classIndex, anObject) in docs.enumerated() where anObject.kind == .class || anObject.kind == .enum || anObject.kind == .protocol || anObject.kind == .struct {
+				if anObject.title == anExtension.title {
+					docs[classIndex].extensions.append(anExtension)
+					indicies.append(extIndex)
+				}
+			}
+		}
+
+		indicies.reversed().forEach { docs.remove(at: $0) }
+
+		return docs
+	}
+
 	/**
 	Given a directory URL containing an Xcode Project, gets the doc output from SourceKitten, converts it from JSON -> `DocFile` -> `SwiftDocItem` -> adds to the `docs` array.
 	*/
@@ -267,18 +292,18 @@ class SwiftDocItemController {
 	Searches all the docs for matching parameters. Powers the computed properties above, but could also be utilized for user input, if such a feature was desired.
 	*/
 	func search(forTitle title: String?, ofKind kind: TypeKind?, withMinimumAccessControl minimumAccessControl: AccessControl = .internal) -> [SwiftDocItem] {
-		var output = docs.enumeratedChildren().filter { $0.accessControl >= minimumAccessControl }
+		var searchResults = docs.enumeratedChildren().filter { $0.accessControl >= minimumAccessControl }
 
 		if let title = title {
 			let titleLC = title.lowercased()
-			output = output.filter { $0.title.lowercased().contains(titleLC) }
+			searchResults = searchResults.filter { $0.title.lowercased().contains(titleLC) }
 		}
 
 		if let kind = kind {
-			output = output.filter { $0.kind == kind }
+			searchResults = searchResults.filter { $0.kind == kind }
 		}
 
-		return output
+		return searchResults
 	}
 
 	// MARK: - Saving

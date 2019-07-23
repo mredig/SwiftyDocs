@@ -13,7 +13,7 @@ This is where the documentation data will spend most of its time. The data is fi
 
 This data type is recursive and can contain children of the same type. As `SwiftDocItem` represents all entities from a class to class/struct properties to a global function and everything in between, it needs to be able to contain the items that descend from it. (A class's properties and methods, for example)
 */
-struct SwiftDocItem: Hashable, CustomStringConvertible {
+struct SwiftDocItem: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
 	/// The title of the doc item
 	let title: String
 	/// The access control of the doc item
@@ -26,6 +26,8 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 	let kind: TypeKind
 	/// If this item has any children (for example, a class might have properties or methods), this is where they will reside.
 	let properties: [SwiftDocItem]?
+	/// When an item created internally gets extended, it makes sense to group the extensions with the parent Type instead of on their own.
+	var extensions: [SwiftDocItem] = []
 	/// A list of attributes for the item. This will include things like `lazy`
 	let attributes: [String]
 	/// The code declaration of the item. This is not always rendered in an expected way, especially in the case of computed properties.
@@ -44,16 +46,17 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 
 	/// The debug output string value
 	var description: String {
+		let properties = self.properties?.map { "\($0.title):\($0.kind)" }.joined(separator: " - ") ?? ""
+		let extensions = self.extensions.map { "\($0.title):\($0.kind)" }.joined(separator: " - ")
 		return """
-			\(title) (\(accessControl.stringValue))
-			\(kind.stringValue)
-			\(declaration)
-			\(comment ?? "no description")
-			sourced from \(sourceFile)
+		\(title) (\(accessControl.stringValue)) \(kind.stringValue)
+			Properties: \(properties)
+			Extensions: \(extensions)
+		"""
+	}
 
-			\(properties ?? [])
-
-			"""
+	var debugDescription: String {
+		return description
 	}
 
 	/// A consistent, relative linking path used for html output. 
@@ -75,9 +78,13 @@ struct SwiftDocItem: Hashable, CustomStringConvertible {
 
 extension SwiftDocItem {
 	/// A convenient initializer
+	init(title: String, accessControl: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, extensions: [SwiftDocItem], attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
+		let accessControl = AccessControl.createFrom(string: accessControl)
+		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, extensions: extensions, attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
+	}
+
 	init(title: String, accessControl: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
 		let accessControl = AccessControl.createFrom(string: accessControl)
-//		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, declaration: declaration)
-		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
+		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, extensions: [], attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
 	}
 }

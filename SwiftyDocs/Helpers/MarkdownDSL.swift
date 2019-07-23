@@ -245,7 +245,7 @@ extension MDNode {
 	}
 }
 
-// this is witchcraft... i dont have to implement anything!
+/// this is witchcraft... Nothing is implemented!
 extension MDNode.MDAttribute: Equatable {}
 
 extension MDNode: Equatable {
