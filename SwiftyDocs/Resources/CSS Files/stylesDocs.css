@@ -1,6 +1,5 @@
 @import "reset.css";
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
 
 body {
 	font: 12pt/22pt "Quicksand", Helvetica, Arial, sans-serif;
@@ -28,6 +27,7 @@ h1,h2,h3,h4,h5,h6:first-of-type {
 
 h1,h2 {
 	border-bottom: 5px solid #ccc;
+	padding: 40px 20px;
 }
 
 h1 {
@@ -38,6 +38,7 @@ h2 {
 }
 h3 {
 	font-size: 1.4em;
+	background-color: #777;
 }
 h4 {
 	font-size: 1.3em;

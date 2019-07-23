@@ -1,4 +1,5 @@
 @import "reset.css";
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700&display=swap');
 
 body {
 	font-size: 14pt;
@@ -8,10 +9,9 @@ h1,h2,h3,h4,h5,h6 {
 	background-color: #999;
 	padding: 10px 20px;
 	font-weight: bold;
-	font-family: sans-serif;
 	color: #eee;
 	margin: 10px 0px;
-	font-family: Helvetica, Verdana, sans-serif;
+	font-family: "Quicksand", Helvetica, Arial, sans-serif;
 }
 
 h1,h2,h3,h4,h5,h6:first-of-type {
@@ -44,7 +44,7 @@ ul {
 }
 
 li {
-	font: 200 15px/1.5 Monaco, "Courier New", Courier, monospace;
+	font: 200 15px/1.5 "Quicksand", Helvetica, Arial, sans-serif;
 	border-bottom: 1px solid #ccc;
 	height: 200%;
 	margin: 5px 10px;
@@ -57,27 +57,23 @@ li:last-child {
 
 li a {
 	text-decoration: none;
-	color: #000;
+	color: #313131;
 	vertical-align: middle;
 	letter-spacing: 0;
 	animation-name: mymoveBack;
 	animation-duration: 0.3s;
 }
 @keyframes mymove {
-  from {letter-spacing: 0em;}
-  to {letter-spacing: 0.1em;}
+	from {letter-spacing: 0em;}
+	to {letter-spacing: 0.1em;}
 }
 
 @keyframes mymoveBack {
-  from {letter-spacing: 0.1em;}
-  to {letter-spacing: 0em;}
+	from {letter-spacing: 0.1em;}
+	to {letter-spacing: 0em;}
 }
 li a:hover {
-	/*font-size: 110%;*/
 	letter-spacing: 0.1em;
 	animation-name: mymove;
 	animation-duration: 0.3s;
 }
-
-li a:
-
