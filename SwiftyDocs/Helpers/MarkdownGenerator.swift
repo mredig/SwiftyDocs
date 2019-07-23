@@ -46,7 +46,7 @@ class MarkdownGenerator {
 		}
 
 		if !extensions.isEmpty {
-			rootDoc = rootDoc.appending(nodes: [.header(3, "Extensions"), .newline()])
+//			rootDoc = rootDoc.appending(nodes: [.header(3, "Extensions"), .newline()])
 			rootDoc = rootDoc.appending(nodes: extensions)
 		}
 
@@ -84,6 +84,12 @@ class MarkdownGenerator {
 			guard child.accessControl >= minimumAccessControl else { continue }
 
 			if child.kind == .extension {
+				let extensionHeader = MDNode.nonIndentedCollection([.header(3, "Extension: \(child.title)"),
+																	.paragraphWithInlineElements([.bold(child.accessControl.stringValue), .italics(child.kind.stringValue)]),
+																	.codeBlock(child.declaration, syntax: "swift"),
+																	.paragraph(child.comment ?? "No documentation"),
+																	.newline()])
+				outChildren.append(extensionHeader)
 				outChildren.append(contentsOf: setupChildrenProperties(from: child.properties,
 																	   minimumAccessControl: minimumAccessControl,
 																	   parentSourceFile: parentSourceFile,

@@ -16,14 +16,14 @@ class SwiftDocItemController {
 	// MARK: - properties
 	private var _docs: [SwiftDocItem] = []
 	/// The source of truth for all the doc items
-	private(set) var docs: [SwiftDocItem] {
-		get {
-			return _docs
-		}
-		set {
-			_docs = processExtensions(in: newValue)
-		}
-	}
+	private(set) var docs: [SwiftDocItem] = [] // {
+//		get {
+//			return _docs
+//		}
+//		set {
+//			_docs = mergeInternalExtensions(in: newValue)
+//		}
+//	}
 
 	/// All classes
 	var classesIndex: [SwiftDocItem] {
@@ -227,13 +227,16 @@ class SwiftDocItemController {
 		return items
 	}
 
-	private func processExtensions(in docs: [SwiftDocItem]) -> [SwiftDocItem] {
+	/**
+	Searches for extensions on internal Types and merges them into the Type.
+	*/
+	private func mergeInternalExtensions(in docs: [SwiftDocItem]) -> [SwiftDocItem] {
 		var docs = docs
 		var indicies = [Int]()
 		for (extIndex, anExtension) in docs.enumerated() where anExtension.kind == .extension {
-			for (classIndex, anObject) in docs.enumerated() where anObject.kind == .class || anObject.kind == .enum || anObject.kind == .protocol || anObject.kind == .struct {
+			for anObject in docs.enumeratedChildren() where anObject.kind == .class || anObject.kind == .enum || anObject.kind == .protocol || anObject.kind == .struct {
 				if anObject.title == anExtension.title {
-					docs[classIndex].extensions.append(anExtension)
+					anObject.extensions.append(anExtension)
 					indicies.append(extIndex)
 				}
 			}
@@ -253,7 +256,12 @@ class SwiftDocItemController {
 		let buildDirAlreadyExists = FileManager.default.fileExists(atPath: buildPath.path)
 		let docScrapeOp = DocScrapeOperation(path: projectDirectory.path)
 		let docFilesOp = BlockOperation { [weak self] in
-			defer { completion() }
+			defer {
+				if let self = self {
+					self.docs = self.mergeInternalExtensions(in: self.docs)
+				}
+				completion()
+			}
 			guard let data = docScrapeOp.jsonData else { return }
 
 			do {

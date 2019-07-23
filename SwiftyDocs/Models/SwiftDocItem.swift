@@ -13,7 +13,8 @@ This is where the documentation data will spend most of its time. The data is fi
 
 This data type is recursive and can contain children of the same type. As `SwiftDocItem` represents all entities from a class to class/struct properties to a global function and everything in between, it needs to be able to contain the items that descend from it. (A class's properties and methods, for example)
 */
-struct SwiftDocItem: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
+class SwiftDocItem: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
+
 	/// The title of the doc item
 	let title: String
 	/// The access control of the doc item
@@ -59,6 +60,18 @@ struct SwiftDocItem: Hashable, CustomStringConvertible, CustomDebugStringConvert
 		return description
 	}
 
+	init(title: String, accessControl: AccessControl, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
+		self.title = title
+		self.accessControl = accessControl
+		self.comment = comment
+		self.sourceFile = sourceFile
+		self.kind = kind
+		self.properties = properties
+		self.attributes = attributes
+		self.docDeclaration = docDeclaration
+		self.parsedDeclaration = parsedDeclaration
+	}
+
 	/// A consistent, relative linking path used for html output. 
 	func htmlLink(format: SaveFormat = .html, output: PageCount) -> String {
 		let folderValue = kind.stringValue.capitalized.replacingNonWordCharacters()
@@ -74,17 +87,41 @@ struct SwiftDocItem: Hashable, CustomStringConvertible, CustomDebugStringConvert
 
 		return link
 	}
-}
 
-extension SwiftDocItem {
-	/// A convenient initializer
-	init(title: String, accessControl: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, extensions: [SwiftDocItem], attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
-		let accessControl = AccessControl.createFrom(string: accessControl)
-		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, extensions: extensions, attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
+	static func ==(lhs: SwiftDocItem, rhs: SwiftDocItem) -> Bool {
+		return lhs.title == rhs.title &&
+			lhs.accessControl == rhs.accessControl &&
+			lhs.comment == rhs.comment &&
+			lhs.sourceFile == rhs.sourceFile &&
+			lhs.kind == rhs.kind &&
+			lhs.properties == rhs.properties &&
+			lhs.attributes == rhs.attributes &&
+			lhs.declaration == rhs.declaration
 	}
 
-	init(title: String, accessControl: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
-		let accessControl = AccessControl.createFrom(string: accessControl)
-		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, extensions: [], attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(title)
+		hasher.combine(accessControl)
+		hasher.combine(comment)
+		hasher.combine(sourceFile)
+		hasher.combine(kind)
+		hasher.combine(properties)
+		hasher.combine(attributes)
+		hasher.combine(declaration)
+	}
+}
+
+/// Convenience initializers
+extension SwiftDocItem {
+	/// A convenient initializer
+	convenience init(title: String, accessControl acString: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, extensions: [SwiftDocItem], attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
+		let accessControl = AccessControl.createFrom(string: acString)
+		self.init(title: title, accessControl: accessControl, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
+		self.extensions = extensions
+	}
+
+	/// Another convenient initializer
+	convenience init(title: String, accessControl acString: String, comment: String?, sourceFile: String, kind: TypeKind, properties: [SwiftDocItem]?, attributes: [String], docDeclaration: String?, parsedDeclaration: String?) {
+		self.init(title: title, accessControl: acString, comment: comment, sourceFile: sourceFile, kind: kind, properties: properties, extensions: [], attributes: attributes, docDeclaration: docDeclaration, parsedDeclaration: parsedDeclaration)
 	}
 }
