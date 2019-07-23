@@ -43,6 +43,7 @@ extension String {
 
 		"source.decl.attribute.convenience": "convenience",
 		"source.decl.attribute.lazy": "lazy",
+		"source.decl.attribute.weak": "weak",
 		"source.decl.attribute.open": "open",
 		"source.decl.attribute.override": "override",
 		"source.decl.attribute.dynamic": "dynamic",
@@ -56,6 +57,7 @@ extension String {
 		"source.decl.attribute.mutating": "mutating",
 		"source.decl.attribute.prefix": "prefix",
 		"source.decl.attribute.NSApplicationMain": "@NSApplicationMain",
+		"source.decl.attribute.UIApplicationMain": "UIApplicationMain",
 		"source.decl.attribute.iboutlet": "@IBOutlet",
 		"source.decl.attribute.ibaction": "@IBAction"
 	]
