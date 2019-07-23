@@ -79,6 +79,7 @@ class SwiftDocViewController: NSViewController {
 		openPanel.canChooseDirectories = false
 		openPanel.allowsMultipleSelection = false
 		openPanel.allowedFileTypes = ["xcodeproj"]
+		openPanel.directoryURL = DefaultsManager.default.defaultOpenDir
 
 		openPanel.begin { [weak self] (result) in
 			guard let self = self else { return }
@@ -86,6 +87,7 @@ class SwiftDocViewController: NSViewController {
 				guard let fileURL = openPanel.url else { fatalError("Open dialog didn't include a file URL") }
 
 				let projectDir = fileURL.deletingLastPathComponent()
+				DefaultsManager.default.defaultOpenDir = projectDir
 				self.docController.projectURL = fileURL
 				self.docController.clear()
 				self.updateViews()
@@ -103,6 +105,7 @@ class SwiftDocViewController: NSViewController {
 		savePanel.title = "Save your project"
 		savePanel.message = "SwiftyDocs will create a folder in your destination containing all generated documentation files."
 		savePanel.nameFieldStringValue = docController.projectTitle + "-Documentation"
+		savePanel.directoryURL = DefaultsManager.default.defaultSaveDir
 
 		if saveFormatPopUp.selectedItem?.title == SaveFormat.docset.rawValue {
 			savePanel.isExtensionHidden = false
@@ -119,6 +122,7 @@ class SwiftDocViewController: NSViewController {
 			guard let self = self else { return }
 			if result == NSApplication.ModalResponse.OK {
 				guard let saveURL = savePanel.url else { return }
+				DefaultsManager.default.defaultSaveDir = saveURL.deletingLastPathComponent()
 
 				guard let format = self.getSaveFormat(),
 					let style = self.getOutputStyle()

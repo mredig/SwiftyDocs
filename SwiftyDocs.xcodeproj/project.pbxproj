@@ -24,6 +24,7 @@
 		3374B96322CEBE270061F3CE /* SaveFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B96222CEBE270061F3CE /* SaveFormat.swift */; };
 		337E84BA22D2F7E100EAF39A /* MarkdownDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337E84B922D2F7E100EAF39A /* MarkdownDSL.swift */; };
 		337E84BC22D2F85200EAF39A /* MarkdownDSLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337E84BB22D2F85200EAF39A /* MarkdownDSLTests.swift */; };
+		337F896B22E7772D00E3E7DB /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F896A22E7772D00E3E7DB /* DefaultsManager.swift */; };
 		338CECDF22D13E52001CC5D3 /* String+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CECDE22D13E52001CC5D3 /* String+Extra.swift */; };
 		338CECE222D15BDD001CC5D3 /* prism.css in Resources */ = {isa = PBXBuildFile; fileRef = 338CECE122D15BDD001CC5D3 /* prism.css */; };
 		338CECE422D15BEC001CC5D3 /* prism.js in Resources */ = {isa = PBXBuildFile; fileRef = 338CECE322D15BEC001CC5D3 /* prism.js */; };
@@ -129,6 +130,7 @@
 		3374B96222CEBE270061F3CE /* SaveFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFormat.swift; sourceTree = "<group>"; };
 		337E84B922D2F7E100EAF39A /* MarkdownDSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownDSL.swift; sourceTree = "<group>"; };
 		337E84BB22D2F85200EAF39A /* MarkdownDSLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownDSLTests.swift; sourceTree = "<group>"; };
+		337F896A22E7772D00E3E7DB /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
 		338CECDE22D13E52001CC5D3 /* String+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extra.swift"; sourceTree = "<group>"; };
 		338CECE122D15BDD001CC5D3 /* prism.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = prism.css; sourceTree = "<group>"; };
 		338CECE322D15BEC001CC5D3 /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = prism.js; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				337E84B922D2F7E100EAF39A /* MarkdownDSL.swift */,
 				3374B96022CE9B460061F3CE /* PageCount.swift */,
 				332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */,
+				337F896A22E7772D00E3E7DB /* DefaultsManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				33BDD05922CD0BAF0007ABF4 /* DocScrapeOperation.swift in Sources */,
 				33BDCFE522CBDD1E0007ABF4 /* AppDelegate.swift in Sources */,
 				33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */,
+				337F896B22E7772D00E3E7DB /* DefaultsManager.swift in Sources */,
 				33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */,
 				3334A1EC22E0DAF400C60D7C /* SQLController.swift in Sources */,
 				33BDD06122CD53830007ABF4 /* Array+SwiftDocItem.swift in Sources */,
