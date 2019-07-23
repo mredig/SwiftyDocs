@@ -12,6 +12,8 @@ import Foundation
 A markdown DSL. I'm not sure if it is entirely necessary, but it was fun to make! I may eventually spin this out into its own framework, but for now I'll leave it as is.
 
 Link handling is a bit of a hack. If someone can design a better pattern, have at it!
+
+Perhaps the root node could be a struct - dedicated append function and might properly handle links?
 */
 public enum MDNode: CustomStringConvertible {
 	public enum MDAttribute {
