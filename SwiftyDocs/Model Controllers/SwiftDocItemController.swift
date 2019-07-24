@@ -14,16 +14,9 @@ The primary brains of this software. This contains the collection of `SwiftDocIt
 class SwiftDocItemController {
 
 	// MARK: - properties
-	private var _docs: [SwiftDocItem] = []
 	/// The source of truth for all the doc items
-	private(set) var docs: [SwiftDocItem] = [] // {
-//		get {
-//			return _docs
-//		}
-//		set {
-//			_docs = mergeInternalExtensions(in: newValue)
-//		}
-//	}
+	private(set) var docs: [SwiftDocItem] = []
+
 
 	/// All classes
 	var classesIndex: [SwiftDocItem] {
