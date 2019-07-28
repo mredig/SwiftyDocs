@@ -21,6 +21,7 @@
 		3308423E22ED257700D62FFD /* Yams.framework.dSYM in Embed dSYMs */ = {isa = PBXBuildFile; fileRef = 33BDD01D22CBDF1E0007ABF4 /* Yams.framework.dSYM */; };
 		3308423F22ED257800D62FFD /* SWXMLHash.framework.dSYM in Embed dSYMs */ = {isa = PBXBuildFile; fileRef = 33BDD01B22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM */; };
 		3308424022ED257A00D62FFD /* SourceKittenFramework.framework.dSYM in Embed dSYMs */ = {isa = PBXBuildFile; fileRef = 33BDD01C22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM */; };
+		3308427D22EE394800D62FFD /* OMGAlrt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3308427C22EE394800D62FFD /* OMGAlrt.swift */; };
 		332716DC22CEC6DC00984D19 /* HTMLWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */; };
 		332716DE22CECC5200984D19 /* reset.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716DD22CECC5200984D19 /* reset.css */; };
 		332716E122CECF7000984D19 /* bootstrap.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 332716E022CECF7000984D19 /* bootstrap.min.js */; };
@@ -161,6 +162,8 @@
 		3308422022ED171D00D62FFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3308422822ED18CE00D62FFD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3308422A22ED192E00D62FFD /* SourceKittenDoer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceKittenDoer.swift; sourceTree = "<group>"; };
+		3308424122ED294800D62FFD /* SwiftyDocsHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftyDocsHelper.entitlements; sourceTree = "<group>"; };
+		3308427C22EE394800D62FFD /* OMGAlrt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMGAlrt.swift; sourceTree = "<group>"; };
 		332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWrapper.swift; sourceTree = "<group>"; };
 		332716DD22CECC5200984D19 /* reset.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = reset.css; sourceTree = "<group>"; };
 		332716DF22CECF7000984D19 /* bootstrap.min.js.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = bootstrap.min.js.map; path = Carthage/Checkouts/bootstrap/dist/js/bootstrap.min.js.map; sourceTree = SOURCE_ROOT; };
@@ -405,6 +408,7 @@
 				3374B96022CE9B460061F3CE /* PageCount.swift */,
 				332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */,
 				337F896A22E7772D00E3E7DB /* DefaultsManager.swift */,
+				3308427C22EE394800D62FFD /* OMGAlrt.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -636,6 +640,7 @@
 				33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */,
 				337F896B22E7772D00E3E7DB /* DefaultsManager.swift in Sources */,
 				33BDD05822CD0BAF0007ABF4 /* ConcurrentOperation.swift in Sources */,
+				3308427D22EE394800D62FFD /* OMGAlrt.swift in Sources */,
 				3334A1EC22E0DAF400C60D7C /* SQLController.swift in Sources */,
 				33BDD06122CD53830007ABF4 /* Array+SwiftDocItem.swift in Sources */,
 				33BDD02622CBEBBB0007ABF4 /* DocFile.swift in Sources */,

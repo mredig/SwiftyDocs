@@ -75,26 +75,35 @@ class SwiftDocViewController: NSViewController {
 
 	func openProjectDialog() {
 		let openPanel = NSOpenPanel()
-		openPanel.canChooseFiles = true
-		openPanel.canChooseDirectories = false
+		openPanel.canChooseFiles = false
+		openPanel.canChooseDirectories = true
 		openPanel.allowsMultipleSelection = false
-		openPanel.allowedFileTypes = ["xcodeproj"]
 		openPanel.directoryURL = DefaultsManager.default.defaultOpenDir
+		openPanel.message = "Select a directory containing a Swift Xcode Project."
 
 		openPanel.begin { [weak self] (result) in
 			guard let self = self else { return }
 			if result == NSApplication.ModalResponse.OK {
-				guard let fileURL = openPanel.url else { fatalError("Open dialog didn't include a file URL") }
+				guard let projectDir = openPanel.url else { fatalError("Open dialog didn't include a file URL") }
 
-				let projectDir = fileURL.deletingLastPathComponent()
-				DefaultsManager.default.defaultOpenDir = projectDir
-				self.docController.projectURL = fileURL
-				self.docController.clear()
-				self.updateViews()
-				self.isLoadingFile = true
-				self.docController.getDocs(from: projectDir, completion: self.openProjectFinished)
-				self.progressIndicator.startAnimation(nil)
-				self.loadProjectButton.isEnabled = false
+
+				do {
+					let projectFile = try self.selectedFolderContains(fileWithExtension: "xcodeproj", in: projectDir)
+
+					let fileURL = projectDir.appendingPathComponent(projectFile)
+
+					DefaultsManager.default.defaultOpenDir = projectDir
+					self.docController.projectURL = fileURL
+					self.docController.clear()
+					self.updateViews()
+					self.isLoadingFile = true
+					self.docController.getDocs(from: projectDir, completion: self.openProjectFinished)
+					self.progressIndicator.startAnimation(nil)
+					self.loadProjectButton.isEnabled = false
+				} catch {
+					OMGSimpleAlrt.showAlert(withTitle: "Error opening directory",
+											andMessage: "There was an error opening the directory that was selected:\n\n\((error as NSError).domain)")
+				}
 			}
 		}
 	}
@@ -131,6 +140,17 @@ class SwiftDocViewController: NSViewController {
 				self.docController.save(with: style, to: saveURL, in: format)
 			}
 		}
+	}
+
+	func selectedFolderContains(fileWithExtension fileExtension: String, in url: URL) throws -> String {
+		let fm = FileManager.default
+		let contents = try fm.contentsOfDirectory(atPath: url.path)
+		for item in contents {
+			if item.lowercased().hasSuffix(fileExtension.lowercased()) {
+				return item
+			}
+		}
+		throw NSError(domain: "Directory (\(url.path)) doesn't contain a file of type '\(fileExtension)'", code: -1, userInfo: nil)
 	}
 
 	// MARK: - update views etc
