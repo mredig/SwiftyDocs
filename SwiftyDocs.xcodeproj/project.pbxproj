@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3308421222ED14B300D62FFD /* SwiftyDocsHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3308421122ED14B300D62FFD /* SwiftyDocsHelperProtocol.swift */; };
+		3308422322ED171D00D62FFD /* SwiftyDocsHelper.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 3308421822ED171D00D62FFD /* SwiftyDocsHelper.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3308422922ED18CE00D62FFD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3308422822ED18CE00D62FFD /* main.swift */; };
+		3308422B22ED192E00D62FFD /* SourceKittenDoer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3308422A22ED192E00D62FFD /* SourceKittenDoer.swift */; };
+		3308422C22ED194800D62FFD /* SwiftyDocsHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3308421122ED14B300D62FFD /* SwiftyDocsHelperProtocol.swift */; };
+		3308422D22ED19B100D62FFD /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01222CBDED90007ABF4 /* SourceKittenFramework.framework */; };
+		3308422E22ED19B700D62FFD /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01322CBDED90007ABF4 /* SWXMLHash.framework */; };
+		3308422F22ED19B900D62FFD /* Yams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01422CBDED90007ABF4 /* Yams.framework */; };
+		3308423622ED23B500D62FFD /* SourceKittenFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01222CBDED90007ABF4 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3308423722ED23B500D62FFD /* SWXMLHash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01322CBDED90007ABF4 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3308423822ED23B500D62FFD /* Yams.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01422CBDED90007ABF4 /* Yams.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		332716DC22CEC6DC00984D19 /* HTMLWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */; };
 		332716DE22CECC5200984D19 /* reset.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716DD22CECC5200984D19 /* reset.css */; };
 		332716E122CECF7000984D19 /* bootstrap.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 332716E022CECF7000984D19 /* bootstrap.min.js */; };
@@ -16,7 +27,7 @@
 		332716F022CF20FE00984D19 /* stylesDocs.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716EF22CF20FE00984D19 /* stylesDocs.css */; };
 		3334A1EA22E0D73B00C60D7C /* InfoPlistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3334A1E922E0D73B00C60D7C /* InfoPlistModel.swift */; };
 		3334A1EC22E0DAF400C60D7C /* SQLController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3334A1EB22E0DAF400C60D7C /* SQLController.swift */; };
-		3334A1EE22E0E5B500C60D7C /* SQLite.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3334A1ED22E0E5B400C60D7C /* SQLite.framework.dSYM */; };
+		3334A1EE22E0E5B500C60D7C /* SQLite.framework.dSYM in Embed dSYMS */ = {isa = PBXBuildFile; fileRef = 3334A1ED22E0E5B400C60D7C /* SQLite.framework.dSYM */; };
 		3334A1F022E0E5C400C60D7C /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3334A1EF22E0E5C400C60D7C /* SQLite.framework */; };
 		3334A1F122E0E5C400C60D7C /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3334A1EF22E0E5C400C60D7C /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3374B95E22CE9AFE0061F3CE /* TypeKind.swift */; };
@@ -43,9 +54,9 @@
 		33BDD01822CBDEDA0007ABF4 /* SWXMLHash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01322CBDED90007ABF4 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		33BDD01922CBDEDA0007ABF4 /* Yams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01422CBDED90007ABF4 /* Yams.framework */; };
 		33BDD01A22CBDEDA0007ABF4 /* Yams.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01422CBDED90007ABF4 /* Yams.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		33BDD01E22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 33BDD01B22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM */; };
-		33BDD01F22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 33BDD01C22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM */; };
-		33BDD02022CBDF1E0007ABF4 /* Yams.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 33BDD01D22CBDF1E0007ABF4 /* Yams.framework.dSYM */; };
+		33BDD01E22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM in Embed dSYMS */ = {isa = PBXBuildFile; fileRef = 33BDD01B22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM */; };
+		33BDD01F22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM in Embed dSYMS */ = {isa = PBXBuildFile; fileRef = 33BDD01C22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM */; };
+		33BDD02022CBDF1E0007ABF4 /* Yams.framework.dSYM in Embed dSYMS */ = {isa = PBXBuildFile; fileRef = 33BDD01D22CBDF1E0007ABF4 /* Yams.framework.dSYM */; };
 		33BDD02622CBEBBB0007ABF4 /* DocFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02522CBEBBB0007ABF4 /* DocFile.swift */; };
 		33BDD02922CC5F150007ABF4 /* StringMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02822CC5F150007ABF4 /* StringMap.swift */; };
 		33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02A22CC65130007ABF4 /* SwiftDocItem.swift */; };
@@ -61,6 +72,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3308422122ED171D00D62FFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33BDCFD922CBDD1E0007ABF4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3308421722ED171D00D62FFD;
+			remoteInfo = SwiftyDocsHelper;
+		};
 		33BDCFF422CBDD200007ABF4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33BDCFD922CBDD1E0007ABF4 /* Project object */;
@@ -71,6 +89,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3308422722ED171D00D62FFD /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				3308422322ED171D00D62FFD /* SwiftyDocsHelper.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3308423522ED23AD00D62FFD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3308423622ED23B500D62FFD /* SourceKittenFramework.framework in Embed Frameworks */,
+				3308423722ED23B500D62FFD /* SWXMLHash.framework in Embed Frameworks */,
+				3308423822ED23B500D62FFD /* Yams.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		33BDD00D22CBDDFD0007ABF4 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,17 +127,18 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		33BDD01022CBDE1A0007ABF4 /* CopyFiles */ = {
+		33BDD01022CBDE1A0007ABF4 /* Embed dSYMS */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				3334A1EE22E0E5B500C60D7C /* SQLite.framework.dSYM in CopyFiles */,
-				33BDD01E22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM in CopyFiles */,
-				33BDD01F22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM in CopyFiles */,
-				33BDD02022CBDF1E0007ABF4 /* Yams.framework.dSYM in CopyFiles */,
+				3334A1EE22E0E5B500C60D7C /* SQLite.framework.dSYM in Embed dSYMS */,
+				33BDD01E22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM in Embed dSYMS */,
+				33BDD01F22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM in Embed dSYMS */,
+				33BDD02022CBDF1E0007ABF4 /* Yams.framework.dSYM in Embed dSYMS */,
 			);
+			name = "Embed dSYMS";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		33BDD06E22CDD1C50007ABF4 /* Copy Dependencies */ = {
@@ -112,6 +155,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3308421122ED14B300D62FFD /* SwiftyDocsHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyDocsHelperProtocol.swift; sourceTree = "<group>"; };
+		3308421822ED171D00D62FFD /* SwiftyDocsHelper.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = SwiftyDocsHelper.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		3308422022ED171D00D62FFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3308422822ED18CE00D62FFD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3308422A22ED192E00D62FFD /* SourceKittenDoer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceKittenDoer.swift; sourceTree = "<group>"; };
 		332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWrapper.swift; sourceTree = "<group>"; };
 		332716DD22CECC5200984D19 /* reset.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = reset.css; sourceTree = "<group>"; };
 		332716DF22CECF7000984D19 /* bootstrap.min.js.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = bootstrap.min.js.map; path = Carthage/Checkouts/bootstrap/dist/js/bootstrap.min.js.map; sourceTree = SOURCE_ROOT; };
@@ -171,6 +219,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3308421522ED171D00D62FFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3308422F22ED19B900D62FFD /* Yams.framework in Frameworks */,
+				3308422E22ED19B700D62FFD /* SWXMLHash.framework in Frameworks */,
+				3308422D22ED19B100D62FFD /* SourceKittenFramework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		33BDCFDE22CBDD1E0007ABF4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -192,6 +250,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3308421022ED149700D62FFD /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				3308421122ED14B300D62FFD /* SwiftyDocsHelperProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		3308421922ED171D00D62FFD /* SwiftyDocsHelper */ = {
+			isa = PBXGroup;
+			children = (
+				3308422022ED171D00D62FFD /* Info.plist */,
+				3308422822ED18CE00D62FFD /* main.swift */,
+				3308422A22ED192E00D62FFD /* SourceKittenDoer.swift */,
+			);
+			path = SwiftyDocsHelper;
+			sourceTree = "<group>";
+		};
 		33989AE722D11FFD003A94EC /* Other Embedded Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +285,8 @@
 				33BDD06422CD60F30007ABF4 /* TODO.md */,
 				33BDD00222CBDD2C0007ABF4 /* cartfile */,
 				33BDCFE322CBDD1E0007ABF4 /* SwiftyDocs */,
+				3308421022ED149700D62FFD /* Protocols */,
+				3308421922ED171D00D62FFD /* SwiftyDocsHelper */,
 				33BDCFF622CBDD200007ABF4 /* SwiftyDocsTests */,
 				33BDD01122CBDE4C0007ABF4 /* Frameworks */,
 				33BDCFE222CBDD1E0007ABF4 /* Products */,
@@ -220,6 +298,7 @@
 			children = (
 				33BDCFE122CBDD1E0007ABF4 /* SwiftyDocs.app */,
 				33BDCFF322CBDD200007ABF4 /* SwiftyDocsTests.xctest */,
+				3308421822ED171D00D62FFD /* SwiftyDocsHelper.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -362,6 +441,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3308421722ED171D00D62FFD /* SwiftyDocsHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3308422422ED171D00D62FFD /* Build configuration list for PBXNativeTarget "SwiftyDocsHelper" */;
+			buildPhases = (
+				3308421422ED171D00D62FFD /* Sources */,
+				3308421522ED171D00D62FFD /* Frameworks */,
+				3308421622ED171D00D62FFD /* Resources */,
+				3308423522ED23AD00D62FFD /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftyDocsHelper;
+			productName = SwiftyDocsHelper;
+			productReference = 3308421822ED171D00D62FFD /* SwiftyDocsHelper.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		33BDCFE022CBDD1E0007ABF4 /* SwiftyDocs */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 33BDCFFC22CBDD200007ABF4 /* Build configuration list for PBXNativeTarget "SwiftyDocs" */;
@@ -370,13 +467,15 @@
 				33BDCFDE22CBDD1E0007ABF4 /* Frameworks */,
 				33BDCFDF22CBDD1E0007ABF4 /* Resources */,
 				33BDD00D22CBDDFD0007ABF4 /* Embed Frameworks */,
-				33BDD01022CBDE1A0007ABF4 /* CopyFiles */,
+				33BDD01022CBDE1A0007ABF4 /* Embed dSYMS */,
 				33BDD06E22CDD1C50007ABF4 /* Copy Dependencies */,
 				332716DA22CEC67500984D19 /* Run Script - update build */,
+				3308422722ED171D00D62FFD /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3308422222ED171D00D62FFD /* PBXTargetDependency */,
 			);
 			name = SwiftyDocs;
 			productName = SwiftyDocs;
@@ -411,6 +510,10 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Red_Egg Productions";
 				TargetAttributes = {
+					3308421722ED171D00D62FFD = {
+						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
+					};
 					33BDCFE022CBDD1E0007ABF4 = {
 						CreatedOnToolsVersion = 10.2.1;
 						SystemCapabilities = {
@@ -443,11 +546,19 @@
 			targets = (
 				33BDCFE022CBDD1E0007ABF4 /* SwiftyDocs */,
 				33BDCFF222CBDD200007ABF4 /* SwiftyDocsTests */,
+				3308421722ED171D00D62FFD /* SwiftyDocsHelper */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3308421622ED171D00D62FFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		33BDCFDF22CBDD1E0007ABF4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -502,6 +613,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3308421422ED171D00D62FFD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3308422922ED18CE00D62FFD /* main.swift in Sources */,
+				3308422C22ED194800D62FFD /* SwiftyDocsHelperProtocol.swift in Sources */,
+				3308422B22ED192E00D62FFD /* SourceKittenDoer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		33BDCFDD22CBDD1E0007ABF4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -510,6 +631,7 @@
 				33BDCFE722CBDD1E0007ABF4 /* SwiftDocViewController.swift in Sources */,
 				3374B95F22CE9AFE0061F3CE /* TypeKind.swift in Sources */,
 				337E84BA22D2F7E100EAF39A /* MarkdownDSL.swift in Sources */,
+				3308421222ED14B300D62FFD /* SwiftyDocsHelperProtocol.swift in Sources */,
 				33BDD05922CD0BAF0007ABF4 /* DocScrapeOperation.swift in Sources */,
 				33BDCFE522CBDD1E0007ABF4 /* AppDelegate.swift in Sources */,
 				33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */,
@@ -541,6 +663,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3308422222ED171D00D62FFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3308421722ED171D00D62FFD /* SwiftyDocsHelper */;
+			targetProxy = 3308422122ED171D00D62FFD /* PBXContainerItemProxy */;
+		};
 		33BDCFF522CBDD200007ABF4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 33BDCFE022CBDD1E0007ABF4 /* SwiftyDocs */;
@@ -560,6 +687,57 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3308422522ED171D00D62FFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = L5UZAT7KA9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = SwiftyDocsHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"@executable_path/../../../../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.redeggproductions.SwiftyDocsHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3308422622ED171D00D62FFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = L5UZAT7KA9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = SwiftyDocsHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"@executable_path/../../../../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.redeggproductions.SwiftyDocsHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		33BDCFFA22CBDD200007ABF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -678,6 +856,7 @@
 		33BDCFFD22CBDD200007ABF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -702,6 +881,7 @@
 		33BDCFFE22CBDD200007ABF4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -768,6 +948,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3308422422ED171D00D62FFD /* Build configuration list for PBXNativeTarget "SwiftyDocsHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3308422522ED171D00D62FFD /* Debug */,
+				3308422622ED171D00D62FFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		33BDCFDC22CBDD1E0007ABF4 /* Build configuration list for PBXProject "SwiftyDocs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -274,7 +274,7 @@ class SwiftDocItemController {
 
 		let buildPath = projectDirectory.appendingPathComponent("build")
 		let buildDirAlreadyExists = FileManager.default.fileExists(atPath: buildPath.path)
-		let docScrapeOp = DocScrapeOperation(path: projectDirectory.path)
+		let docScrapeOp = DocScrapeOperation(path: projectDirectory)
 		let docFilesOp = BlockOperation { [weak self] in
 			defer {
 				if let self = self {
