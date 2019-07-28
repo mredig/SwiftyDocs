@@ -79,7 +79,7 @@ class SwiftDocViewController: NSViewController {
 		openPanel.canChooseDirectories = false
 		openPanel.allowsMultipleSelection = false
 		openPanel.allowedFileTypes = ["xcodeproj"]
-//		openPanel.directoryURL = DefaultsManager.default.defaultOpenDir
+		openPanel.directoryURL = DefaultsManager.default.defaultOpenDir
 
 		openPanel.begin { [weak self] (result) in
 			guard let self = self else { return }
@@ -87,7 +87,7 @@ class SwiftDocViewController: NSViewController {
 				guard let fileURL = openPanel.url else { fatalError("Open dialog didn't include a file URL") }
 
 				let projectDir = fileURL.deletingLastPathComponent()
-//				DefaultsManager.default.defaultOpenDir = projectDir
+				DefaultsManager.default.defaultOpenDir = projectDir
 				self.docController.projectURL = fileURL
 				self.docController.clear()
 				self.updateViews()

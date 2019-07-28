@@ -18,6 +18,9 @@
 		3308423622ED23B500D62FFD /* SourceKittenFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01222CBDED90007ABF4 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3308423722ED23B500D62FFD /* SWXMLHash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01322CBDED90007ABF4 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3308423822ED23B500D62FFD /* Yams.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01422CBDED90007ABF4 /* Yams.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3308423E22ED257700D62FFD /* Yams.framework.dSYM in Embed dSYMs */ = {isa = PBXBuildFile; fileRef = 33BDD01D22CBDF1E0007ABF4 /* Yams.framework.dSYM */; };
+		3308423F22ED257800D62FFD /* SWXMLHash.framework.dSYM in Embed dSYMs */ = {isa = PBXBuildFile; fileRef = 33BDD01B22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM */; };
+		3308424022ED257A00D62FFD /* SourceKittenFramework.framework.dSYM in Embed dSYMs */ = {isa = PBXBuildFile; fileRef = 33BDD01C22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM */; };
 		332716DC22CEC6DC00984D19 /* HTMLWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332716DB22CEC6DC00984D19 /* HTMLWrapper.swift */; };
 		332716DE22CECC5200984D19 /* reset.css in Resources */ = {isa = PBXBuildFile; fileRef = 332716DD22CECC5200984D19 /* reset.css */; };
 		332716E122CECF7000984D19 /* bootstrap.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 332716E022CECF7000984D19 /* bootstrap.min.js */; };
@@ -48,15 +51,6 @@
 		33BDCFEC22CBDD200007ABF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33BDCFEA22CBDD200007ABF4 /* Main.storyboard */; };
 		33BDCFF822CBDD200007ABF4 /* SwiftyDocsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDCFF722CBDD200007ABF4 /* SwiftyDocsTests.swift */; };
 		33BDD00322CBDD2C0007ABF4 /* cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 33BDD00222CBDD2C0007ABF4 /* cartfile */; };
-		33BDD01522CBDEDA0007ABF4 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01222CBDED90007ABF4 /* SourceKittenFramework.framework */; };
-		33BDD01622CBDEDA0007ABF4 /* SourceKittenFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01222CBDED90007ABF4 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		33BDD01722CBDEDA0007ABF4 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01322CBDED90007ABF4 /* SWXMLHash.framework */; };
-		33BDD01822CBDEDA0007ABF4 /* SWXMLHash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01322CBDED90007ABF4 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		33BDD01922CBDEDA0007ABF4 /* Yams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01422CBDED90007ABF4 /* Yams.framework */; };
-		33BDD01A22CBDEDA0007ABF4 /* Yams.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33BDD01422CBDED90007ABF4 /* Yams.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		33BDD01E22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM in Embed dSYMS */ = {isa = PBXBuildFile; fileRef = 33BDD01B22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM */; };
-		33BDD01F22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM in Embed dSYMS */ = {isa = PBXBuildFile; fileRef = 33BDD01C22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM */; };
-		33BDD02022CBDF1E0007ABF4 /* Yams.framework.dSYM in Embed dSYMS */ = {isa = PBXBuildFile; fileRef = 33BDD01D22CBDF1E0007ABF4 /* Yams.framework.dSYM */; };
 		33BDD02622CBEBBB0007ABF4 /* DocFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02522CBEBBB0007ABF4 /* DocFile.swift */; };
 		33BDD02922CC5F150007ABF4 /* StringMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02822CC5F150007ABF4 /* StringMap.swift */; };
 		33BDD02B22CC65130007ABF4 /* SwiftDocItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BDD02A22CC65130007ABF4 /* SwiftDocItem.swift */; };
@@ -113,16 +107,26 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3308423D22ED24D600D62FFD /* Embed dSYMs */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				3308423E22ED257700D62FFD /* Yams.framework.dSYM in Embed dSYMs */,
+				3308423F22ED257800D62FFD /* SWXMLHash.framework.dSYM in Embed dSYMs */,
+				3308424022ED257A00D62FFD /* SourceKittenFramework.framework.dSYM in Embed dSYMs */,
+			);
+			name = "Embed dSYMs";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		33BDD00D22CBDDFD0007ABF4 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				33BDD01A22CBDEDA0007ABF4 /* Yams.framework in Embed Frameworks */,
-				33BDD01822CBDEDA0007ABF4 /* SWXMLHash.framework in Embed Frameworks */,
 				3334A1F122E0E5C400C60D7C /* SQLite.framework in Embed Frameworks */,
-				33BDD01622CBDEDA0007ABF4 /* SourceKittenFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,9 +138,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				3334A1EE22E0E5B500C60D7C /* SQLite.framework.dSYM in Embed dSYMS */,
-				33BDD01E22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM in Embed dSYMS */,
-				33BDD01F22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM in Embed dSYMS */,
-				33BDD02022CBDF1E0007ABF4 /* Yams.framework.dSYM in Embed dSYMS */,
 			);
 			name = "Embed dSYMS";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,10 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33BDD01922CBDEDA0007ABF4 /* Yams.framework in Frameworks */,
-				33BDD01722CBDEDA0007ABF4 /* SWXMLHash.framework in Frameworks */,
 				3334A1F022E0E5C400C60D7C /* SQLite.framework in Frameworks */,
-				33BDD01522CBDEDA0007ABF4 /* SourceKittenFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,11 +328,11 @@
 		33BDD01122CBDE4C0007ABF4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3334A1EF22E0E5C400C60D7C /* SQLite.framework */,
 				3334A1ED22E0E5B400C60D7C /* SQLite.framework.dSYM */,
 				33BDD01C22CBDF1E0007ABF4 /* SourceKittenFramework.framework.dSYM */,
 				33BDD01B22CBDF1E0007ABF4 /* SWXMLHash.framework.dSYM */,
 				33BDD01D22CBDF1E0007ABF4 /* Yams.framework.dSYM */,
+				3334A1EF22E0E5C400C60D7C /* SQLite.framework */,
 				33BDD01222CBDED90007ABF4 /* SourceKittenFramework.framework */,
 				33BDD01322CBDED90007ABF4 /* SWXMLHash.framework */,
 				33BDD01422CBDED90007ABF4 /* Yams.framework */,
@@ -449,6 +447,7 @@
 				3308421522ED171D00D62FFD /* Frameworks */,
 				3308421622ED171D00D62FFD /* Resources */,
 				3308423522ED23AD00D62FFD /* Embed Frameworks */,
+				3308423D22ED24D600D62FFD /* Embed dSYMs */,
 			);
 			buildRules = (
 			);
