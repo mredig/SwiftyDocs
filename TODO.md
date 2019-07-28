@@ -6,3 +6,4 @@
 * undo contents animatino
 * redesign headers
 * consolidate exported items menu
+* sanbox is forbidding access to markdown (readme and doclanding) from original project selection - fix if keeping sandboxing
